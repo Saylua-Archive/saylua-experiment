@@ -8,7 +8,7 @@ const they = (state) => state.pronouns.subject;
 const They = (state) => capitalizeFirst(they(state));
 
 const theyRe = (state) => `${state.pronouns.subject}${
-  state.pronouns.linkingVerbs.presentConstraction}`;
+  state.pronouns.linkingVerbs.presentContraction}`;
 const TheyRe = (state) => capitalizeFirst(theyRe(state));
 
 const them = (state) => state.pronouns.object;
@@ -27,18 +27,18 @@ const LINKING_VERB_PROFILES = {
   'singular': {
     past: 'was',
     present: 'is',
-    presentConstraction: `'s`,
+    presentContraction: `'s`,
     // Past perfect tense. ie: She has arrived.
     pastPerfect: 'has',
-    pastPerfectConstraction: `'s`,
+    pastPerfectContraction: `'s`,
   },
   'plural': {
     past: 'were',
     present: 'are',
-    presentConstraction: `'re`,
+    presentContraction: `'re`,
     // Past perfect tense. ie: She has arrived.
     pastPerfect: 'have',
-    pastPerfectConstraction: `'ve`,
+    pastPerfectContraction: `'ve`,
   },
 };
 
