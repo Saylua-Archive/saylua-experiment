@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice } from './helpers/utils';
 import './App.css';
