@@ -4,53 +4,15 @@ import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice } from './helpers/utils';
 import './App.css';
 
-<<<<<<< HEAD
-const they = (state) => state.pronouns.subject;
-const They = (state) => capitalizeFirst(they(state));
+import SpritePortrait from './SpritePortrait';
 
-const theyRe = (state) => (`${state.pronouns.subject}${
-  state.pronouns.linkingVerbs.presentContraction}`);
-const TheyRe = (state) => capitalizeFirst(theyRe(state));
-
-const them = (state) => state.pronouns.object;
-const Them = (state) => capitalizeFirst(them(state));
-
-const their = (state) => state.pronouns.possessive;
-const Their = (state) => capitalizeFirst(their(state));
-
-const theirs = (state) => state.pronouns.possessiveStrong;
-const Theirs = (state) => capitalizeFirst(theirs(state));
-
-const themself = (state) => state.pronouns.reflexive;
-const Themself = (state) => capitalizeFirst(themself(state));
-
-const LINKING_VERB_PROFILES = {
-  'singular': {
-    past: 'was',
-    present: 'is',
-    presentContraction: `'s`,
-    // Past perfect tense. ie: She has arrived.
-    pastPerfect: 'has',
-    pastPerfectContraction: `'s`,
-  },
-  'plural': {
-    past: 'were',
-    present: 'are',
-    presentContraction: `'re`,
-    // Past perfect tense. ie: She has arrived.
-    pastPerfect: 'have',
-    pastPerfectContraction: `'ve`,
-  },
-};
-=======
 import { SHE_PRONOUNS, HE_PRONOUNS,
   THEY_PRONOUNS } from './text_data/pronouns.js';
 import {Their, TheyRe, They, their, they,
   them} from './text_generators/pronouns.js';
->>>>>>> e681b29bb516ef718b89a520e62444605d7157d0
 
 // Event text template ordered linearly based on trust values.
-const EVENT_TEXT_TEMPLATES = [
+const EVENT_TEXT_TEMPLATES = ([
   (sprite) => `In the distance, you see a ${sprite.species}.`,
   (sprite) => `As you approach, the ${sprite.species} tucks in ${their(sprite)}
     feathers and scurries away. ${TheyRe(sprite)} hiding under a bush now.`,
@@ -74,7 +36,7 @@ const EVENT_TEXT_TEMPLATES = [
     stroking ${their(sprite)} feathers. It's a warm day, and ${sprite.name}
     is so very soft.`,
   (sprite) => pickGenerator(YOU_HAVE_BONDED_TEMPLATES, sprite),
-];
+]);
 
 const YOU_HAVE_BONDED_TEMPLATES = [
   (sprite) => `As you smile at ${sprite.name}, ${they(sprite)} approach you,
@@ -141,24 +103,19 @@ class App extends Component {
       PETTING_TEXT_TEMPLATES, sprite, 4);
     const nameText = generateTextBasedOnTrustLevel(
       SPRITE_NAME_TEMPLATES, sprite, 2);
+    const clickSprite = () => this.setState({
+      sprite: Object.assign({}, sprite, {trust: sprite.trust + 1})
+    });
     return (
       <div className="App">
-<<<<<<< HEAD
-        <img
-          src={`img/sprites/${this.state.species}/saylian.png`}
-          alt={this.state.species}
-          title={this.state.species}
+        <SpritePortrait
+          sprite={this.state.sprite}
+          petText={petText}
+          onClick={clickSprite}
         />
-=======
-        <img src={`img/sprites/${sprite.species}/${sprite.color}.png`} alt={sprite.species} />
->>>>>>> e681b29bb516ef718b89a520e62444605d7157d0
         <h2>{nameText}</h2>
         <p>{eventText}</p>
-        <button
-          onClick={() => this.setState({
-            sprite: Object.assign({}, sprite, {trust: sprite.trust + 1})
-          })}
-        >{petText}</button>
+        <button onClick={clickSprite}>{petText}</button>
       </div>
     );
   }

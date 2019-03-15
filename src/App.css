@@ -16,3 +16,17 @@
 .App-link {
   color: #61dafb;
 }
+
+.sprite-portrait {
+  margin-top: 2%;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.sprite-portrait:hover {
+  transform: translateY(-0.5%);
+}
+
+.sprite-portrait:active {
+  transform: translateY(0.5%);
+}
