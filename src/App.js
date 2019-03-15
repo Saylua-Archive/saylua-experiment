@@ -79,11 +79,17 @@ const generateTextBasedOnTrustLevel = (templateList, sprite, trustInterval) => {
   return templateList[templateIndex](sprite);
 };
 
+const MAX_PLAYS_PER_DAY = 3;
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      dayOffset: 0,
+      lastPlayedTimestamp: 0,
+      playCount: 0,
       sprite: {
         name: capitalizeFirst(soulName()),
         species: 'chirling',
@@ -95,7 +101,14 @@ class App extends Component {
     };
   }
 
+  currentTime() {
+    let date = new Date();
+    date.setDate(date.getDate() + this.state.dayOffset);
+    return date;
+  }
+
   render() {
+    const now = this.currentTime();
     const sprite = this.state.sprite;
     const eventText = generateTextBasedOnTrustLevel(
       EVENT_TEXT_TEMPLATES, sprite, 1);
@@ -103,8 +116,23 @@ class App extends Component {
       PETTING_TEXT_TEMPLATES, sprite, 4);
     const nameText = generateTextBasedOnTrustLevel(
       SPRITE_NAME_TEMPLATES, sprite, 2);
-    const clickSprite = () => this.setState({
-      sprite: Object.assign({}, sprite, {trust: sprite.trust + 1})
+
+    // This trick is based on the fact that now will always be in the
+    // future to last played. So if the days are not equal, it's been a day.
+    const hasBeenADaySincePlaying = now.getDate()
+      !== (new Date(this.state.lastPlayedTimestamp)).getDate();
+    const canPlay = this.state.playCount < MAX_PLAYS_PER_DAY ||
+      hasBeenADaySincePlaying;
+    const clickSprite = () => {
+      if (!canPlay) return;
+      this.setState({
+        sprite: Object.assign({}, sprite, {trust: sprite.trust + 1}),
+        playCount: hasBeenADaySincePlaying ? 1 : this.state.playCount + 1,
+        lastPlayedTimestamp: now.getTime(),
+      });
+    }
+    const advanceDay = () => this.setState({
+      dayOffset: this.state.dayOffset + 1,
     });
     return (
       <div className="App">
@@ -115,7 +143,15 @@ class App extends Component {
         />
         <h2>{nameText}</h2>
         <p>{eventText}</p>
-        <button onClick={clickSprite}>{petText}</button>
+        {canPlay ?
+          <button onClick={clickSprite}>{petText}</button> :
+          <p>You'll have to wait until tomorrow to play more!</p>
+        }
+
+        <p>
+          The date is {now.toLocaleString()}
+        </p>
+        <button onClick={advanceDay}>Go to sleep</button>
       </div>
     );
   }
