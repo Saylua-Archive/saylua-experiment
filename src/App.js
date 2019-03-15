@@ -6,8 +6,8 @@ import './App.css';
 const they = (state) => state.pronouns.subject;
 const They = (state) => capitalizeFirst(they(state));
 
-const theyRe = (state) => `${state.pronouns.subject}${
-  state.pronouns.linkingVerbs.presentContraction}`;
+const theyRe = (state) => (`${state.pronouns.subject}${
+  state.pronouns.linkingVerbs.presentContraction}`);
 const TheyRe = (state) => capitalizeFirst(theyRe(state));
 
 const them = (state) => state.pronouns.object;
@@ -134,7 +134,11 @@ class App extends Component {
     const nameText = runTemplate(SPRITE_NAME_TEMPLATES, this.state, 2);
     return (
       <div className="App">
-        <img src={`img/sprites/${this.state.species}/saylian.png`} alt={this.state.species} />
+        <img
+          src={`img/sprites/${this.state.species}/saylian.png`}
+          alt={this.state.species}
+          title={this.state.species}
+        />
         <h2>{nameText}</h2>
         <p>{eventText}</p>
         <button
