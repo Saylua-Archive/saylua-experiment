@@ -17,6 +17,11 @@
   color: #61dafb;
 }
 
+.event-text {
+  padding: 0.5em 2em;
+  line-height: 1.2em;
+}
+
 .sprite-portrait {
   margin-top: 2%;
   cursor: pointer;

@@ -10,6 +10,7 @@ import { SHE_PRONOUNS, HE_PRONOUNS,
   THEY_PRONOUNS } from './text_data/pronouns.js';
 import {Their, TheyRe, They, their, they,
   them} from './text_generators/pronouns.js';
+import {token} from './text_generators/interactions.js';
 
 // Event text template ordered linearly based on trust values.
 const EVENT_TEXT_TEMPLATES = ([
@@ -49,6 +50,9 @@ const YOU_HAVE_BONDED_TEMPLATES = [
     ${them(sprite)}.`,
   (sprite) => `${sprite.name} longingly looks into the distance, seeming
     curious about adventure.`,
+  (sprite) => `Gently cleaning ${their(sprite)} feathers, ${sprite.name} preens a bit.`,
+  (sprite) => `You give ${sprite.name} a little pat on the head.`,
+  (sprite) => `${sprite.name} brings you a little ${token(sprite)}.`,
 ];
 
 const PETTING_TEXT_TEMPLATES = [
@@ -114,7 +118,7 @@ class App extends Component {
           onClick={clickSprite}
         />
         <h2>{nameText}</h2>
-        <p>{eventText}</p>
+        <p className="event-text">{eventText}</p>
         <button onClick={clickSprite}>{petText}</button>
       </div>
     );
