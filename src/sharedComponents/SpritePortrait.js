@@ -1,4 +1,5 @@
 import React from 'react';
+import './SpritePortrait.css';
 
 export default function SpritePortrait(props) {
   return (

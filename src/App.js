@@ -4,13 +4,13 @@ import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice } from './helpers/utils';
 import './App.css';
 
-import SpritePortrait from './SpritePortrait';
+import SpritePortrait from './sharedComponents/SpritePortrait.js';
 
 import { SHE_PRONOUNS, HE_PRONOUNS,
-  THEY_PRONOUNS } from './text_data/pronouns.js';
+  THEY_PRONOUNS } from './textData/pronouns.js';
 import {Their, TheyRe, They, their, they,
-  them} from './text_generators/pronouns.js';
-import {token} from './text_generators/interactions.js';
+  them} from './textGenerators/pronouns.js';
+import {token} from './textGenerators/interactions.js';
 
 // Event text template ordered linearly based on trust values.
 const EVENT_TEXT_TEMPLATES = ([
@@ -140,11 +140,13 @@ class App extends Component {
     });
     return (
       <div className="App">
-        <SpritePortrait
-          sprite={this.state.sprite}
-          petText={petText}
-          onClick={clickSprite}
-        />
+        <div className="wilderness-background">
+          <SpritePortrait
+            sprite={this.state.sprite}
+            petText={petText}
+            onClick={clickSprite}
+          />
+        </div>
         <h2>{nameText}</h2>
         <p className="event-text">{eventText}</p>
         {canPlay ?
