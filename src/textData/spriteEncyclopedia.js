@@ -31,7 +31,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     growl: 'bleat',
     nose: 'nose',
   },
-}
+};
 
 export const SPRITE_COATS = {
   arko: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
@@ -44,4 +44,4 @@ export const SPRITE_COATS = {
   nibian: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   senrix: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
   vela: ['albino', 'dawnish', 'luarian', 'melanistic', 'piebald', 'saylian'],
-}
+};

@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "object-curly-newline": 0,
+    "react/jsx-filename-extension": 0,
+    "no-unused-vars": "warn",
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "never",
+        "exports": "never",
+        "functions": "never"
+    }],
+  },
+}
