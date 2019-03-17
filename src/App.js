@@ -6,6 +6,7 @@ import './App.css';
 
 import SpritePortrait from './sharedComponents/SpritePortrait.js';
 
+import { INTERACTION_TYPES } from './gameData/spriteInteractions.js';
 import { SHE_PRONOUNS, HE_PRONOUNS,
   THEY_PRONOUNS } from './textData/pronouns.js';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia.js';
@@ -27,8 +28,7 @@ const EVENT_TEXT_TEMPLATES = ([
     ${purr(sprite)}ing softly, gently. You stroke ${their(sprite)}
     silky smooth ${coat(sprite)}, caressing each tuft carefully.`,
   (sprite) => `The ${sprite.species} ${purr(sprite)}s delicately. You're petting
-    ${them(sprite)}! ${They(sprite)} tells you that ${their(sprite)}
-    name is ${sprite.name}.`,
+    ${them(sprite)}!`,
   (sprite) => `You look around. You don't notice ${sprite.name} anywhere.
     Did ${they(sprite)} leave? Tuning in intently, you make out a muted
     ${call(sprite)}ing sound, coming from behind a rock. You can see ${sprite.name}'s
@@ -56,13 +56,6 @@ const YOU_HAVE_BONDED_TEMPLATES = [
   (sprite) => `${sprite.name} brings you a little ${token(sprite)}.`,
 ];
 
-const SPRITE_NAME_TEMPLATES = [
-  (sprite) => `A wild ${sprite.species}`,
-  (sprite) => `A ${sprite.species}`,
-  (sprite) => `${sprite.name} the ${sprite.species}`,
-  (sprite) => `${sprite.name}`,
-];
-
 const pickGenerator = (templateList, sprite) => {
   return randomChoice(templateList)(sprite);
 };
@@ -77,41 +70,6 @@ const generateTextBasedOnTrustLevel = (templateList, sprite, trustInterval) => {
   );
 
   return templateList[templateIndex](sprite);
-};
-
-const INTERACTION_TYPES = {
-  pet: {
-    maxPerDay: 3,
-    trustIncrease: 1,
-    buttonTextTemplates: [
-      (sprite) => `Pet the ${sprite.species}`,
-      (sprite) => `Pet ${sprite.name}`,
-    ],
-  },
-  water: {
-    maxPerDay: 1,
-    trustIncrease: 1,
-    buttonTextTemplates: [
-      (sprite) => `Give the ${sprite.species} water`,
-      (sprite) => `Give ${sprite.name} water`,
-    ],
-  },
-  groom: {
-    maxPerDay: 1,
-    trustIncrease: 1,
-    buttonTextTemplates: [
-      (sprite) => `Groom the ${sprite.species}`,
-      (sprite) => `Groom ${sprite.name}`,
-    ],
-  },
-  treat: {
-    maxPerDay: 0,
-    trustIncrease: 2,
-    buttonTextTemplates: [
-      (sprite) => `Give the ${sprite.species} a treat`,
-      (sprite) => `Give ${sprite.name} a treat`,
-    ],
-  },
 };
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -148,8 +106,6 @@ class App extends Component {
     const sprite = this.state.sprite;
     const eventText = generateTextBasedOnTrustLevel(
       EVENT_TEXT_TEMPLATES, sprite, 1);
-    const nameText = generateTextBasedOnTrustLevel(
-      SPRITE_NAME_TEMPLATES, sprite, 2);
 
     const lastPlayed = new Date(this.state.lastPlayedTimestamp);
     const hasBeenADaySincePlaying = now.getDate() !== lastPlayed.getDate() ||
@@ -161,8 +117,8 @@ class App extends Component {
       const interacted = this.state.interactionCounts[interactionType] || 0;
       return interacted < interaction.maxPerDay || hasBeenADaySincePlaying;
     };
-    const interactText = (interactionType) => generateTextBasedOnTrustLevel(
-      INTERACTION_TYPES[interactionType].buttonTextTemplates, sprite, 4);
+    const interactText = (interactionType) =>
+      (INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
     const interactWithSprite = (interactionType) => {
       if (!canPlay(interactionType)) return;
       const interaction = INTERACTION_TYPES[interactionType];
@@ -194,7 +150,7 @@ class App extends Component {
             onClick={clickSprite}
           />
         </div>
-        <h2>{nameText}</h2>
+        <h2>{sprite.name}</h2>
         <p>Trust level: {sprite.trust}</p>
         <p className="event-text">{eventText}</p>
         {
