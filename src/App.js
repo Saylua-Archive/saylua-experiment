@@ -8,33 +8,34 @@ import SpritePortrait from './sharedComponents/SpritePortrait.js';
 
 import { SHE_PRONOUNS, HE_PRONOUNS,
   THEY_PRONOUNS } from './textData/pronouns.js';
+import { SPRITE_COATS } from './textData/spriteEncyclopedia.js';
 import {Their, TheyRe, They, their, they,
   them} from './textGenerators/pronouns.js';
-import {token} from './textGenerators/interactions.js';
+import {token, coat, call, purr, growl, nose} from './textGenerators/interactions.js';
 
 // Event text template ordered linearly based on trust values.
 const EVENT_TEXT_TEMPLATES = ([
   (sprite) => `In the distance, you see a ${sprite.species}.`,
   (sprite) => `As you approach, the ${sprite.species} tucks in ${their(sprite)}
-    feathers and scurries away. ${TheyRe(sprite)} hiding under a bush now.`,
+    ${coat(sprite)} and scurries away. ${TheyRe(sprite)} hiding under a bush now.`,
   (sprite) => `The ${sprite.species} peeks ${their(sprite)}
     head out of the bush. ${They(sprite)} cocks ${their(sprite)} head
     curiously. But as you reach out your hand, ${they(sprite)}
     quickly retreats back into the bushes.`,
   (sprite) => `You wait patiently outside the bush with your hand gently
     extended. The ${sprite.species} slowly emerges from the leaves,
-    chirping softly, gently. You stroke ${their(sprite)}
-    silky smooth feathers, caressing each tuft carefully.`,
-  (sprite) => `The ${sprite.species} coos delicately. You're petting
+    ${purr(sprite)}ing softly, gently. You stroke ${their(sprite)}
+    silky smooth ${coat(sprite)}, caressing each tuft carefully.`,
+  (sprite) => `The ${sprite.species} ${purr(sprite)}s delicately. You're petting
     ${them(sprite)}! ${They(sprite)} tells you that ${their(sprite)}
     name is ${sprite.name}.`,
   (sprite) => `You look around. You don't notice ${sprite.name} anywhere.
     Did ${they(sprite)} leave? Tuning in intently, you make out a muted
-    chirping sound, coming from behind a rock. You can see ${sprite.name}'s
-    beak. ${Their(sprite)} eyes. As you approach, ${they(sprite)} take a few
-    hops forward. ${sprite.name} coos as you pet ${them(sprite)}.`,
+    ${call(sprite)}ing sound, coming from behind a rock. You can see ${sprite.name}'s
+    ${nose(sprite)}. ${Their(sprite)} eyes. As you approach, ${they(sprite)} take a few
+    hops forward. ${sprite.name} ${purr(sprite)}s as you pet ${them(sprite)}.`,
   (sprite) => `You're sitting in a meadow with ${sprite.name} and start gently
-    stroking ${their(sprite)} feathers. It's a warm day, and ${sprite.name}
+    stroking ${their(sprite)} ${coat(sprite)}. It's a warm day, and ${sprite.name}
     is so very soft.`,
   (sprite) => pickGenerator(YOU_HAVE_BONDED_TEMPLATES, sprite),
 ]);
@@ -43,14 +44,14 @@ const YOU_HAVE_BONDED_TEMPLATES = [
   (sprite) => `As you smile at ${sprite.name}, ${they(sprite)} approach you,
     eager to receive your delicate pets.`,
   (sprite) => `The sun shines brightly on you and ${sprite.name} as you
-    stroke ${their(sprite)} feathers.`,
-  (sprite) => `${sprite.name} chirps happily as you stroke ${their(sprite)}
-    feathers.`,
+    stroke ${their(sprite)} ${coat(sprite)}.`,
+  (sprite) => `${sprite.name} ${purr(sprite)}s happily as you stroke ${their(sprite)}
+    ${coat(sprite)}.`,
   (sprite) => `${sprite.name} seems a bit aloof when you try to pet
     ${them(sprite)}.`,
   (sprite) => `${sprite.name} longingly looks into the distance, seeming
     curious about adventure.`,
-  (sprite) => `Gently cleaning ${their(sprite)} feathers, ${sprite.name} preens a bit.`,
+  (sprite) => `Gently cleaning ${their(sprite)} ${coat(sprite)}, ${sprite.name} preens a bit.`,
   (sprite) => `You give ${sprite.name} a little pat on the head.`,
   (sprite) => `${sprite.name} brings you a little ${token(sprite)}.`,
 ];
@@ -90,14 +91,16 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    const species = randomChoice(['arko', 'chirling', 'loxi', 'gam']);
+    const color = randomChoice(SPRITE_COATS[species]);
     this.state = {
       dayOffset: 0,
       lastPlayedTimestamp: 0,
       playCount: 0,
       sprite: {
         name: capitalizeFirst(soulName()),
-        species: 'chirling',
-        color: 'saylian',
+        species: species,
+        color: color,
         trust: 0,
         pronouns: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
           THEY_PRONOUNS]),
