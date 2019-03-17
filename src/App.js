@@ -56,11 +56,6 @@ const YOU_HAVE_BONDED_TEMPLATES = [
   (sprite) => `${sprite.name} brings you a little ${token(sprite)}.`,
 ];
 
-const PETTING_TEXT_TEMPLATES = [
-  (sprite) => `Pet the ${sprite.species}`,
-  (sprite) => `Pet ${sprite.name}`,
-];
-
 const SPRITE_NAME_TEMPLATES = [
   (sprite) => `A wild ${sprite.species}`,
   (sprite) => `A ${sprite.species}`,
@@ -84,7 +79,41 @@ const generateTextBasedOnTrustLevel = (templateList, sprite, trustInterval) => {
   return templateList[templateIndex](sprite);
 };
 
-const MAX_PLAYS_PER_DAY = 3;
+const INTERACTION_TYPES = {
+  pet: {
+    maxPerDay: 3,
+    trustIncrease: 1,
+    buttonTextTemplates: [
+      (sprite) => `Pet the ${sprite.species}`,
+      (sprite) => `Pet ${sprite.name}`,
+    ],
+  },
+  water: {
+    maxPerDay: 1,
+    trustIncrease: 1,
+    buttonTextTemplates: [
+      (sprite) => `Give the ${sprite.species} water`,
+      (sprite) => `Give ${sprite.name} water`,
+    ],
+  },
+  groom: {
+    maxPerDay: 1,
+    trustIncrease: 1,
+    buttonTextTemplates: [
+      (sprite) => `Groom the ${sprite.species}`,
+      (sprite) => `Groom ${sprite.name}`,
+    ],
+  },
+  treat: {
+    maxPerDay: 0,
+    trustIncrease: 2,
+    buttonTextTemplates: [
+      (sprite) => `Give the ${sprite.species} a treat`,
+      (sprite) => `Give ${sprite.name} a treat`,
+    ],
+  },
+};
+
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 class App extends Component {
@@ -96,7 +125,7 @@ class App extends Component {
     this.state = {
       dayOffset: 0,
       lastPlayedTimestamp: 0,
-      playCount: 0,
+      interactionCounts: {},
       sprite: {
         name: capitalizeFirst(soulName()),
         species: species,
@@ -119,25 +148,40 @@ class App extends Component {
     const sprite = this.state.sprite;
     const eventText = generateTextBasedOnTrustLevel(
       EVENT_TEXT_TEMPLATES, sprite, 1);
-    const petText = generateTextBasedOnTrustLevel(
-      PETTING_TEXT_TEMPLATES, sprite, 4);
     const nameText = generateTextBasedOnTrustLevel(
       SPRITE_NAME_TEMPLATES, sprite, 2);
 
-    // This trick is based on the fact that now will always be in the
-    // future to last played. So if the days are not equal, it's been a day.
-    const hasBeenADaySincePlaying = now.getDate()
-      !== (new Date(this.state.lastPlayedTimestamp)).getDate();
-    const canPlay = this.state.playCount < MAX_PLAYS_PER_DAY ||
-      hasBeenADaySincePlaying;
-    const clickSprite = () => {
-      if (!canPlay) return;
+    const lastPlayed = new Date(this.state.lastPlayedTimestamp);
+    const hasBeenADaySincePlaying = now.getDate() !== lastPlayed.getDate() ||
+      (now.getTime() - lastPlayed.getTime()) / MS_PER_DAY >= 1;
+    const clickSprite = () => interactWithSprite('pet');
+    const canPlay = (interactionType) => {
+      const interaction = INTERACTION_TYPES[interactionType];
+      if (!interaction.maxPerDay) return true;
+      const interacted = this.state.interactionCounts[interactionType] || 0;
+      return interacted < interaction.maxPerDay || hasBeenADaySincePlaying;
+    };
+    const interactText = (interactionType) => generateTextBasedOnTrustLevel(
+      INTERACTION_TYPES[interactionType].buttonTextTemplates, sprite, 4);
+    const interactWithSprite = (interactionType) => {
+      if (!canPlay(interactionType)) return;
+      const interaction = INTERACTION_TYPES[interactionType];
+      let newInteractionCounts = Object.assign({},
+        this.state.interactionCounts,
+        {[interactionType]:
+          (this.state.interactionCounts[interactionType] || 0) + 1}
+      );
+      if (hasBeenADaySincePlaying) {
+        newInteractionCounts = {[interactionType]: 1};
+      }
       this.setState({
-        sprite: Object.assign({}, sprite, {trust: sprite.trust + 1}),
-        playCount: hasBeenADaySincePlaying ? 1 : this.state.playCount + 1,
+        sprite: Object.assign({}, sprite,
+          {trust: sprite.trust + interaction.trustIncrease}),
+        interactionCounts: newInteractionCounts,
         lastPlayedTimestamp: now.getTime(),
       });
-    }
+    };
+
     const advanceDay = () => this.setState({
       dayOffset: this.state.dayOffset + 1,
     });
@@ -145,16 +189,24 @@ class App extends Component {
       <div className="App">
         <div className="wilderness-background">
           <SpritePortrait
-            sprite={this.state.sprite}
-            petText={petText}
+            sprite={sprite}
+            petText={interactText('pet')}
             onClick={clickSprite}
           />
         </div>
         <h2>{nameText}</h2>
+        <p>Trust level: {sprite.trust}</p>
         <p className="event-text">{eventText}</p>
-        {canPlay ?
-          <button onClick={clickSprite}>{petText}</button> :
-          <p>You'll have to wait until tomorrow to play more!</p>
+        {
+          Object.keys(INTERACTION_TYPES).map((interaction) =>
+            <button
+              key={interaction}
+              onClick={interactWithSprite.bind(this, interaction)}
+              disabled={canPlay(interaction) ? undefined : true}
+            >
+              {interactText(interaction)}
+            </button>
+          )
         }
 
         <p>
