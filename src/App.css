@@ -14,3 +14,36 @@
   width: 70%;
   margin: auto;
 }
+
+.change-sprite {
+  border: 0;
+  background: #EEE;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 4px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  font-size: 20px;
+  border: 2px solid transparent;
+}
+
+.change-sprite.selected {
+  border: 2px solid #1DE9B6;
+}
+
+.change-sprite:hover {
+  transform: translateY(-0.5%);
+}
+
+.change-sprite:active {
+  transform: translateY(0.5%);
+}
+
+.sprite-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

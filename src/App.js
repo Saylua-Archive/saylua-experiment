@@ -4,7 +4,8 @@ import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice } from './helpers/utils';
 import './App.css';
 
-import SpritePortrait from './sharedComponents/SpritePortrait';
+import SpritePortrait from './sharedComponents/SpritePortrait/SpritePortrait';
+import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
 import { INTERACTION_TYPES } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
@@ -45,7 +46,7 @@ const EVENT_TEXT_TEMPLATES = ([
     ${purr(sprite)}ing softly, gently. You stroke ${their(sprite)}
     silky smooth ${coat(sprite)}, caressing each tuft carefully.`,
   sprite => `The ${sprite.species} ${purr(sprite)}s delicately. You're petting
-    ${them(sprite)}!`,
+    ${them(sprite)}! They tell you that they're name is ${sprite.name}.`,
   sprite => `You look around. You don't notice ${sprite.name} anywhere.
     Did ${they(sprite)} leave? Tuning in intently, you make out a muted
     ${call(sprite)}ing sound, coming from behind a rock. You can see ${sprite.name}'s
@@ -58,10 +59,23 @@ const EVENT_TEXT_TEMPLATES = ([
 ]);
 
 const generateTextBasedOnTrustLevel = (templateList, sprite, trustInterval) => {
-  const checkedTrustInterval = trustInterval || 3;
+  trustInterval = trustInterval || 3;
   const templateIndex = Math.max(0,
-    Math.min(Math.floor(sprite.trust / checkedTrustInterval), templateList.length - 1));
+    Math.min(Math.floor(sprite.trust / trustInterval), templateList.length - 1));
   return templateList[templateIndex](sprite);
+};
+
+const generateSprite = () => {
+  const species = randomChoice(['arko', 'chirling', 'loxi', 'gam']);
+  const color = randomChoice(SPRITE_COATS[species]);
+  return {
+    name: capitalizeFirst(soulName()),
+    species,
+    color,
+    trust: 0,
+    pronouns: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
+      THEY_PRONOUNS]),
+  };
 };
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -70,22 +84,37 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    const species = randomChoice(['arko', 'chirling', 'loxi', 'gam']);
-    const color = randomChoice(SPRITE_COATS[species]);
     this.state = {
       dayOffset: 0,
-      lastPlayedTimestamp: 0,
-      interactionCounts: {},
-      sprite: {
-        name: capitalizeFirst(soulName()),
-        species,
-        color,
-        trust: 0,
-
-        pronouns: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
-          THEY_PRONOUNS]),
-      },
+      /**
+       * Sample sprite data:
+       * {
+       *   lastPlayedTimestamp: 0,
+       *   interactionCounts: {},
+       *   trust: 0,
+       * }
+       */
+      wildSprite: generateSprite(),
+      yourSprites: {},
+      activeSprite: null,
     };
+  }
+
+  currentSprite() {
+    const { activeSprite, yourSprites, wildSprite } = this.state;
+    if (!activeSprite) return wildSprite;
+    return yourSprites[activeSprite];
+  }
+
+  befriendWildSprite(wildSprite) {
+    const { yourSprites } = this.state;
+    yourSprites[wildSprite.name] = wildSprite;
+    const newWildSprite = generateSprite();
+    this.setState({
+      yourSprites,
+      activeSprite: wildSprite.name,
+      wildSprite: newWildSprite,
+    });
   }
 
   currentTime() {
@@ -95,57 +124,107 @@ class App extends Component {
     return date;
   }
 
-  render() {
+  hasBeenADaySincePlaying(sprite) {
+    sprite = sprite || this.currentSprite();
+    const { lastPlayedTimestamp } = sprite;
+    const lastPlayed = new Date(lastPlayedTimestamp);
     const now = this.currentTime();
-    const { sprite } = this.state;
+
+    return now.toDateString() !== lastPlayed.toDateString();
+  }
+
+  changeSprite(name) {
+    this.setState({ activeSprite: name });
+  }
+
+  canPlay(interactionType, sprite) {
+    sprite = sprite || this.currentSprite();
+    const interaction = INTERACTION_TYPES[interactionType];
+    if (!interaction.maxPerDay) return true;
+    let { interactionCounts } = sprite;
+    interactionCounts = interactionCounts || {};
+    const interacted = interactionCounts[interactionType] || 0;
+    return interacted < interaction.maxPerDay
+      || this.hasBeenADaySincePlaying(sprite);
+  }
+
+  interactWithSprite(interactionType, sprite) {
+    sprite = sprite || this.currentSprite();
+    if (!this.canPlay(interactionType)) return;
+    const { wildSprite, yourSprites, activeSprite } = this.state;
+
+    const interaction = INTERACTION_TYPES[interactionType];
+    let { interactionCounts } = sprite;
+    interactionCounts = interactionCounts || {};
+    interactionCounts[interactionType] = (interactionCounts[interactionType] || 0) + 1;
+    if (this.hasBeenADaySincePlaying(sprite)) {
+      interactionCounts = { [interactionType]: 1 };
+    }
+
+    const newTrust = sprite.trust + interaction.trustIncrease;
+
+    const spriteChanges = {
+      trust: newTrust,
+      interactionCounts,
+      lastPlayedTimestamp: this.currentTime().getTime(),
+    };
+
+    if (activeSprite) {
+      yourSprites[activeSprite] = Object.assign({}, yourSprites[activeSprite],
+        spriteChanges);
+      this.setState({ yourSprites });
+    } else {
+      // Is a wild sprite.
+      const newWildSprite = Object.assign({}, wildSprite, spriteChanges);
+
+      if (newTrust >= 5 && !(sprite.name in yourSprites)) {
+        this.befriendWildSprite(newWildSprite);
+      } else {
+        this.setState({ wildSprite: newWildSprite });
+      }
+    }
+  }
+
+  render() {
+    console.log(this.state);
+    const { dayOffset, yourSprites, activeSprite } = this.state;
+    const now = this.currentTime();
+    const sprite = this.currentSprite();
+    const isWildSprite = !(sprite.name in yourSprites);
     const eventText = generateTextBasedOnTrustLevel(
       EVENT_TEXT_TEMPLATES, sprite, 1
     );
 
-    const { lastPlayedTimestamp } = this.state;
-    const lastPlayed = new Date(lastPlayedTimestamp);
-
-    const hasBeenADaySincePlaying = now.getDate() !== lastPlayed.getDate()
-      || (now.getTime() - lastPlayed.getTime()) / MS_PER_DAY >= 1;
-
-    const canPlay = (interactionType) => {
-      const interaction = INTERACTION_TYPES[interactionType];
-      if (!interaction.maxPerDay) return true;
-      const { interactionCounts } = this.state;
-      const interacted = interactionCounts[interactionType] || 0;
-      return interacted < interaction.maxPerDay || hasBeenADaySincePlaying;
-    };
-
-    const interactWithSprite = (interactionType) => {
-      if (!canPlay(interactionType)) return;
-      const interaction = INTERACTION_TYPES[interactionType];
-      const { interactionCounts } = this.state;
-      let newInteractionCounts = Object.assign({},
-        interactionCounts,
-        { [interactionType]:
-          (interactionCounts[interactionType] || 0) + 1 });
-      if (hasBeenADaySincePlaying) {
-        newInteractionCounts = { [interactionType]: 1 };
-      }
-      this.setState({
-        sprite: Object.assign({}, sprite,
-          { trust: sprite.trust + interaction.trustIncrease }),
-        interactionCounts: newInteractionCounts,
-        lastPlayedTimestamp: now.getTime(),
-      });
-    };
-
-    const clickSprite = () => interactWithSprite('pet');
-
     const interactText = interactionType => (
       INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
 
-    const { dayOffset } = this.state;
     const advanceDay = () => this.setState({
       dayOffset: dayOffset + 1,
     });
+
+    const clickSprite = () => this.interactWithSprite('pet');
+
     return (
       <div className="App">
+        <div className="sprite-list">
+          <button
+            className={`change-sprite${isWildSprite ? ' selected' : ''}`}
+            onClick={() => this.changeSprite()}
+          >
+            ?
+          </button>
+          {
+            Object.keys(yourSprites).map(name => (
+              <button
+                className={`change-sprite${name === activeSprite ? ' selected' : ''}`}
+                key={name}
+                onClick={() => this.changeSprite(name)}
+              >
+                <SpriteHeadshot sprite={yourSprites[name]} />
+              </button>
+            ))
+          }
+        </div>
         <div className="wilderness-background">
           <SpritePortrait
             sprite={sprite}
@@ -153,7 +232,7 @@ class App extends Component {
             onClick={clickSprite}
           />
         </div>
-        <h2>{sprite.name}</h2>
+        <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
         <p>
           {`Trust level: ${sprite.trust}`}
         </p>
@@ -163,8 +242,10 @@ class App extends Component {
             <button
               type="button"
               key={interaction}
-              onClick={interactWithSprite.bind(this, interaction)}
-              disabled={canPlay(interaction) ? undefined : true}
+              onClick={() => {
+                this.interactWithSprite(interaction);
+              }}
+              disabled={this.canPlay(interaction) ? undefined : true}
             >
               {interactText(interaction)}
             </button>
