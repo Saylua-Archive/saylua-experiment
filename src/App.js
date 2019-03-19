@@ -58,8 +58,8 @@ const EVENT_TEXT_TEMPLATES = ([
   sprite => pickGenerator(YOU_HAVE_BONDED_TEMPLATES, sprite),
 ]);
 
-const generateTextBasedOnTrustLevel = (templateList, sprite, trustInterval) => {
-  trustInterval = trustInterval || 3;
+const generateTextBasedOnTrustLevel = (templateList, sprite, trustIntervalArg) => {
+  const trustInterval = trustIntervalArg || 3;
   const templateIndex = Math.max(0,
     Math.min(Math.floor(sprite.trust / trustInterval), templateList.length - 1));
   return templateList[templateIndex](sprite);
@@ -124,8 +124,8 @@ class App extends Component {
     return date;
   }
 
-  hasBeenADaySincePlaying(sprite) {
-    sprite = sprite || this.currentSprite();
+  hasBeenADaySincePlaying(spriteArg) {
+    const sprite = spriteArg || this.currentSprite();
     const { lastPlayedTimestamp } = sprite;
     const lastPlayed = new Date(lastPlayedTimestamp);
     const now = this.currentTime();
@@ -137,8 +137,8 @@ class App extends Component {
     this.setState({ activeSprite: name });
   }
 
-  canPlay(interactionType, sprite) {
-    sprite = sprite || this.currentSprite();
+  canPlay(interactionType, spriteArg) {
+    const sprite = spriteArg || this.currentSprite();
     const interaction = INTERACTION_TYPES[interactionType];
     if (!interaction.maxPerDay) return true;
     let { interactionCounts } = sprite;
@@ -148,8 +148,8 @@ class App extends Component {
       || this.hasBeenADaySincePlaying(sprite);
   }
 
-  interactWithSprite(interactionType, sprite) {
-    sprite = sprite || this.currentSprite();
+  interactWithSprite(interactionType, spriteArg) {
+    const sprite = spriteArg || this.currentSprite();
     if (!this.canPlay(interactionType)) return;
     const { wildSprite, yourSprites, activeSprite } = this.state;
 
@@ -208,6 +208,7 @@ class App extends Component {
       <div className="App">
         <div className="sprite-list">
           <button
+            type="button"
             className={`change-sprite${isWildSprite ? ' selected' : ''}`}
             onClick={() => this.changeSprite()}
           >
@@ -216,6 +217,7 @@ class App extends Component {
           {
             Object.keys(yourSprites).map(name => (
               <button
+                type="button"
                 className={`change-sprite${name === activeSprite ? ' selected' : ''}`}
                 key={name}
                 onClick={() => this.changeSprite(name)}
