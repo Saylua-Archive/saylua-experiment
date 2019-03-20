@@ -205,7 +205,7 @@ class App extends Component {
     const clickSprite = () => this.interactWithSprite('pet');
 
     return (
-      <div className="App">
+      <div className="saylua">
         <div className="sprite-list">
           <button
             type="button"
