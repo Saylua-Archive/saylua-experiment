@@ -11,7 +11,7 @@ export function incrementDay() {
 export default function gameReducer(state = initialState, action) {
   switch (action.type) {
     case INCREMENT_DAY:
-      return Object.assign({}, state, {dayOffset: state.dayOffset + 1});
+      return Object.assign({}, state, { dayOffset: state.dayOffset + 1 });
     default:
       return state;
   }

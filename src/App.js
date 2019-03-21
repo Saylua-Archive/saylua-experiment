@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice } from './helpers/utils';
@@ -13,6 +15,11 @@ import { SPRITE_COATS } from './textData/spriteEncyclopedia';
 import { Their, TheyRe, They, their, they,
   them } from './textGenerators/pronouns';
 import { token, coat, call, purr, growl, nose } from './textGenerators/interactions';
+import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
+  clearInteractions } from './reducers/spriteReducer';
+import { incrementDay } from './reducers/gameReducer';
+
+const ADOPTION_THRESHOLD = 5;
 
 const pickGenerator = (templateList, sprite) => randomChoice(templateList)(sprite);
 
@@ -59,6 +66,7 @@ const EVENT_TEXT_TEMPLATES = ([
 ]);
 
 const generateTextBasedOnTrustLevel = (templateList, sprite, trustIntervalArg) => {
+  if (!sprite) return null;
   const trustInterval = trustIntervalArg || 3;
   const templateIndex = Math.max(0,
     Math.min(Math.floor(sprite.trust / trustInterval), templateList.length - 1));
@@ -78,129 +86,86 @@ const generateSprite = () => {
   };
 };
 
-const MS_PER_DAY = 1000 * 60 * 60 * 24;
-
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      dayOffset: 0,
-      /**
-       * Sample sprite data:
-       * {
-       *   lastPlayedTimestamp: 0,
-       *   interactionCounts: {},
-       *   trust: 0,
-       * }
-       */
-      wildSprite: generateSprite(),
-      yourSprites: {},
-      activeSprite: null,
-    };
+    props.addWildSprite(generateSprite());
   }
 
-  currentSprite() {
-    const { activeSprite, yourSprites, wildSprite } = this.state;
-    if (!activeSprite) return wildSprite;
-    return yourSprites[activeSprite];
+  getInteractionCount(interactionType) {
+    const spriteId = this.currentSprite().name;
+    const { interactionCounts } = this.props;
+    if (!(spriteId in interactionCounts)) return 0;
+    if (!(interactionType in interactionCounts[spriteId])) return 0;
+    return interactionCounts[spriteId][interactionType];
   }
 
-  befriendWildSprite(wildSprite) {
-    const { yourSprites } = this.state;
-    yourSprites[wildSprite.name] = wildSprite;
-    const newWildSprite = generateSprite();
-    this.setState({
-      yourSprites,
-      activeSprite: wildSprite.name,
-      wildSprite: newWildSprite,
-    });
+  befriendWildSprite() {
+    const newSprite = generateSprite();
+    this.props.befriendWildSprite(newSprite);
   }
 
   currentTime() {
     const date = new Date();
-    const { dayOffset } = this.state;
+    const { dayOffset } = this.props;
     date.setDate(date.getDate() + dayOffset);
     return date;
   }
 
-  hasBeenADaySincePlaying(spriteArg) {
-    const sprite = spriteArg || this.currentSprite();
-    const { lastPlayedTimestamp } = sprite;
-    const lastPlayed = new Date(lastPlayedTimestamp);
+  hasBeenADaySincePlaying() {
+    const { lastPlayed } = this.props;
+    const lastPlayedDate = new Date(lastPlayed);
     const now = this.currentTime();
 
-    return now.toDateString() !== lastPlayed.toDateString();
+    return now.toDateString() !== lastPlayedDate.toDateString();
   }
 
-  changeSprite(name) {
-    this.setState({ activeSprite: name });
+  currentSprite() {
+    const { activeSpriteId, spritesById, wildSpriteId } = this.props;
+    if (!activeSpriteId) return spritesById[wildSpriteId];
+    return spritesById[activeSpriteId];
   }
 
-  canPlay(interactionType, spriteArg) {
-    const sprite = spriteArg || this.currentSprite();
+  canPlay(interactionType) {
     const interaction = INTERACTION_TYPES[interactionType];
     if (!interaction.maxPerDay) return true;
-    let { interactionCounts } = sprite;
-    interactionCounts = interactionCounts || {};
-    const interacted = interactionCounts[interactionType] || 0;
-    return interacted < interaction.maxPerDay
-      || this.hasBeenADaySincePlaying(sprite);
+    const interacted = this.getInteractionCount(interactionType);
+    return interacted < interaction.maxPerDay || this.hasBeenADaySincePlaying();
   }
 
-  interactWithSprite(interactionType, spriteArg) {
-    const sprite = spriteArg || this.currentSprite();
+  interactWithSprite(interactionType) {
+    const sprite = this.currentSprite();
     if (!this.canPlay(interactionType)) return;
-    const { wildSprite, yourSprites, activeSprite } = this.state;
+    const { trustIncrease } = INTERACTION_TYPES[interactionType];
 
-    const interaction = INTERACTION_TYPES[interactionType];
-    let { interactionCounts } = sprite;
-    interactionCounts = interactionCounts || {};
-    interactionCounts[interactionType] = (interactionCounts[interactionType] || 0) + 1;
-    if (this.hasBeenADaySincePlaying(sprite)) {
-      interactionCounts = { [interactionType]: 1 };
+    if (this.hasBeenADaySincePlaying()) {
+      this.props.clearInteractions();
     }
 
-    const newTrust = sprite.trust + interaction.trustIncrease;
+    const lastPlayedTimestamp = this.currentTime().getTime();
 
-    const spriteChanges = {
-      trust: newTrust,
-      interactionCounts,
-      lastPlayedTimestamp: this.currentTime().getTime(),
-    };
+    this.props.interactWithSprite(sprite.name, interactionType, trustIncrease,
+      lastPlayedTimestamp);
 
-    if (activeSprite) {
-      yourSprites[activeSprite] = Object.assign({}, yourSprites[activeSprite],
-        spriteChanges);
-      this.setState({ yourSprites });
-    } else {
-      // Is a wild sprite.
-      const newWildSprite = Object.assign({}, wildSprite, spriteChanges);
-
-      if (newTrust >= 5 && !(sprite.name in yourSprites)) {
-        this.befriendWildSprite(newWildSprite);
-      } else {
-        this.setState({ wildSprite: newWildSprite });
-      }
+    if ((sprite.trust + trustIncrease > ADOPTION_THRESHOLD)
+        && !this.props.activeSpriteId) {
+      this.befriendWildSprite();
     }
   }
 
   render() {
-    console.log(this.state);
-    const { dayOffset, yourSprites, activeSprite } = this.state;
-    const now = this.currentTime();
     const sprite = this.currentSprite();
-    const isWildSprite = !(sprite.name in yourSprites);
+    if (!sprite) return null;
+    const { mySpriteIds, activeSpriteId } = this.props;
+    const now = this.currentTime();
+    const isWildSprite = !activeSpriteId;
     const eventText = generateTextBasedOnTrustLevel(
       EVENT_TEXT_TEMPLATES, sprite, 1
     );
 
-    const interactText = interactionType => (
-      INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
+    const interactText = interactionType => (sprite
+      && INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
 
-    const advanceDay = () => this.setState({
-      dayOffset: dayOffset + 1,
-    });
 
     const clickSprite = () => this.interactWithSprite('pet');
 
@@ -210,19 +175,19 @@ class App extends Component {
           <button
             type="button"
             className={`change-sprite${isWildSprite ? ' selected' : ''}`}
-            onClick={() => this.changeSprite()}
+            onClick={() => this.props.setActiveSprite()}
           >
             ?
           </button>
           {
-            Object.keys(yourSprites).map(name => (
+            mySpriteIds.map(id => (
               <button
                 type="button"
-                className={`change-sprite${name === activeSprite ? ' selected' : ''}`}
-                key={name}
-                onClick={() => this.changeSprite(name)}
+                className={`change-sprite${id === activeSpriteId ? ' selected' : ''}`}
+                key={id}
+                onClick={() => this.props.setActiveSprite(id)}
               >
-                <SpriteHeadshot sprite={yourSprites[name]} />
+                <SpriteHeadshot sprite={this.props.spritesById[id]} />
               </button>
             ))
           }
@@ -257,10 +222,49 @@ class App extends Component {
         <p>
           {`The date is ${now.toLocaleString()}`}
         </p>
-        <button type="button" onClick={advanceDay}>Go to sleep</button>
+        <button type="button" onClick={this.props.incrementDay}>Go to sleep</button>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  spritesById: state.sprite.spritesById,
+  mySpriteIds: state.sprite.mySpriteIds,
+  activeSpriteId: state.sprite.activeSpriteId,
+  wildSpriteId: state.sprite.wildSpriteId,
+  interactionCounts: state.sprite.interactionCounts,
+  lastPlayed: state.sprite.lastPlayed,
+  dayOffset: state.game.dayOffset,
+});
+
+const mapDispatchToProps = {
+  addWildSprite,
+  befriendWildSprite,
+  setActiveSprite,
+  interactWithSprite,
+  clearInteractions,
+  incrementDay,
+};
+
+App.propTypes = {
+  addWildSprite: PropTypes.func.isRequired,
+  befriendWildSprite: PropTypes.func.isRequired,
+  setActiveSprite: PropTypes.func.isRequired,
+  interactWithSprite: PropTypes.func.isRequired,
+  clearInteractions: PropTypes.func.isRequired,
+  incrementDay: PropTypes.func.isRequired,
+
+  spritesById: PropTypes.object.isRequired,
+  mySpriteIds: PropTypes.array.isRequired,
+  activeSpriteId: PropTypes.string.isRequired,
+  wildSpriteId: PropTypes.string.isRequired,
+  interactionCounts: PropTypes.object.isRequired,
+  lastPlayed: PropTypes.number.isRequired,
+  dayOffset: PropTypes.number.isRequired,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

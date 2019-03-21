@@ -3,7 +3,7 @@ const initialState = {
   mySpriteIds: [],
   activeSpriteId: null,
   wildSpriteId: null,
-  spriteInteractions: {},
+  interactionCounts: {},
   lastPlayed: 0,
 };
 
@@ -13,12 +13,12 @@ export const SET_ACTIVE_SPRITE = 'SET_ACTIVE_SPRITE';
 export const INTERACT_WITH_SPRITE = 'INTERACT_WITH_SPRITE';
 export const CLEAR_INTERACTIONS = 'CLEAR_INTERACTIONS';
 
-export function addWildSprite(sprite) {
-  return { type: ADD_WILD_SPRITE, sprite };
+export function addWildSprite(newSprite) {
+  return { type: ADD_WILD_SPRITE, newSprite };
 }
 
-export function befriendWildSprite(sprite) {
-  return { type: BEFRIEND_WILD_SPRITE };
+export function befriendWildSprite(newSprite) {
+  return { type: BEFRIEND_WILD_SPRITE, newSprite };
 }
 
 export function setActiveSprite(id) {
@@ -34,44 +34,47 @@ export function clearInteractions() {
 }
 
 export default function spriteReducer(state = initialState, action) {
-  const id = action.sprite && action.sprite.name;
+  const { trust, interaction, newSprite, id } = action;
+  const { interactionCounts } = state;
+  const interactionCountsForSprite = interactionCounts[id] || {};
   switch (action.type) {
     case ADD_WILD_SPRITE:
       return Object.assign({}, state, {
-        wildSpriteId: id,
+        wildSpriteId: newSprite.name,
         spritesById: Object.assign({}, state.spritesById, {
-          [id]: action.sprite,
+          [newSprite.name]: newSprite,
         }),
       });
     case BEFRIEND_WILD_SPRITE:
       return Object.assign({}, state, {
-        wildSpriteId: null,
+        wildSpriteId: newSprite.name,
         mySpriteIds: state.mySpriteIds.concat(state.wildSpriteId),
+        activeSpriteId: state.wildSpriteId,
+        spritesById: Object.assign({}, state.spritesById, {
+          [newSprite.name]: newSprite,
+        }),
       });
     case SET_ACTIVE_SPRITE:
       return Object.assign({}, state, {
         activeSpriteId: id,
       });
     case INTERACT_WITH_SPRITE:
-      const trust = action.trust;
-      const interaction = action.interaction;
-      const metadata = state.spriteInteractions;
       return Object.assign({}, state, {
         spritesById: Object.assign({}, state.spritesById, {
           [id]: Object.assign({}, state.spritesById[id], {
-            trust: state.spritesById[id].trust + 1,
+            trust: state.spritesById[id].trust + trust,
           }),
         }),
-        spriteInteractions: Object.assign({}, metadata, {
-          [id]: Object.assign({}, metadata[id], {
-            [interaction]: metadata[id][interaction] + 1,
+        interactionCounts: Object.assign({}, interactionCounts, {
+          [id]: Object.assign({}, interactionCountsForSprite, {
+            [interaction]: interactionCountsForSprite[interaction] + 1 || 1,
           }),
         }),
         lastPlayed: action.time,
       });
     case CLEAR_INTERACTIONS:
       return Object.assign({}, state, {
-        spriteInteractions: {},
+        interactionCounts: {},
       });
     default:
       return state;
