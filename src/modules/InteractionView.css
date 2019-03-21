@@ -1,0 +1,7 @@
+.wilderness-background {
+  background: url('/img/wilderness/bg.jpg');
+  background-size: cover;
+  background-position: bottom;
+  width: 70%;
+  margin: auto;
+}
