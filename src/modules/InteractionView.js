@@ -3,7 +3,6 @@ import './InteractionView.css';
 
 export default function InteractionView(props) {
   return (
-    <div className="wilderness-background">
-    </div>
+    <div className="wilderness-background" />
   );
 }
