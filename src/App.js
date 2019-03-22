@@ -16,7 +16,7 @@ import { EVENT_TEXT_TEMPLATES } from './templates/templates';
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
-import { incrementDay } from './reducers/gameReducer';
+import { advanceDay, useTreat } from './reducers/gameReducer';
 
 const ADOPTION_THRESHOLD = 5;
 
@@ -83,19 +83,24 @@ class App extends Component {
   }
 
   canPlay(interactionType) {
-    const interaction = INTERACTION_TYPES[interactionType];
-    if (!interaction.maxPerDay) return true;
+    const { maxPerDay, usesTreat } = INTERACTION_TYPES[interactionType];
+    if (usesTreat && this.props.treatCount < 1) return false;
+    if (!maxPerDay) return true;
     const interacted = this.getInteractionCount(interactionType);
-    return interacted < interaction.maxPerDay || this.hasBeenADaySincePlaying();
+    return interacted < maxPerDay || this.hasBeenADaySincePlaying();
   }
 
   interactWithSprite(interactionType) {
     const sprite = this.currentSprite();
     if (!this.canPlay(interactionType)) return;
-    const { trustIncrease } = INTERACTION_TYPES[interactionType];
+    const { trustIncrease, usesTreat } = INTERACTION_TYPES[interactionType];
 
     if (this.hasBeenADaySincePlaying()) {
       this.props.clearInteractions();
+    }
+
+    if (usesTreat) {
+      this.props.useTreat();
     }
 
     const lastPlayedTimestamp = this.currentTime().getTime();
@@ -112,7 +117,7 @@ class App extends Component {
   render() {
     const sprite = this.currentSprite();
     if (!sprite) return null;
-    const { mySpriteIds, activeSpriteId } = this.props;
+    const { mySpriteIds, activeSpriteId, treatCount } = this.props;
     const now = this.currentTime();
     const isWildSprite = !activeSpriteId;
     const eventText = generateTextBasedOnTrustLevel(
@@ -157,7 +162,8 @@ class App extends Component {
         </div>
         <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
         <p>
-          {`Trust level: ${sprite.trust}`}
+          Trust level: {sprite.trust},
+          Treat count: {treatCount}
         </p>
         <p className="event-text">{eventText}</p>
         {
@@ -178,7 +184,7 @@ class App extends Component {
         <p>
           {`The date is ${now.toLocaleString()}`}
         </p>
-        <button type="button" onClick={this.props.incrementDay}>Go to sleep</button>
+        <button type="button" onClick={this.props.advanceDay}>Go to sleep</button>
       </div>
     );
   }
@@ -191,7 +197,9 @@ const mapStateToProps = state => ({
   wildSpriteId: state.sprite.wildSpriteId,
   interactionCounts: state.sprite.interactionCounts,
   lastPlayed: state.sprite.lastPlayed,
+
   dayOffset: state.game.dayOffset,
+  treatCount: state.game.treatCount,
 });
 
 const mapDispatchToProps = {
@@ -200,7 +208,8 @@ const mapDispatchToProps = {
   setActiveSprite,
   interactWithSprite,
   clearInteractions,
-  incrementDay,
+  advanceDay,
+  useTreat,
 };
 
 App.propTypes = {
@@ -209,7 +218,7 @@ App.propTypes = {
   setActiveSprite: PropTypes.func.isRequired,
   interactWithSprite: PropTypes.func.isRequired,
   clearInteractions: PropTypes.func.isRequired,
-  incrementDay: PropTypes.func.isRequired,
+  advanceDay: PropTypes.func.isRequired,
 
   spritesById: PropTypes.object.isRequired,
   mySpriteIds: PropTypes.array.isRequired,
@@ -217,7 +226,9 @@ App.propTypes = {
   wildSpriteId: PropTypes.string.isRequired,
   interactionCounts: PropTypes.object.isRequired,
   lastPlayed: PropTypes.number.isRequired,
+
   dayOffset: PropTypes.number.isRequired,
+  treatCount: PropTypes.number.isRequired,
 };
 
 export default connect(

@@ -1,8 +1,8 @@
 const initialState = {
   spritesById: {},
   mySpriteIds: [],
-  activeSpriteId: null,
-  wildSpriteId: null,
+  activeSpriteId: '',
+  wildSpriteId: '',
   interactionCounts: {},
   lastPlayed: 0,
 };
