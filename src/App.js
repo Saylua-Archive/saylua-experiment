@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice } from './helpers/utils';
 import './App.css';
+import InteractionView from './modules/InteractionView';
 
-import SpritePortrait from './sharedComponents/SpritePortrait/SpritePortrait';
 import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
 import { INTERACTION_TYPES } from './gameData/spriteInteractions';
@@ -153,13 +153,11 @@ class App extends Component {
             ))
           }
         </div>
-        <div className="wilderness-background">
-          <SpritePortrait
-            sprite={sprite}
-            petText={interactText('pet')}
-            onClick={clickSprite}
-          />
-        </div>
+        <InteractionView
+          sprite={sprite}
+          hoverText={interactText('pet')}
+          onClick={clickSprite}
+        />
         <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
         <p>
           Trust level: {sprite.trust},
