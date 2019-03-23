@@ -18,6 +18,7 @@ export const INTERACTION_TYPES = {
   treat: {
     maxPerDay: 0,
     trustIncrease: 2,
+    usesTreat: true,
     buttonTextTemplate: sprite => `Give ${sprite.name} a treat`,
   },
   sing: {
