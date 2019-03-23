@@ -1,6 +1,6 @@
 // Return a random integer from min (inclusive) to max (inclusive)
-export function randomInt(max, min) {
-  min = min || 0;
+export function randomInt(max, minArg) {
+  const min = minArg || 0;
   return Math.floor((Math.random() * ((max - min) + 1)) + min);
 }
 
@@ -14,7 +14,7 @@ export function randomChoice(choices) {
 
 export function chooseWeighted(options) {
   let total = 0;
-  for (let i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i += 1) {
     total += options[i].weight || 1;
   }
   let target = Math.floor((Math.random() * total) + 1);
@@ -33,9 +33,9 @@ export function sRandom(seed) {
 }
 
 // max exclusive, optional min inclusive
-export function sRandomInt(seed, max, min) {
-  seed = seed || randomSeed();
-  min = min || 0;
+export function sRandomInt(seedArg, max, minArg) {
+  const seed = seedArg || randomSeed();
+  const min = minArg || 0;
   return min + Math.floor(sRandom(seed) * (max - min));
 }
 
