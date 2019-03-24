@@ -46,3 +46,23 @@ export const EVENT_TEXT_TEMPLATES = ([
     is so very soft.`,
   sprite => pickGenerator(YOU_HAVE_BONDED_TEMPLATES, sprite),
 ]);
+
+export const WATER_TEMPLATES = ([
+  sprite => `${sprite.name} was thirsty! ${They(sprite)} greedily lap up the water.`,
+  sprite => `${sprite.name} sips the water. ${They(sprite)} ${purr(sprite)}s happily.`,
+]);
+
+export const GROOM_TEMPLATES = ([
+  sprite => `You tenderly groom ${sprite.name}'s ${coat(sprite)}.`,
+  sprite => `${sprite.name} ${purr(sprite)}s softly as you groom ${their(sprite)} ${coat(sprite)}.`,
+]);
+
+export const TREAT_TEMPLATES = ([
+  sprite => `The ${sprite.species} snaps the treat right out of your hand!`,
+  sprite => `${sprite.name} devours the treat. ${Their(sprite)} eyes turn toward you expectantly...`,
+]);
+
+export const SING_TEMPLATES = ([
+  sprite => `You sing a little song for ${sprite.name}. ${TheyRe(sprite)} ${call(sprite)}ing along!`,
+  sprite => `${sprite.name} gives you a quizzical look.`,
+]);

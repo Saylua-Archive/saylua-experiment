@@ -12,7 +12,7 @@ import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 import { INTERACTION_TYPES } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia';
-import { EVENT_TEXT_TEMPLATES } from './templates/templates';
+import { EVENT_TEXT_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES, SING_TEMPLATES } from './templates/templates';
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
@@ -120,9 +120,26 @@ class App extends Component {
     const { mySpriteIds, activeSpriteId, treatCount } = this.props;
     const now = this.currentTime();
     const isWildSprite = !activeSpriteId;
-    const eventText = generateTextBasedOnTrustLevel(
-      EVENT_TEXT_TEMPLATES, sprite, 1
-    );
+    let eventText;
+
+    switch (sprite.lastInteraction) {
+      case 'water':
+        eventText = randomChoice(WATER_TEMPLATES)(sprite);
+        break;
+      case 'groom':
+        eventText = randomChoice(GROOM_TEMPLATES)(sprite);
+        break;
+      case 'treat':
+        eventText = randomChoice(TREAT_TEMPLATES)(sprite);
+        break;
+      case 'sing':
+        eventText = randomChoice(SING_TEMPLATES)(sprite);
+        break;
+      default:
+        eventText = generateTextBasedOnTrustLevel(
+          EVENT_TEXT_TEMPLATES, sprite, 1
+        );
+    }
 
     const interactText = interactionType => (sprite
       && INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
