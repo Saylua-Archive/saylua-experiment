@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SpritePortrait from '../sharedComponents/SpritePortrait/SpritePortrait';
 import './InteractionView.css';
 
 export default function InteractionView(props) {
-  const {sprite, title, onClick, className} = props;
+  const { sprite, title, onClick, className } = props;
   return (
     <div className={`wilderness-background ${className}`}>
       <div className="wilderness-sprite-wrapper">
@@ -17,3 +18,10 @@ export default function InteractionView(props) {
     </div>
   );
 }
+
+InteractionView.propTypes = {
+  sprite: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+};
