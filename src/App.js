@@ -170,36 +170,41 @@ class App extends Component {
             ))
           }
         </div>
-        <InteractionView
-          sprite={sprite}
-          hoverText={interactText('pet')}
-          onClick={clickSprite}
-        />
-        <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
-        <p>
-          Trust level: {sprite.trust},
-          Treat count: {treatCount}
-        </p>
-        <p className="event-text">{eventText}</p>
-        {
-          Object.keys(INTERACTION_TYPES).map(interaction => (
-            <button
-              type="button"
-              key={interaction}
-              onClick={() => {
-                this.interactWithSprite(interaction);
-              }}
-              disabled={this.canPlay(interaction) ? undefined : true}
-            >
-              {interactText(interaction)}
-            </button>
-          ))
-        }
+          <div className="interaction-container">
+          <InteractionView
+            className="interaction-view"
+            sprite={sprite}
+            hoverText={interactText('pet')}
+            onClick={clickSprite}
+          />
+          <div className="interaction-content">
+            <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
+            <p>
+              Trust level: {sprite.trust},
+              Treat count: {treatCount}
+            </p>
+            <p className="event-text">{eventText}</p>
+            {
+              Object.keys(INTERACTION_TYPES).map(interaction => (
+                <button
+                  type="button"
+                  key={interaction}
+                  onClick={() => {
+                    this.interactWithSprite(interaction);
+                  }}
+                  disabled={this.canPlay(interaction) ? undefined : true}
+                >
+                  {interactText(interaction)}
+                </button>
+              ))
+            }
 
-        <p>
-          {`The date is ${now.toLocaleString()}`}
-        </p>
-        <button type="button" onClick={this.props.advanceDay}>Go to sleep</button>
+            <p>
+              {`The date is ${now.toLocaleString()}`}
+            </p>
+            <button type="button" onClick={this.props.advanceDay}>Go to sleep</button>
+          </div>
+        </div>
       </div>
     );
   }
