@@ -63,6 +63,7 @@ export default function spriteReducer(state = initialState, action) {
         spritesById: Object.assign({}, state.spritesById, {
           [id]: Object.assign({}, state.spritesById[id], {
             trust: state.spritesById[id].trust + trust,
+            lastInteraction: interaction,
           }),
         }),
         interactionCounts: Object.assign({}, interactionCounts, {
