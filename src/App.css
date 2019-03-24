@@ -7,14 +7,6 @@
   line-height: 1.2em;
 }
 
-.wilderness-background {
-  background: url('/img/wilderness/bg.jpg');
-  background-size: cover;
-  background-position: bottom;
-  width: 70%;
-  margin: auto;
-}
-
 .change-sprite {
   border: 0;
   background: #EEE;
@@ -45,5 +37,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: auto;
+}
+
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: auto;
+  align-items: flex-start;
+}
+
+.interaction-view {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.interaction-content {
+  text-align: left;
+  padding: 0.25em 16px;
 }
