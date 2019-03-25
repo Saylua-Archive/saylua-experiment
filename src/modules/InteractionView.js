@@ -20,8 +20,8 @@ export default function InteractionView(props) {
 }
 
 InteractionView.propTypes = {
-  sprite: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  sprite: PropTypes.object,
+  title: PropTypes.string,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
 };
