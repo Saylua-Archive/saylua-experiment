@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import soulName from './helpers/name/soulName';
-import { capitalizeFirst, randomChoice } from './helpers/utils';
+import { capitalizeFirst, randomChoice, randomInt } from './helpers/utils';
 import './App.css';
 import InteractionView from './modules/InteractionView';
 
@@ -12,11 +12,12 @@ import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 import { INTERACTION_TYPES } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia';
-import { TRUST_INCREASE_TEMPLATES } from './templates/templates';
+import { TRUST_INCREASE_TEMPLATES,
+  TREAT_GIFT_TEMPLATES } from './templates/templates';
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
-import { advanceDay, useTreat } from './reducers/gameReducer';
+import { advanceDay, addTreat } from './reducers/gameReducer';
 
 const CURIOUS_THRESHOLD = 2;
 const FRIENDLY_THRESHOLD = 5;
@@ -94,12 +95,20 @@ class App extends Component {
     }
 
     if (usesTreat) {
-      this.props.useTreat();
+      this.props.addTreat(-1);
     }
 
     const lastPlayedTimestamp = this.currentTime().getTime();
 
-    this.props.interactWithSprite(sprite.name, interactionType, trustIncrease,
+    let treats = 0;
+    if (sprite.trust > BONDED_THRESHOLD) {
+      const chance = (1 - 1 / sprite.trust) * 0.3;
+      if (Math.random() < chance) {
+        treats = randomInt(1, 3);
+      }
+    }
+
+    this.props.interactWithSprite(sprite.name, interactionType, treats,
       lastPlayedTimestamp);
 
     if ((sprite.trust + trustIncrease > BONDED_THRESHOLD)
@@ -125,7 +134,8 @@ class App extends Component {
   generateEventText() {
     const sprite = this.currentSprite();
     const { lastInteraction, trust } = sprite;
-    const lastInteractionType = INTERACTION_TYPES[lastInteraction];
+    const { type, treatIncrease } = lastInteraction || {};
+    const lastInteractionType = INTERACTION_TYPES[type];
     const trustIncrease = lastInteraction ? lastInteractionType.trustIncrease : 0;
     const oldTrust = trust - trustIncrease;
 
@@ -138,6 +148,10 @@ class App extends Component {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.friendly)(sprite)}`;
       } else if (trust >= CURIOUS_THRESHOLD && oldTrust < CURIOUS_THRESHOLD) {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.curious)(sprite)}`;
+      }
+
+      if (treatIncrease) {
+        eventText = `${eventText} ${randomChoice(TREAT_GIFT_TEMPLATES)(sprite, treatIncrease)}`;
       }
 
       return eventText;
@@ -187,7 +201,7 @@ class App extends Component {
           <InteractionView
             className="interaction-view"
             sprite={sprite}
-            hoverText={interactText('pet')}
+            title={interactText('pet')}
             onClick={clickSprite}
           />
           <div className="interaction-content">
@@ -242,7 +256,7 @@ const mapDispatchToProps = {
   interactWithSprite,
   clearInteractions,
   advanceDay,
-  useTreat,
+  addTreat,
 };
 
 App.propTypes = {
@@ -252,7 +266,7 @@ App.propTypes = {
   interactWithSprite: PropTypes.func.isRequired,
   clearInteractions: PropTypes.func.isRequired,
   advanceDay: PropTypes.func.isRequired,
-  useTreat: PropTypes.func.isRequired,
+  addTreat: PropTypes.func.isRequired,
 
   spritesById: PropTypes.object.isRequired,
   mySpriteIds: PropTypes.array.isRequired,

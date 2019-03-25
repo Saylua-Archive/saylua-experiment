@@ -1,3 +1,5 @@
+import { INTERACTION_TYPES } from '../gameData/spriteInteractions';
+
 const initialState = {
   spritesById: {},
   mySpriteIds: [],
@@ -25,8 +27,10 @@ export function setActiveSprite(id) {
   return { type: SET_ACTIVE_SPRITE, id };
 }
 
-export function interactWithSprite(id, interaction, trust, time) {
-  return { type: INTERACT_WITH_SPRITE, id, interaction, trust, time };
+export function interactWithSprite(id, interaction, treatIncrease, time) {
+  const trust = INTERACTION_TYPES[interaction].trustIncrease;
+  return { type: INTERACT_WITH_SPRITE, id, interaction, trust,
+    treatIncrease, time };
 }
 
 export function clearInteractions() {
@@ -63,7 +67,10 @@ export default function spriteReducer(state = initialState, action) {
         spritesById: Object.assign({}, state.spritesById, {
           [id]: Object.assign({}, state.spritesById[id], {
             trust: state.spritesById[id].trust + trust,
-            lastInteraction: interaction,
+            lastInteraction: {
+              type: interaction,
+              treatIncrease: action.treatIncrease,
+            },
           }),
         }),
         interactionCounts: Object.assign({}, interactionCounts, {

@@ -1,6 +1,7 @@
 import { Their, TheyRe, They, their, they,
   them } from '../textGenerators/pronouns';
 import { token, coat, call, purr, growl, nose } from '../textGenerators/interactions';
+import { p } from '../textGenerators/helpers.js';
 
 // Texts to be added when a trust level is acheived
 export const TRUST_INCREASE_TEMPLATES = {
@@ -16,6 +17,17 @@ export const TRUST_INCREASE_TEMPLATES = {
     sprite => `${sprite.name} is ready to become your companion!`,
   ],
 };
+
+export const TREAT_GIFT_TEMPLATES = [
+  (sprite, treats) => `${sprite.name} twirls around as they give you
+    ${treats} ${p('treat')(treats)}.`,
+  (sprite, treats) => `${sprite.name} ${purr(sprite)}s gently as they reveal
+    a gift: ${treats} ${p('treat')(treats)}!`,
+  (sprite, treats) => `${sprite.name} excitedly hands you
+    ${treats} ${p('treat')(treats)}!`,
+  (sprite, treats) => `${sprite.name} celebrates your friendship by giving you
+    ${treats} ${p('treat')(treats)}.`,
+];
 
 export const PET_TEMPLATES = {
   wild: [
