@@ -12,22 +12,16 @@ import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 import { INTERACTION_TYPES } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia';
-import { EVENT_TEXT_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES, SING_TEMPLATES } from './templates/templates';
+import { TRUST_INCREASE_TEMPLATES } from './templates/templates';
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
 import { advanceDay, useTreat } from './reducers/gameReducer';
 
-const ADOPTION_THRESHOLD = 5;
+const CURIOUS_THRESHOLD = 2;
+const FRIENDLY_THRESHOLD = 5;
+const BONDED_THRESHOLD = 8;
 
-
-const generateTextBasedOnTrustLevel = (templateList, sprite, trustIntervalArg) => {
-  if (!sprite) return null;
-  const trustInterval = trustIntervalArg || 3;
-  const templateIndex = Math.max(0,
-    Math.min(Math.floor(sprite.trust / trustInterval), templateList.length - 1));
-  return templateList[templateIndex](sprite);
-};
 
 const generateSprite = () => {
   const species = randomChoice(['arko', 'chirling', 'loxi', 'gam']);
@@ -108,10 +102,47 @@ class App extends Component {
     this.props.interactWithSprite(sprite.name, interactionType, trustIncrease,
       lastPlayedTimestamp);
 
-    if ((sprite.trust + trustIncrease > ADOPTION_THRESHOLD)
+    if ((sprite.trust + trustIncrease > BONDED_THRESHOLD)
         && !this.props.activeSpriteId) {
       this.befriendWildSprite();
     }
+  }
+
+  chooseTextByTrust(templates, trust) {
+    const sprite = this.currentSprite();
+    if (trust < CURIOUS_THRESHOLD) {
+      return randomChoice(templates.wild)(sprite);
+    }
+    if (trust < FRIENDLY_THRESHOLD) {
+      return randomChoice(templates.curious)(sprite);
+    }
+    if (trust < BONDED_THRESHOLD) {
+      return randomChoice(templates.friendly)(sprite);
+    }
+    return randomChoice(templates.bonded)(sprite);
+  }
+
+  generateEventText() {
+    const sprite = this.currentSprite();
+    const { lastInteraction, trust } = sprite;
+    const lastInteractionType = INTERACTION_TYPES[lastInteraction];
+    const trustIncrease = lastInteraction ? lastInteractionType.trustIncrease : 0;
+    const oldTrust = trust - trustIncrease;
+
+    if (lastInteractionType) {
+      let eventText = this.chooseTextByTrust(lastInteractionType.templates, trust);
+
+      if (trust >= BONDED_THRESHOLD && oldTrust < BONDED_THRESHOLD) {
+        eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.bonded)(sprite)}`;
+      } else if (trust >= FRIENDLY_THRESHOLD && oldTrust < FRIENDLY_THRESHOLD) {
+        eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.friendly)(sprite)}`;
+      } else if (trust >= CURIOUS_THRESHOLD && oldTrust < CURIOUS_THRESHOLD) {
+        eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.curious)(sprite)}`;
+      }
+
+      return eventText;
+    }
+    return null;
   }
 
   render() {
@@ -120,26 +151,8 @@ class App extends Component {
     const { mySpriteIds, activeSpriteId, treatCount } = this.props;
     const now = this.currentTime();
     const isWildSprite = !activeSpriteId;
-    let eventText;
 
-    switch (sprite.lastInteraction) {
-      case 'water':
-        eventText = randomChoice(WATER_TEMPLATES)(sprite);
-        break;
-      case 'groom':
-        eventText = randomChoice(GROOM_TEMPLATES)(sprite);
-        break;
-      case 'treat':
-        eventText = randomChoice(TREAT_TEMPLATES)(sprite);
-        break;
-      case 'sing':
-        eventText = randomChoice(SING_TEMPLATES)(sprite);
-        break;
-      default:
-        eventText = generateTextBasedOnTrustLevel(
-          EVENT_TEXT_TEMPLATES, sprite, 1
-        );
-    }
+    const eventText = this.generateEventText();
 
     const interactText = interactionType => (sprite
       && INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
@@ -170,7 +183,7 @@ class App extends Component {
             ))
           }
         </div>
-          <div className="interaction-container">
+        <div className="interaction-container">
           <InteractionView
             className="interaction-view"
             sprite={sprite}
@@ -180,8 +193,8 @@ class App extends Component {
           <div className="interaction-content">
             <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
             <p>
-              Trust level: {sprite.trust},
-              Treat count: {treatCount}
+              {`Trust level: ${sprite.trust},
+              Treat count: ${treatCount}`}
             </p>
             <p className="event-text">{eventText}</p>
             {
@@ -239,6 +252,7 @@ App.propTypes = {
   interactWithSprite: PropTypes.func.isRequired,
   clearInteractions: PropTypes.func.isRequired,
   advanceDay: PropTypes.func.isRequired,
+  useTreat: PropTypes.func.isRequired,
 
   spritesById: PropTypes.object.isRequired,
   mySpriteIds: PropTypes.array.isRequired,
