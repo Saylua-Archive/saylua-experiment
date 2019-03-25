@@ -12,7 +12,7 @@ import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 import { INTERACTION_TYPES } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia';
-import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES, SING_TEMPLATES, TRUST_INCREASE_TEMPLATES } from './templates/templates';
+import { TRUST_INCREASE_TEMPLATES } from './templates/templates';
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
@@ -125,35 +125,24 @@ class App extends Component {
   generateEventText() {
     const sprite = this.currentSprite();
     const { lastInteraction, trust } = sprite;
-    const trustIncrease = lastInteraction ? INTERACTION_TYPES[lastInteraction].trustIncrease : 0;
+    const lastInteractionType = INTERACTION_TYPES[lastInteraction];
+    const trustIncrease = lastInteraction ? lastInteractionType.trustIncrease : 0;
+    const oldTrust = trust - trustIncrease;
 
-    let eventText;
-    switch (lastInteraction) {
-      case 'water':
-        eventText = this.chooseTextByTrust(WATER_TEMPLATES, trust);
-        break;
-      case 'groom':
-        eventText = this.chooseTextByTrust(GROOM_TEMPLATES, trust);
-        break;
-      case 'treat':
-        eventText = this.chooseTextByTrust(TREAT_TEMPLATES, trust);
-        break;
-      case 'sing':
-        eventText = this.chooseTextByTrust(SING_TEMPLATES, trust);
-        break;
-      default:
-        eventText = this.chooseTextByTrust(PET_TEMPLATES, trust);
+    if (lastInteractionType) {
+      let eventText = this.chooseTextByTrust(lastInteractionType.templates, trust);
+
+      if (trust >= BONDED_THRESHOLD && oldTrust < BONDED_THRESHOLD) {
+        eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.bonded)(sprite)}`;
+      } else if (trust >= FRIENDLY_THRESHOLD && oldTrust < FRIENDLY_THRESHOLD) {
+        eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.friendly)(sprite)}`;
+      } else if (trust >= CURIOUS_THRESHOLD && oldTrust < CURIOUS_THRESHOLD) {
+        eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.curious)(sprite)}`;
+      }
+
+      return eventText;
     }
-
-    if (trust >= BONDED_THRESHOLD && trust - trustIncrease < BONDED_THRESHOLD) {
-      eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.bonded)(sprite)}`;
-    } else if (trust >= FRIENDLY_THRESHOLD && trust - trustIncrease < FRIENDLY_THRESHOLD) {
-      eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.friendly)(sprite)}`;
-    } else if (trust >= CURIOUS_THRESHOLD && trust - trustIncrease < CURIOUS_THRESHOLD) {
-      eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.curious)(sprite)}`;
-    }
-
-    return eventText;
+    return null;
   }
 
   render() {
@@ -221,7 +210,7 @@ class App extends Component {
                   {interactText(interaction)}
                 </button>
               ))
-              }
+            }
 
             <p>
               {`The date is ${now.toLocaleString()}`}

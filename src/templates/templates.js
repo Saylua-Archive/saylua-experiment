@@ -5,11 +5,11 @@ import { token, coat, call, purr, growl, nose } from '../textGenerators/interact
 // Texts to be added when a trust level is acheived
 export const TRUST_INCREASE_TEMPLATES = {
   curious: [
-    () => 'They seems intrested in getting to know you.',
+    sprite => `${They(sprite)} seem intrested in getting to know you.`,
     sprite => `${TheyRe(sprite)} looking a little less nervous.`,
   ],
   friendly: [
-    sprite => `They tell you that ${their(sprite)} name is ${sprite.name}.`,
+    sprite => `${They(sprite)} tell you that ${their(sprite)} name is ${sprite.name}.`,
   ],
   bonded: [
     sprite => `${sprite.name} trusts you and wants to stay with you!`,
@@ -105,10 +105,10 @@ export const GROOM_TEMPLATES = {
 export const TREAT_TEMPLATES = {
   wild: [
     sprite => `You gently place a treat on the ground. It's specially formulated for ${sprite.species}s!`,
-    sprite => `The ${sprite.species} takes the treat when they think you're not looking.`,
+    sprite => `The ${sprite.species} takes the treat when you're not looking.`,
   ],
   curious: [
-    sprite => `The ${sprite.species} perks up at the smell of the treat. They come up to you to get it.`,
+    sprite => `The ${sprite.species} perks up at the smell of the treat. ${They(sprite)} come up to you to get it.`,
     sprite => `That's one hungry ${sprite.species}! ${They(sprite)} grab the treat as soon as you set it down.`,
   ],
   friendly: [
@@ -135,8 +135,8 @@ export const SING_TEMPLATES = {
     sprite => `${sprite.name} ${purr(sprite)}'s happily as you sing.`,
   ],
   bonded: [
-    sprite => `${sprite.name} ${purr(sprite)}'s along as you sing.`,
-    sprite => `${sprite.name} ${call(sprite)}'s to the beat!`,
+    sprite => `${sprite.name} ${purr(sprite)}s along as you sing.`,
+    sprite => `${sprite.name} ${call(sprite)}s to the beat!`,
     sprite => `${sprite.name} cuddles up against you as you sing a lullaby.`,
   ],
 };
