@@ -29,8 +29,14 @@ export function setActiveSprite(id) {
 
 export function interactWithSprite(id, interaction, treatIncrease, time) {
   const trust = INTERACTION_TYPES[interaction].trustIncrease;
-  return { type: INTERACT_WITH_SPRITE, id, interaction, trust,
-    treatIncrease, time };
+  return {
+    type: INTERACT_WITH_SPRITE,
+    id,
+    interaction,
+    trust,
+    treatIncrease,
+    time,
+  };
 }
 
 export function clearInteractions() {

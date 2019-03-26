@@ -9,7 +9,7 @@ import InteractionView from './modules/InteractionView';
 
 import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
-import { INTERACTION_TYPES } from './gameData/spriteInteractions';
+import { INTERACTION_TYPES, TRUST_LEVELS } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
@@ -18,10 +18,6 @@ import { TRUST_INCREASE_TEMPLATES,
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
 import { advanceDay, addTreat } from './reducers/gameReducer';
-
-const CURIOUS_THRESHOLD = 2;
-const FRIENDLY_THRESHOLD = 5;
-const BONDED_THRESHOLD = 8;
 
 
 const generateSprite = () => {
@@ -101,7 +97,7 @@ class App extends Component {
     const lastPlayedTimestamp = this.currentTime().getTime();
 
     let treats = 0;
-    if (sprite.trust > BONDED_THRESHOLD) {
+    if (sprite.trust > TRUST_LEVELS.bonded) {
       const chance = (1 - 1 / sprite.trust) * 0.3;
       if (Math.random() < chance) {
         treats = randomInt(1, 3);
@@ -111,7 +107,7 @@ class App extends Component {
     this.props.interactWithSprite(sprite.name, interactionType, treats,
       lastPlayedTimestamp);
 
-    if ((sprite.trust + trustIncrease > BONDED_THRESHOLD)
+    if ((sprite.trust + trustIncrease > TRUST_LEVELS.bonded)
         && !this.props.activeSpriteId) {
       this.befriendWildSprite();
     }
@@ -119,13 +115,13 @@ class App extends Component {
 
   chooseTextByTrust(templates, trust) {
     const sprite = this.currentSprite();
-    if (trust < CURIOUS_THRESHOLD) {
+    if (trust < TRUST_LEVELS.curious) {
       return randomChoice(templates.wild)(sprite);
     }
-    if (trust < FRIENDLY_THRESHOLD) {
+    if (trust < TRUST_LEVELS.friendly) {
       return randomChoice(templates.curious)(sprite);
     }
-    if (trust < BONDED_THRESHOLD) {
+    if (trust < TRUST_LEVELS.bonded) {
       return randomChoice(templates.friendly)(sprite);
     }
     return randomChoice(templates.bonded)(sprite);
@@ -142,11 +138,11 @@ class App extends Component {
     if (lastInteractionType) {
       let eventText = this.chooseTextByTrust(lastInteractionType.templates, trust);
 
-      if (trust >= BONDED_THRESHOLD && oldTrust < BONDED_THRESHOLD) {
+      if (trust >= TRUST_LEVELS.bonded && oldTrust < TRUST_LEVELS.bonded) {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.bonded)(sprite)}`;
-      } else if (trust >= FRIENDLY_THRESHOLD && oldTrust < FRIENDLY_THRESHOLD) {
+      } else if (trust >= TRUST_LEVELS.friendly && oldTrust < TRUST_LEVELS.friendly) {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.friendly)(sprite)}`;
-      } else if (trust >= CURIOUS_THRESHOLD && oldTrust < CURIOUS_THRESHOLD) {
+      } else if (trust >= TRUST_LEVELS.curious && oldTrust < TRUST_LEVELS.curious) {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.curious)(sprite)}`;
       }
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './SpriteHeadshot.css';
 import { SPRITE_ENCYCLOPEDIA } from '../../textData/spriteEncyclopedia';
 
@@ -25,3 +27,8 @@ export default function SpriteHeadshot(props) {
     </div>
   );
 }
+
+SpriteHeadshot.propTypes = {
+  sprite: PropTypes.object.isRequired,
+  className: PropTypes.string.isRequired,
+};
