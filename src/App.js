@@ -32,7 +32,7 @@ const generateSprite = () => {
     species,
     color,
     trust: 0,
-    pronouns: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
+    grammar: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
       THEY_PRONOUNS]),
   };
 };

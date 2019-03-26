@@ -1,13 +1,20 @@
 export const SPRITE_ENCYCLOPEDIA = {
   arko: {
     species: 'arko',
-    coat: 'fur',
-    call: 'bark',
-    purr: 'pant',
-    growl: 'growl',
-    nose: 'nose',
 
-    plural: 'arkos',
+    vocab: {
+      coat: 'fur',
+      call: 'bark',
+      purr: 'pant',
+      growl: 'growl',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'arkos',
+      article: 'an',
+    },
+
     facesRight: true,
     headshotCoordinates: {
       x: 220,
@@ -37,13 +44,19 @@ export const SPRITE_ENCYCLOPEDIA = {
   },
   chirling: {
     species: 'chirling',
-    coat: 'feathers',
-    call: 'chirp',
-    purr: 'coo',
-    growl: 'squawk',
-    nose: 'beak',
 
-    plural: 'chirlings',
+    vocab: {
+      coat: 'feathers',
+      call: 'chirp',
+      purr: 'coo',
+      growl: 'squawk',
+      nose: 'beak',
+    },
+
+    grammar: {
+      plural: 'chirlings',
+      article: 'a',
+    },
 
     facesRight: true,
     headshotCoordinates: {
@@ -75,13 +88,20 @@ export const SPRITE_ENCYCLOPEDIA = {
   },
   loxi: {
     species: 'loxi',
-    coat: 'feathers',
-    call: 'grumble',
-    purr: 'purr',
-    growl: 'growl',
-    nose: 'nose',
 
-    plural: 'loxis',
+    vocab: {
+      coat: 'feathers',
+      call: 'grumble',
+      purr: 'purr',
+      growl: 'growl',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'loxis',
+      article: 'a',
+    },
+
     facesRight: false,
     headshotCoordinates: {
       x: 70,
@@ -111,13 +131,20 @@ export const SPRITE_ENCYCLOPEDIA = {
   },
   gam: {
     species: 'gam',
-    coat: 'fur',
-    call: 'baa',
-    purr: 'hum',
-    growl: 'bleat',
-    nose: 'nose',
 
-    plural: 'gams',
+    vocab: {
+      coat: 'fur',
+      call: 'baa',
+      purr: 'hum',
+      growl: 'bleat',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'gams',
+      article: 'a',
+    },
+
     facesRight: true,
     headshotCoordinates: {
       x: 210,

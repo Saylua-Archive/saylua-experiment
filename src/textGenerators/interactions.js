@@ -4,8 +4,15 @@ import { SPRITE_ENCYCLOPEDIA } from '../textData/spriteEncyclopedia';
 export const token = () => randomChoice(['twig', 'flower', 'glowing fruit',
   'rock', 'leaf', 'bit of straw']);
 
-export const coat = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].coat;
-export const call = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].call;
-export const purr = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].purr;
-export const growl = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].growl;
-export const nose = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].nose;
+export const coat = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].vocab.coat;
+export const call = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].vocab.call;
+export const purr = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].vocab.purr;
+export const growl = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].vocab.growl;
+export const nose = sprite => SPRITE_ENCYCLOPEDIA[sprite.species].vocab.nose;
+
+export const chirling = sprite => sprite.species;
+export const a_chirling = sprite => `
+  ${SPRITE_ENCYCLOPEDIA[sprite.species].grammar.article} ${sprite.species}`;
+export const chirlings = sprite =>
+  SPRITE_ENCYCLOPEDIA[sprite.species].grammar.plural;
+export const Kimberly = sprite => sprite.name;

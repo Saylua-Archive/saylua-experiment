@@ -1,26 +1,34 @@
 export const THEY_PRONOUNS = {
-  subject: 'they',
-  object: 'them',
-  possessive: 'their',
-  possessiveStrong: 'theirs',
-  reflexive: 'themself',
-  usesPluralVerbs: true,
+  pronouns: {
+    subject: 'they',
+    object: 'them',
+    possessive: 'their',
+    possessiveStrong: 'theirs',
+    reflexive: 'themself',
+  },
+  isPlural: true,
 };
 
 export const HE_PRONOUNS = {
-  subject: 'he',
-  object: 'him',
-  possessive: 'his',
-  possessiveStrong: 'his',
-  reflexive: 'himself',
-  usesPluralVerbs: false,
+  pronouns: {
+    subject: 'he',
+    object: 'him',
+    possessive: 'his',
+    possessiveStrong: 'his',
+    reflexive: 'himself',
+    usesPluralVerbs: false,
+  },
+  isPlural: false,
 };
 
 export const SHE_PRONOUNS = {
-  subject: 'she',
-  object: 'her',
-  possessive: 'her',
-  possessiveStrong: 'hers',
-  reflexive: 'herself',
-  usesPluralVerbs: false,
+  pronouns: {
+    subject: 'she',
+    object: 'her',
+    possessive: 'her',
+    possessiveStrong: 'hers',
+    reflexive: 'herself',
+    usesPluralVerbs: false,
+  },
+  isPlural: false,
 };
