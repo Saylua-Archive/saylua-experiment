@@ -2,7 +2,7 @@ import { Their, They_re, They, their, they,
   them } from '../textGenerators/pronouns';
 import { token, coat, call, purr, growl, nose, chirling, a_chirling,
   chirlings, Kimberly } from '../textGenerators/interactions';
-import { pN, pV } from '../textGenerators/helpers.js';
+import { pN, pV } from '../textGenerators/helpers';
 
 // Texts to be added when a trust level is acheived
 export const TRUST_INCREASE_TEMPLATES = {
