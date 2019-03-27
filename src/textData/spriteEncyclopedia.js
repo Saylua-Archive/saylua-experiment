@@ -46,7 +46,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     species: 'chirling',
 
     vocab: {
-      coat: 'feathers',
+      coat: 'down',
       call: 'chirp',
       purr: 'coo',
       growl: 'squawk',
@@ -90,7 +90,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     species: 'loxi',
 
     vocab: {
-      coat: 'feathers',
+      coat: 'down',
       call: 'grumble',
       purr: 'purr',
       growl: 'growl',
