@@ -1,15 +1,24 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .saylua {
   text-align: center;
+  background: hsl(180, 12%, 92%);
+  min-height: 100%;
 }
 
 .event-text {
-  padding: 0.5em 2em;
-  line-height: 1.2em;
+  padding: 0.5em 0;
+  line-height: 1.6em;
+  font-size: 18px;
 }
 
 .change-sprite {
   border: 0;
-  background: #EEE;
+  background: white;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -22,7 +31,7 @@
 }
 
 .change-sprite.selected {
-  border: 2px solid #1DE9B6;
+  border: 2px solid hsl(165, 82%, 51%);
 }
 
 .change-sprite:hover {
@@ -58,4 +67,31 @@
 .interaction-content {
   text-align: left;
   padding: 0.25em 16px;
+}
+
+button {
+  margin: 0.25em 4px;
+  padding: 0.25em 8px;
+  border-radius: 16px;
+  font-size: 16px;
+  border: 1px solid hsla(0, 0%, 0%, 0.15);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.15);
+  background: white;
+  cursor: pointer;
+  transition: background .2s ease-in-out,
+    border-color .2s ease-in-out,
+    color .2s ease-in-out;
+}
+
+button[disabled] {
+  opacity: 0.5;
+}
+
+button:hover {
+  background: #e7f8f6;
+  border-color: hsla(165, 82%, 51%, 50%);
+}
+
+button:active {
+  transform: translateY(2%);
 }
