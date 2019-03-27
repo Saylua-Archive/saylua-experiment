@@ -1,6 +1,6 @@
 import { Their, They_re, They, their, they,
   them } from '../textGenerators/pronouns';
-import { token, coat, call, purr, growl, nose, chirling, a_chirling,
+import { token, coat, chirp, purr, growl, nose, chirling, a_chirling,
   chirlings, Kimberly } from '../textGenerators/interactions';
 import { pN, pV } from '../textGenerators/helpers';
 
@@ -26,9 +26,9 @@ export const TREAT_GIFT_TEMPLATES = [
     ${pV('give')(sprite)} you ${treats} ${pN('treat')(treats)}.`,
   (sprite, treats) => `${Kimberly(sprite)} ${purr(sprite)}s gently as
     ${they(sprite)} ${pV('reveal')(sprite)} a gift: ${treats}
-    ${pN('treat')(treats)}!`,
+    ${pN('treat')(treats)}.`,
   (sprite, treats) => `${Kimberly(sprite)} excitedly hands you
-    ${treats} ${pN('treat')(treats)}!`,
+    ${treats} ${pN('treat')(treats)}.`,
   (sprite, treats) => `${Kimberly(sprite)} celebrates your friendship by
     giving you ${treats} ${pN('treat')(treats)}.`,
 ];
@@ -57,7 +57,7 @@ export const PET_TEMPLATES = {
       ${them(sprite)}!`,
     sprite => `You look around. You don't notice ${Kimberly(sprite)} anywhere.
       Did ${they(sprite)} leave? Tuning in intently, you make out a muted
-      ${call(sprite)}ing sound, coming from behind a rock. You can see ${Kimberly(sprite)}'s
+      ${chirp(sprite)}ing sound, coming from behind a rock. You can see ${Kimberly(sprite)}'s
       ${nose(sprite)}. ${Their(sprite)} eyes. As you approach, ${they(sprite)}
       ${pV('take')(sprite)} a few hops forward. ${Kimberly(sprite)}
       ${purr(sprite)}s as you pet ${them(sprite)}.`,
@@ -98,16 +98,16 @@ export const WATER_TEMPLATES = {
       thirsty ${chirling(sprite)}.`,
   ],
   friendly: [
-    sprite => `${Kimberly(sprite)} was thirsty! ${They(sprite)} greedily
+    sprite => `${Kimberly(sprite)} was thirsty. ${They(sprite)} greedily
       ${pV('lap')(sprite)} up the water.`,
     sprite => `${Kimberly(sprite)} sips the water. ${They(sprite)}
       ${purr(sprite)}s happily.`,
   ],
   bonded: [
     sprite => `${Kimberly(sprite)} perks up at the sight of
-      ${their(sprite)} water dish. They gulp it down with a happy ${call(sprite)}.`,
+      ${their(sprite)} water dish. They gulp it down with a happy ${chirp(sprite)}.`,
     sprite => `${Kimberly(sprite)} slurps and spills a bit of the water.`,
-    sprite => `The sweet water was just what ${Kimberly(sprite)} wanted!`,
+    sprite => `The sweet water was just what ${Kimberly(sprite)} wanted.`,
   ],
 };
 
@@ -138,23 +138,23 @@ export const GROOM_TEMPLATES = {
 export const TREAT_TEMPLATES = {
   wild: [
     sprite => `You gently place a treat on the ground. It's specially
-      formulated for ${chirlings(sprite)}!`,
+      formulated for ${chirlings(sprite)}.`,
     sprite => `The ${chirling(sprite)} takes the treat when you're not looking.`,
   ],
   curious: [
     sprite => `The ${chirling(sprite)} perks up at the smell of the treat.
       ${They(sprite)} ${pV('come')(sprite)} up to you to get it.`,
-    sprite => `That's one hungry ${chirling(sprite)}! ${They(sprite)}
+    sprite => `That's one hungry ${chirling(sprite)}. ${They(sprite)}
       ${pV('grab')(sprite)} the treat as soon as you set it down.`,
   ],
   friendly: [
-    sprite => `The ${chirling(sprite)} snaps the treat right out of your hand!`,
+    sprite => `The ${chirling(sprite)} snaps the treat right out of your hand.`,
     sprite => `${Kimberly(sprite)} devours the treat. ${Their(sprite)} eyes
       turn toward you expectantly...`,
   ],
   bonded: [
     sprite => `You toss the treat into the air. ${Kimberly(sprite)} catches
-      it with ease!`,
+      it with ease. Just like you've practiced.`,
     sprite => `${Kimberly(sprite)} almost knocks you down trying to grab
       the treat.`,
   ],
@@ -168,17 +168,17 @@ export const SING_TEMPLATES = {
   ],
   curious: [
     sprite => `The ${chirling(sprite)} gives you a quizzical look.`,
-    sprite => `The ${chirling(sprite)} ${call(sprite)}s happily.`,
+    sprite => `The ${chirling(sprite)} ${chirp(sprite)}s happily.`,
   ],
   friendly: [
     sprite => `You sing a little song for ${Kimberly(sprite)}.
-      ${They_re(sprite)} ${call(sprite)}ing along!`,
+      ${They_re(sprite)} ${chirp(sprite)}ing along.`,
     sprite => `${Kimberly(sprite)} ${purr(sprite)}s happily as you sing.`,
   ],
   bonded: [
     sprite => `${Kimberly(sprite)} ${purr(sprite)}s along as you sing.`,
-    sprite => `${Kimberly(sprite)} ${call(sprite)}s to the beat!`,
-    sprite => `${Kimberly(sprite)} cuddles up against you as you sing a
+    sprite => `${Kimberly(sprite)} ${chirp(sprite)}s to the beat.`,
+    sprite => `${Kimberly(sprite)} cuddles up as you sing a
       lullaby.`,
   ],
 };

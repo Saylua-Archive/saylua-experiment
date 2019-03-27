@@ -170,6 +170,15 @@ class App extends Component {
 
     const clickSprite = () => this.interactWithSprite('pet');
 
+    let sceneTitle = '';
+    if (!isWildSprite) {
+      sceneTitle = sprite.name;
+    } else if (sprite.trust > TRUST_LEVELS.friendly) {
+      sceneTitle = `${sprite.name} the wild ${sprite.species}`;
+    } else if (isWildSprite) {
+      sceneTitle = `A wild ${sprite.species}`;
+    }
+
     return (
       <div className="saylua">
         <div className="sprite-list">
@@ -201,7 +210,7 @@ class App extends Component {
             onClick={clickSprite}
           />
           <div className="interaction-content">
-            <h2>{isWildSprite ? `A wild ${sprite.species}` : sprite.name}</h2>
+            <h2>{sceneTitle}</h2>
             <p>
               {`Trust level: ${sprite.trust},
               Treat count: ${treatCount}`}

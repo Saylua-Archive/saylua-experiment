@@ -4,7 +4,7 @@ export const SPRITE_ENCYCLOPEDIA = {
 
     vocab: {
       coat: 'fur',
-      call: 'bark',
+      chirp: 'bark',
       purr: 'pant',
       growl: 'growl',
       nose: 'nose',
@@ -46,8 +46,8 @@ export const SPRITE_ENCYCLOPEDIA = {
     species: 'chirling',
 
     vocab: {
-      coat: 'feathers',
-      call: 'chirp',
+      coat: 'down',
+      chirp: 'chirp',
       purr: 'coo',
       growl: 'squawk',
       nose: 'beak',
@@ -90,8 +90,8 @@ export const SPRITE_ENCYCLOPEDIA = {
     species: 'loxi',
 
     vocab: {
-      coat: 'feathers',
-      call: 'grumble',
+      coat: 'down',
+      chirp: 'grumble',
       purr: 'purr',
       growl: 'growl',
       nose: 'nose',
@@ -134,7 +134,7 @@ export const SPRITE_ENCYCLOPEDIA = {
 
     vocab: {
       coat: 'fur',
-      call: 'baa',
+      chirp: 'baa',
       purr: 'hum',
       growl: 'bleat',
       nose: 'nose',
