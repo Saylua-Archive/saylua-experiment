@@ -30,5 +30,9 @@ export default function SpriteHeadshot(props) {
 
 SpriteHeadshot.propTypes = {
   sprite: PropTypes.object.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+SpriteHeadshot.defaultProps = {
+  className: '',
 };

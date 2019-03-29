@@ -2,17 +2,17 @@ import { Their, They_re, They, their, they,
   them } from '../textGenerators/pronouns';
 import { token, coat, chirp, purr, growl, nose, chirling, a_chirling,
   chirlings, Kimberly } from '../textGenerators/interactions';
-import { pN, pV } from '../textGenerators/helpers';
+import { _n, _v } from '../textGenerators/helpers';
 
 // Texts to be added when a trust level is acheived
 export const TRUST_INCREASE_TEMPLATES = {
   curious: [
-    sprite => `${They(sprite)} ${pV('seem')(sprite)} interested in getting
+    sprite => `${They(sprite)} ${_v('seem')(sprite)} interested in getting
       to know you.`,
     sprite => `${They_re(sprite)} looking a little less nervous.`,
   ],
   friendly: [
-    sprite => `${They(sprite)} ${pV('tell')(sprite)} you that ${their(sprite)}
+    sprite => `${They(sprite)} ${_v('tell')(sprite)} you that ${their(sprite)}
       name is ${Kimberly(sprite)}.`,
   ],
   bonded: [
@@ -23,14 +23,14 @@ export const TRUST_INCREASE_TEMPLATES = {
 
 export const TREAT_GIFT_TEMPLATES = [
   (sprite, treats) => `${Kimberly(sprite)} twirls around as ${they(sprite)}
-    ${pV('give')(sprite)} you ${treats} ${pN('treat')(treats)}.`,
+    ${_v('give')(sprite)} you ${treats} ${_n('treat')(treats)}.`,
   (sprite, treats) => `${Kimberly(sprite)} ${purr(sprite)}s gently as
-    ${they(sprite)} ${pV('reveal')(sprite)} a gift: ${treats}
-    ${pN('treat')(treats)}.`,
+    ${they(sprite)} ${_v('reveal')(sprite)} a gift: ${treats}
+    ${_n('treat')(treats)}.`,
   (sprite, treats) => `${Kimberly(sprite)} excitedly hands you
-    ${treats} ${pN('treat')(treats)}.`,
+    ${treats} ${_n('treat')(treats)}.`,
   (sprite, treats) => `${Kimberly(sprite)} celebrates your friendship by
-    giving you ${treats} ${pN('treat')(treats)}.`,
+    giving you ${treats} ${_n('treat')(treats)}.`,
 ];
 
 export const PET_TEMPLATES = {
@@ -42,9 +42,9 @@ export const PET_TEMPLATES = {
   ],
   curious: [
     sprite => `The ${chirling(sprite)} peeks ${their(sprite)}
-      head out of the bush. ${They(sprite)} ${pV('cock')(sprite)}
+      head out of the bush. ${They(sprite)} ${_v('cock')(sprite)}
       ${their(sprite)} head curiously. But as you reach out your
-      hand, ${they(sprite)} quickly ${pV('retreat')(sprite)} back into
+      hand, ${they(sprite)} quickly ${_v('retreat')(sprite)} back into
       the bushes.`,
     sprite => `You wait patiently outside the bush with your hand gently
       extended. The ${chirling(sprite)} slowly emerges from the leaves,
@@ -59,7 +59,7 @@ export const PET_TEMPLATES = {
       Did ${they(sprite)} leave? Tuning in intently, you make out a muted
       ${chirp(sprite)}ing sound, coming from behind a rock. You can see ${Kimberly(sprite)}'s
       ${nose(sprite)}. ${Their(sprite)} eyes. As you approach, ${they(sprite)}
-      ${pV('take')(sprite)} a few hops forward. ${Kimberly(sprite)}
+      ${_v('take')(sprite)} a few hops forward. ${Kimberly(sprite)}
       ${purr(sprite)}s as you pet ${them(sprite)}.`,
   ],
   bonded: [
@@ -67,7 +67,7 @@ export const PET_TEMPLATES = {
       stroking ${their(sprite)} ${coat(sprite)}. It's a warm day, and ${Kimberly(sprite)}
       is so very soft.`,
     sprite => `As you smile at ${Kimberly(sprite)}, ${they(sprite)}
-      ${pV('approach', 'approaches')(sprite)} you, eager to receive
+      ${_v('approach', 'approaches')(sprite)} you, eager to receive
       your delicate pets.`,
     sprite => `The sun shines brightly on you and ${Kimberly(sprite)} as you
       stroke ${their(sprite)} ${coat(sprite)}.`,
@@ -99,7 +99,7 @@ export const WATER_TEMPLATES = {
   ],
   friendly: [
     sprite => `${Kimberly(sprite)} was thirsty. ${They(sprite)} greedily
-      ${pV('lap')(sprite)} up the water.`,
+      ${_v('lap')(sprite)} up the water.`,
     sprite => `${Kimberly(sprite)} sips the water. ${They(sprite)}
       ${purr(sprite)}s happily.`,
   ],
@@ -143,9 +143,9 @@ export const TREAT_TEMPLATES = {
   ],
   curious: [
     sprite => `The ${chirling(sprite)} perks up at the smell of the treat.
-      ${They(sprite)} ${pV('come')(sprite)} up to you to get it.`,
+      ${They(sprite)} ${_v('come')(sprite)} up to you to get it.`,
     sprite => `That's one hungry ${chirling(sprite)}. ${They(sprite)}
-      ${pV('grab')(sprite)} the treat as soon as you set it down.`,
+      ${_v('grab')(sprite)} the treat as soon as you set it down.`,
   ],
   friendly: [
     sprite => `The ${chirling(sprite)} snaps the treat right out of your hand.`,
