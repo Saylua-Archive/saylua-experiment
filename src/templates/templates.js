@@ -23,14 +23,14 @@ export const TRUST_INCREASE_TEMPLATES = {
 };
 
 export const TREAT_GIFT_TEMPLATES = [
-  (sprite, treats) => `${Kimberly(sprite)} twirls around as ${they(sprite)}
-    ${_v('give')(sprite)} you ${treats} ${_n('treat')(treats)}.`,
-  (sprite, treats) => `${Kimberly(sprite)} ${purr(sprite)}s gently as
-    ${they(sprite)} ${_v('reveal')(sprite)} a gift: ${treats}
+  (sprite, treats) => spriteText(sprite)`${Kimberly} twirls around as ${they}
+    ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,
+  (sprite, treats) => spriteText(sprite)`${Kimberly} ${purr}s gently as
+    ${they} ${_v('reveal')} a gift: ${treats}
     ${_n('treat')(treats)}.`,
-  (sprite, treats) => `${Kimberly(sprite)} excitedly hands you
+  (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly hands you
     ${treats} ${_n('treat')(treats)}.`,
-  (sprite, treats) => `${Kimberly(sprite)} celebrates your friendship by
+  (sprite, treats) => spriteText(sprite)`${Kimberly} celebrates your friendship by
     giving you ${treats} ${_n('treat')(treats)}.`,
 ];
 
