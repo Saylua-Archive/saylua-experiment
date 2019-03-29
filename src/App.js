@@ -187,7 +187,7 @@ class App extends Component {
             className={`change-sprite${isWildSprite ? ' selected' : ''}`}
             onClick={() => this.props.setActiveSprite()}
           >
-            ?
+            {`?`}
           </button>
           {
             mySpriteIds.map(id => (

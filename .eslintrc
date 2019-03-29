@@ -11,6 +11,8 @@
     "camelcase": 0,
     "no-unused-vars": "warn",
     "linebreak-style": 0,
+    "no-underscore-dangle": 0,
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "comma-dangle": ["error", {
         "arrays": "always-multiline",
         "objects": "always-multiline",
