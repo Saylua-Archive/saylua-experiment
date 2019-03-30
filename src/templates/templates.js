@@ -22,6 +22,24 @@ export const TRUST_INCREASE_TEMPLATES = {
   ],
 };
 
+export const APPROACH_TEMPLATES = {
+  comfortable: [
+    sprite => spriteText(sprite)`${They} ${_v('seem')} comfortable with your presence.`,
+  ],
+  anxious: [
+    sprite => spriteText(sprite)`${They} ${_v('seem')} anxious. You might be moving too quickly.`,
+  ],
+};
+
+export const WAIT_TEMPLATES = {
+  comfortable: [
+    sprite => spriteText(sprite)`${They} ${_v('look')} bored.`,
+  ],
+  anxious: [
+    sprite => spriteText(sprite)`You give ${them} a little space. They look a little calmer.`,
+  ],
+};
+
 export const TREAT_GIFT_TEMPLATES = [
   (sprite, treats) => spriteText(sprite)`${Kimberly} twirls around as ${they}
     ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,

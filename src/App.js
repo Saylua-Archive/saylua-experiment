@@ -27,7 +27,8 @@ const generateSprite = () => {
     name: capitalizeFirst(soulName()),
     species,
     color,
-    trust: 0,
+    trust: -5,
+    distance: 5,
     grammar: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
       THEY_PRONOUNS]),
   };
@@ -152,7 +153,7 @@ class App extends Component {
 
       return eventText;
     }
-    return null;
+    return `You spot a wild ${sprite.species} in the distance.`;
   }
 
   render() {
