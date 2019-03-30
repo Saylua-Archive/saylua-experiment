@@ -13,12 +13,13 @@ export const TRUST_INCREASE_TEMPLATES = {
     sprite => spriteText(sprite)`${They_re} looking a little less nervous.`,
   ],
   friendly: [
-    sprite => spriteText(sprite)`${They} ${_v('tell')} you that ${their}
-      name is ${Kimberly}.`,
+    sprite => spriteText(sprite)`You learn that ${their} name is ${Kimberly}.`,
+    sprite => spriteText(sprite)`The ${chirling} looks into your eyes. Somehow,
+      you have a feeling that ${their} name is ${Kimberly}.`,
   ],
   bonded: [
-    sprite => spriteText(sprite)`${Kimberly} trusts you and wants to stay with you!`,
-    sprite => spriteText(sprite)`${Kimberly} is ready to become your companion!`,
+    sprite => spriteText(sprite)`${Kimberly} trusts you and wants to stay with you.`,
+    sprite => spriteText(sprite)`${Kimberly} is ready to become your companion.`,
   ],
 };
 
@@ -41,11 +42,10 @@ export const WAIT_TEMPLATES = {
 };
 
 export const TREAT_GIFT_TEMPLATES = [
-  (sprite, treats) => spriteText(sprite)`${Kimberly} twirls around as ${they}
-    ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,
-  (sprite, treats) => spriteText(sprite)`${Kimberly} ${purr}s gently as
-    ${they} ${_v('reveal')} a gift: ${treats}
-    ${_n('treat')(treats)}.`,
+  (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly twirls around
+    as ${they} ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,
+  (sprite, treats) => spriteText(sprite)`${Kimberly} ${purr}s gently,
+    revealing a gift: ${treats} ${_n('treat')(treats)}.`,
   (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly hands you
     ${treats} ${_n('treat')(treats)}.`,
   (sprite, treats) => spriteText(sprite)`${Kimberly} celebrates your friendship by
