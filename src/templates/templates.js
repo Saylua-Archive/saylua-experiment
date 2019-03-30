@@ -14,7 +14,7 @@ export const TRUST_INCREASE_TEMPLATES = {
   ],
   friendly: [
     sprite => spriteText(sprite)`You learn that ${their} name is ${Kimberly}.`,
-    sprite => spriteText(sprite)`The ${chirling} looks into your eyes. Somehow, 
+    sprite => spriteText(sprite)`The ${chirling} looks into your eyes. Somehow,
       you have a feeling that ${their} name is ${Kimberly}.`,
   ],
   bonded: [
@@ -23,9 +23,26 @@ export const TRUST_INCREASE_TEMPLATES = {
   ],
 };
 
+export const APPROACH_TEMPLATES = {
+  comfortable: [
+    sprite => spriteText(sprite)`${They} ${_v('seem')} comfortable with your presence.`,
+  ],
+  anxious: [
+    sprite => spriteText(sprite)`${They} ${_v('seem')} anxious. You might be moving too quickly.`,
+  ],
+};
+
+export const WAIT_TEMPLATES = {
+  comfortable: [
+    sprite => spriteText(sprite)`${They} ${_v('look')} bored.`,
+  ],
+  anxious: [
+    sprite => spriteText(sprite)`You give ${them} a little space. They look a little calmer.`,
+  ],
+};
 
 export const TREAT_GIFT_TEMPLATES = [
-  (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly twirls around 
+  (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly twirls around
     as ${they} ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,
   (sprite, treats) => spriteText(sprite)`${Kimberly} ${purr}s gently,
     revealing a gift: ${treats} ${_n('treat')(treats)}.`,

@@ -17,7 +17,7 @@ import { TRUST_INCREASE_TEMPLATES,
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
-import { advanceDay, addTreat } from './reducers/gameReducer';
+import { advanceDay, addTreat, setEventText } from './reducers/gameReducer';
 
 
 const generateSprite = () => {
@@ -27,7 +27,8 @@ const generateSprite = () => {
     name: capitalizeFirst(soulName()),
     species,
     color,
-    trust: 0,
+    trust: -5,
+    distance: 5,
     grammar: randomChoice([SHE_PRONOUNS, HE_PRONOUNS,
       THEY_PRONOUNS]),
   };
@@ -107,6 +108,10 @@ class App extends Component {
     this.props.interactWithSprite(sprite.name, interactionType, treats,
       lastPlayedTimestamp);
 
+    this.props.setEventText(
+      this.generateEventText({ type: interactionType, treatIncrease: treats })
+    );
+
     if ((sprite.trust + trustIncrease > TRUST_LEVELS.bonded)
         && !this.props.activeSpriteId) {
       this.befriendWildSprite();
@@ -127,16 +132,16 @@ class App extends Component {
     return randomChoice(templates.bonded)(sprite);
   }
 
-  generateEventText() {
+  generateEventText(interaction) {
     const sprite = this.currentSprite();
-    const { lastInteraction, trust } = sprite;
-    const { type, treatIncrease } = lastInteraction || {};
-    const lastInteractionType = INTERACTION_TYPES[type];
-    const trustIncrease = lastInteraction ? lastInteractionType.trustIncrease : 0;
+    const { trust } = sprite;
+    const { type, treatIncrease } = interaction;
+    const interactionType = INTERACTION_TYPES[type];
+    const trustIncrease = interaction ? interactionType.trustIncrease : 0;
     const oldTrust = trust - trustIncrease;
 
-    if (lastInteractionType) {
-      let eventText = this.chooseTextByTrust(lastInteractionType.templates, trust);
+    if (interactionType) {
+      let eventText = this.chooseTextByTrust(interactionType.templates, trust);
 
       if (trust >= TRUST_LEVELS.bonded && oldTrust < TRUST_LEVELS.bonded) {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.bonded)(sprite)}`;
@@ -152,7 +157,7 @@ class App extends Component {
 
       return eventText;
     }
-    return null;
+    return `You spot a wild ${sprite.species} in the distance.`;
   }
 
   render() {
@@ -161,8 +166,6 @@ class App extends Component {
     const { mySpriteIds, activeSpriteId, treatCount } = this.props;
     const now = this.currentTime();
     const isWildSprite = !activeSpriteId;
-
-    const eventText = this.generateEventText();
 
     const interactText = interactionType => (sprite
       && INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
@@ -215,7 +218,7 @@ class App extends Component {
               {`Trust level: ${sprite.trust},
               Treat count: ${treatCount}`}
             </p>
-            <p className="event-text">{eventText}</p>
+            <p className="event-text">{this.props.eventText}</p>
             {
               Object.keys(INTERACTION_TYPES).map(interaction => (
                 <button
@@ -252,6 +255,7 @@ const mapStateToProps = state => ({
 
   dayOffset: state.game.dayOffset,
   treatCount: state.game.treatCount,
+  eventText: state.game.eventText,
 });
 
 const mapDispatchToProps = {
@@ -262,6 +266,7 @@ const mapDispatchToProps = {
   clearInteractions,
   advanceDay,
   addTreat,
+  setEventText,
 };
 
 App.propTypes = {
@@ -272,6 +277,7 @@ App.propTypes = {
   clearInteractions: PropTypes.func.isRequired,
   advanceDay: PropTypes.func.isRequired,
   addTreat: PropTypes.func.isRequired,
+  setEventText: PropTypes.func.isRequired,
 
   spritesById: PropTypes.object.isRequired,
   mySpriteIds: PropTypes.array.isRequired,
@@ -282,6 +288,7 @@ App.propTypes = {
 
   dayOffset: PropTypes.number.isRequired,
   treatCount: PropTypes.number.isRequired,
+  eventText: PropTypes.string.isRequired,
 };
 
 export default connect(

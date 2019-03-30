@@ -2,6 +2,7 @@
 import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES, SING_TEMPLATES } from '../templates/templates';
 
 export const TRUST_LEVELS = {
+  neutral: 0,
   curious: 2,
   friendly: 5,
   bonded: 8,
