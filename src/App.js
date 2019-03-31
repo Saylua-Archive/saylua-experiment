@@ -13,7 +13,7 @@ import { INTERACTION_TYPES, TRUST_LEVELS } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS } from './textData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
-  TREAT_GIFT_TEMPLATES } from './templates/templates';
+  TREAT_GIFT_TEMPLATES, ENCOUNTER_TEMPLATES } from './templates/templates';
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
@@ -37,7 +37,9 @@ const generateSprite = () => {
 class App extends Component {
   constructor(props) {
     super(props);
-    props.addWildSprite(generateSprite());
+    const newSprite = generateSprite();
+    props.addWildSprite(newSprite);
+    props.setEventText(randomChoice(ENCOUNTER_TEMPLATES)(newSprite));
   }
 
   getInteractionCount(interactionType) {
@@ -74,9 +76,20 @@ class App extends Component {
     return spritesById[activeSpriteId];
   }
 
+  available(interactionType) {
+    const { distance } = this.currentSprite();
+    const { maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
+    if (distance > maxDistance) return false;
+    if (distance <= mindistance) return false;
+    return true;
+  }
+
   canPlay(interactionType) {
-    const { maxPerDay, usesTreat } = INTERACTION_TYPES[interactionType];
+    const { distance } = this.currentSprite();
+    const { maxPerDay, usesTreat, maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
     if (usesTreat && this.props.treatCount < 1) return false;
+    if (distance > maxDistance) return false;
+    if (distance <= mindistance) return false;
     if (!maxPerDay) return true;
     const interacted = this.getInteractionCount(interactionType);
     return interacted < maxPerDay || this.hasBeenADaySincePlaying();
@@ -118,8 +131,15 @@ class App extends Component {
     }
   }
 
-  chooseTextByTrust(templates, trust) {
+  chooseText(templates, trust, distance) {
     const sprite = this.currentSprite();
+
+    if (distance > 0 && trust + distance < 0) {
+      return randomChoice(templates.anxious)(sprite);
+    }
+    if (distance > 0 && trust + distance >= 0) {
+      return randomChoice(templates.comfortable)(sprite);
+    }
     if (trust < TRUST_LEVELS.curious) {
       return randomChoice(templates.wild)(sprite);
     }
@@ -134,14 +154,14 @@ class App extends Component {
 
   generateEventText(interaction) {
     const sprite = this.currentSprite();
-    const { trust } = sprite;
+    const { trust, distance } = sprite;
     const { type, treatIncrease } = interaction;
     const interactionType = INTERACTION_TYPES[type];
     const trustIncrease = interaction ? interactionType.trustIncrease : 0;
     const oldTrust = trust - trustIncrease;
 
     if (interactionType) {
-      let eventText = this.chooseTextByTrust(interactionType.templates, trust);
+      let eventText = this.chooseText(interactionType.templates, trust, distance);
 
       if (trust >= TRUST_LEVELS.bonded && oldTrust < TRUST_LEVELS.bonded) {
         eventText = `${eventText} ${randomChoice(TRUST_INCREASE_TEMPLATES.bonded)(sprite)}`;
@@ -182,6 +202,16 @@ class App extends Component {
       sceneTitle = `A wild ${sprite.species}`;
     }
 
+    const { distance } = sprite;
+    const availableInteractions = Object.keys(INTERACTION_TYPES).filter(
+      (interactionType) => {
+        const { maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
+        if (distance > maxDistance) return false;
+        if (distance <= mindistance) return false;
+        return true;
+      }
+    );
+
     return (
       <div className="saylua">
         <div className="sprite-list">
@@ -220,7 +250,7 @@ class App extends Component {
             </p>
             <p className="event-text">{this.props.eventText}</p>
             {
-              Object.keys(INTERACTION_TYPES).map(interaction => (
+              availableInteractions.map(interaction => (
                 <button
                   type="button"
                   key={interaction}

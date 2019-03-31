@@ -29,6 +29,7 @@ export function setActiveSprite(id) {
 
 export function interactWithSprite(id, interaction, treatIncrease, time) {
   const trust = INTERACTION_TYPES[interaction].trustIncrease;
+  const distance = INTERACTION_TYPES[interaction].distanceDecrease;
   return {
     type: INTERACT_WITH_SPRITE,
     id,
@@ -36,6 +37,7 @@ export function interactWithSprite(id, interaction, treatIncrease, time) {
     trust,
     treatIncrease,
     time,
+    distance,
   };
 }
 
@@ -44,7 +46,7 @@ export function clearInteractions() {
 }
 
 export default function spriteReducer(state = initialState, action) {
-  const { trust, interaction, newSprite, id } = action;
+  const { trust, distance, interaction, newSprite, id } = action;
   const { interactionCounts } = state;
   const interactionCountsForSprite = interactionCounts[id] || {};
   switch (action.type) {
@@ -73,6 +75,7 @@ export default function spriteReducer(state = initialState, action) {
         spritesById: Object.assign({}, state.spritesById, {
           [id]: Object.assign({}, state.spritesById[id], {
             trust: state.spritesById[id].trust + trust,
+            distance: state.spritesById[id].distance - (distance || 0),
           }),
         }),
         interactionCounts: Object.assign({}, interactionCounts, {
