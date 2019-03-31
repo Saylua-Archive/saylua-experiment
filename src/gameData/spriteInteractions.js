@@ -54,7 +54,7 @@ export const INTERACTION_TYPES = {
     templates: SING_TEMPLATES,
   },
   approach: {
-    minDistence: 0,
+    mindistance: 0,
     maxPerDay: 0,
     trustIncrease: -1,
     distanceDecrease: 1,
@@ -62,7 +62,7 @@ export const INTERACTION_TYPES = {
     templates: APPROACH_TEMPLATES,
   },
   wait: {
-    minDistence: 0,
+    mindistance: 0,
     maxPerDay: 0,
     trustIncrease: 1,
     buttonTextTemplate: () => `Wait...`,

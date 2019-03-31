@@ -78,18 +78,18 @@ class App extends Component {
 
   available(interactionType) {
     const { distance } = this.currentSprite();
-    const { maxDistance, minDistence } = INTERACTION_TYPES[interactionType];
+    const { maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
     if (distance > maxDistance) return false;
-    if (distance <= minDistence) return false;
+    if (distance <= mindistance) return false;
     return true;
   }
 
   canPlay(interactionType) {
     const { distance } = this.currentSprite();
-    const { maxPerDay, usesTreat, maxDistance, minDistence } = INTERACTION_TYPES[interactionType];
+    const { maxPerDay, usesTreat, maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
     if (usesTreat && this.props.treatCount < 1) return false;
     if (distance > maxDistance) return false;
-    if (distance <= minDistence) return false;
+    if (distance <= mindistance) return false;
     if (!maxPerDay) return true;
     const interacted = this.getInteractionCount(interactionType);
     return interacted < maxPerDay || this.hasBeenADaySincePlaying();
@@ -205,9 +205,9 @@ class App extends Component {
     const { distance } = sprite;
     const availableInteractions = Object.keys(INTERACTION_TYPES).filter(
       (interactionType) => {
-        const { maxDistance, minDistence } = INTERACTION_TYPES[interactionType];
+        const { maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
         if (distance > maxDistance) return false;
-        if (distance <= minDistence) return false;
+        if (distance <= mindistance) return false;
         return true;
       }
     );
