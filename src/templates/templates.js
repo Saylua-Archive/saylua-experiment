@@ -23,6 +23,10 @@ export const TRUST_INCREASE_TEMPLATES = {
   ],
 };
 
+export const ENCOUNTER_TEMPLATES = [
+  sprite => spriteText(sprite)`In the distance, you see ${a_chirling}.`,
+];
+
 export const APPROACH_TEMPLATES = {
   comfortable: [
     sprite => spriteText(sprite)`${They} ${_v('seem')} comfortable with your presence.`,
