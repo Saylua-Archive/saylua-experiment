@@ -22,9 +22,6 @@ export const SPRITE_ENCYCLOPEDIA = {
       size: 130,
     },
 
-    description: `Arkos are pensive companions who are usually quite
-      loyal to their human guardians. They don't bite, but they do have a
-      tendency to be mouthy when showing their affection.`,
     quotes: [
       {
         text: `They're mostly quiet. But you can hear their loyalty in their
@@ -65,9 +62,6 @@ export const SPRITE_ENCYCLOPEDIA = {
       size: 120,
     },
 
-    description: `Chirlings are highly energetic sprites who can
-      frequently be heard chirping across the forest. New guardians often find
-      themselves overwhelmed with attention when caring for a chirling.`,
     quotes: [
       {
         text: `The chirlings would chirp so loudly I couldn't sleep. But after
@@ -109,9 +103,6 @@ export const SPRITE_ENCYCLOPEDIA = {
       size: 120,
     },
 
-    description: `Loxis are fierce wild creatures found in the Dawnlands.
-      They are known for being highly territorial and have a tendency to only
-      show respect to those who can defeat them in combat.`,
     quotes: [
       {
         text: `Just trust me on this. It was never your den. You are a guest in
@@ -152,8 +143,6 @@ export const SPRITE_ENCYCLOPEDIA = {
       size: 120,
     },
 
-    description: `Gams are hardy creatures who can be seen frolicking
-      across many regions in Saylua.`,
     quotes: [
       {
         text: `My gam has coarse fur, sharp horns, and hard hooves. Her voice
@@ -178,10 +167,23 @@ export const SPRITE_COATS = {
   chirling: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   eydrun: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   fleuran: ['albino', 'calico', 'luarian', 'melanistic', 'piebald', 'saylian'],
-  gam: ['albino', 'common', 'luarian', 'melanistic', 'piebald', 'saylian'],
+  gam: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   gorbin: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   loxi: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   nibian: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   senrix: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
   vela: ['albino', 'dawnish', 'luarian', 'melanistic', 'piebald', 'saylian'],
+};
+
+export const CANONICAL_SPRITE_COATS = {
+  arko: 'luarian',
+  chirling: 'saylian',
+  eydrun: 'luarian',
+  fleuran: 'calico',
+  gam: 'saylian',
+  gorbin: 'luarian',
+  loxi: 'albino',
+  nibian: 'saylian',
+  senrix: 'piebald',
+  vela: 'saylian',
 };
