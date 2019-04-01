@@ -4,15 +4,12 @@
   background-position: bottom;
   width: 660px;
   height: 510px;
+  position: relative;
   overflow: hidden;
 }
 
 .wilderness-sprite-wrapper {
-  width: 350px;
-  height: 350px;
-  position: relative;
-  bottom: 0;
-  left: 50%;
-  top: 90%;
-  transform: translate(-50%, -100%);
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
 }
