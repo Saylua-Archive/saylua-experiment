@@ -11,7 +11,7 @@ import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
 import { INTERACTION_TYPES, TRUST_LEVELS } from './gameData/spriteInteractions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
-import { SPRITE_COATS } from './textData/spriteEncyclopedia';
+import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from './textData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
   TREAT_GIFT_TEMPLATES, ENCOUNTER_TEMPLATES } from './templates/templates';
 
@@ -22,7 +22,10 @@ import { advanceDay, addTreat, setEventText } from './reducers/gameReducer';
 
 const generateSprite = () => {
   const species = randomChoice(['arko', 'chirling', 'loxi', 'gam']);
-  const color = randomChoice(SPRITE_COATS[species]);
+  let color = CANONICAL_SPRITE_COATS[species];
+  if (Math.random() < 0.4) {
+    color = randomChoice(SPRITE_COATS[species]);
+  }
   return {
     name: capitalizeFirst(soulName()),
     species,
@@ -37,9 +40,7 @@ const generateSprite = () => {
 class App extends Component {
   constructor(props) {
     super(props);
-    const newSprite = generateSprite();
-    props.addWildSprite(newSprite);
-    props.setEventText(randomChoice(ENCOUNTER_TEMPLATES)(newSprite));
+    this.generateWildSprite();
   }
 
   getInteractionCount(interactionType) {
@@ -48,6 +49,12 @@ class App extends Component {
     if (!(spriteId in interactionCounts)) return 0;
     if (!(interactionType in interactionCounts[spriteId])) return 0;
     return interactionCounts[spriteId][interactionType];
+  }
+
+  generateWildSprite() {
+    const newSprite = generateSprite();
+    this.props.addWildSprite(newSprite);
+    this.props.setEventText(randomChoice(ENCOUNTER_TEMPLATES)(newSprite));
   }
 
   befriendWildSprite() {
@@ -263,6 +270,8 @@ class App extends Component {
                 </button>
               ))
             }
+
+            <button type="button" onClick={this.generateWildSprite.bind(this)}>Run away</button>
 
             <p>
               {`The date is ${now.toLocaleString()}`}
