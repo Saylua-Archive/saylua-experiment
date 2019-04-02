@@ -19,7 +19,7 @@ export default function InteractionView(props) {
   const scaleStyle = `scale(${scaleFactor}, ${scaleFactor})`;
   const xStyle = `${x * 100}%`;
   const zStyle = `${((z * HORIZON) + y) * 100}%`;
-  const opacityStyle = `${((1 - z) + 5) / 6}`;
+  const opacityStyle = `${z / 5}`;
   const filterStyle = `contrast(0) sepia(100%) hue-rotate(${
     IMAGE_OPACITY_COLOR.h - BASE_SEPIA_COLOR.h}deg) saturate(${
     IMAGE_OPACITY_COLOR.s / BASE_SEPIA_COLOR.s * 50}%) brightness(${
@@ -41,14 +41,12 @@ export default function InteractionView(props) {
         <SpritePortrait
           className="wilderness-sprite-image"
           sprite={sprite}
-          style={{
-            filter: filterStyle,
-          }}
         />
         <SpritePortrait
           className="wilderness-sprite-image"
           sprite={sprite}
           style={{
+            filter: filterStyle,
             opacity: opacityStyle,
           }}
         />
