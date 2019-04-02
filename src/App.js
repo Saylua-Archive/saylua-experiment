@@ -83,20 +83,12 @@ class App extends Component {
     return spritesById[activeSpriteId];
   }
 
-  available(interactionType) {
-    const { distance } = this.currentSprite();
-    const { maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
-    if (distance > maxDistance) return false;
-    if (distance <= mindistance) return false;
-    return true;
-  }
-
   canPlay(interactionType) {
     const { distance } = this.currentSprite();
-    const { maxPerDay, usesTreat, maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
+    const { maxPerDay, usesTreat, maxDistance, minDistance } = INTERACTION_TYPES[interactionType];
     if (usesTreat && this.props.treatCount < 1) return false;
     if (distance > maxDistance) return false;
-    if (distance <= mindistance) return false;
+    if (distance <= minDistance) return false;
     if (!maxPerDay) return true;
     const interacted = this.getInteractionCount(interactionType);
     return interacted < maxPerDay || this.hasBeenADaySincePlaying();
@@ -209,12 +201,13 @@ class App extends Component {
       sceneTitle = `A wild ${sprite.species}`;
     }
 
-    const { distance } = sprite;
+    const { distance, trust } = sprite;
     const availableInteractions = Object.keys(INTERACTION_TYPES).filter(
       (interactionType) => {
-        const { maxDistance, mindistance } = INTERACTION_TYPES[interactionType];
+        const { maxDistance, minDistance, minTrust } = INTERACTION_TYPES[interactionType];
         if (distance > maxDistance) return false;
-        if (distance <= mindistance) return false;
+        if (distance <= minDistance) return false;
+        if (trust <= minTrust) return false;
         return true;
       }
     );
@@ -271,12 +264,11 @@ class App extends Component {
               ))
             }
 
-            <button type="button" onClick={this.generateWildSprite.bind(this)}>Run away</button>
-
             <p>
               {`The date is ${now.toLocaleString()}`}
             </p>
             <button type="button" onClick={this.props.advanceDay}>Go to sleep</button>
+            <button type="button" onClick={this.generateWildSprite.bind(this)}>Run away</button>
           </div>
         </div>
       </div>

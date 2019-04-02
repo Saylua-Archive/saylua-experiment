@@ -4,9 +4,9 @@ import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES,
 
 export const TRUST_LEVELS = {
   neutral: 0,
-  curious: 2,
-  friendly: 5,
-  bonded: 8,
+  curious: 1,
+  friendly: 2,
+  bonded: 3,
 };
 
 function nameOrWild(sprite) {
@@ -18,6 +18,7 @@ function nameOrWild(sprite) {
 
 export const INTERACTION_TYPES = {
   pet: {
+    minTrust: 0,
     maxDistance: 0,
     maxPerDay: 3,
     trustIncrease: 1,
@@ -32,6 +33,7 @@ export const INTERACTION_TYPES = {
     templates: WATER_TEMPLATES,
   },
   groom: {
+    minTrust: 3,
     maxDistance: 0,
     maxPerDay: 1,
     trustIncrease: 1,
@@ -47,6 +49,7 @@ export const INTERACTION_TYPES = {
     templates: TREAT_TEMPLATES,
   },
   sing: {
+    minTrust: 2,
     maxDistance: 0,
     maxPerDay: 3,
     trustIncrease: 1,
@@ -54,7 +57,7 @@ export const INTERACTION_TYPES = {
     templates: SING_TEMPLATES,
   },
   approach: {
-    mindistance: 0,
+    minDistance: 0,
     maxPerDay: 0,
     trustIncrease: -1,
     distanceDecrease: 1,
@@ -62,7 +65,7 @@ export const INTERACTION_TYPES = {
     templates: APPROACH_TEMPLATES,
   },
   wait: {
-    mindistance: 0,
+    minDistance: 0,
     maxPerDay: 0,
     trustIncrease: 1,
     buttonTextTemplate: () => `Wait...`,
