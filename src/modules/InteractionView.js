@@ -52,7 +52,6 @@ export default function InteractionView(props) {
             opacity: opacityStyle,
           }}
         />
-        
       </button>
     </div>
   );
