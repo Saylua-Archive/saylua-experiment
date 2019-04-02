@@ -13,6 +13,7 @@
     "linebreak-style": 0,
     "no-underscore-dangle": 0,
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "comma-dangle": ["error", {
         "arrays": "always-multiline",
         "objects": "always-multiline",

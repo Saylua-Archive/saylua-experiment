@@ -1,5 +1,5 @@
 import { prefixTrie, syllableTrie } from './nameTries';
-import { Trie } from './Trie';
+import Trie from './Trie';
 import { badList } from './badList';
 import { randomSeed } from '../utils';
 
