@@ -7,6 +7,7 @@ import './InteractionView.css';
 const HORIZON = 0.3;
 const IMAGE_OPACITY_COLOR = { h: 180, s: 25, l: 81 };
 const BASE_SEPIA_COLOR = { h: 38, s: 24, l: 57 };
+const SPRITE_SIZE = 350;
 
 export default function InteractionView(props) {
   const { sprite, title, onClick, className } = props;
@@ -16,7 +17,7 @@ export default function InteractionView(props) {
   const z = distance / 5;
 
   const scaleFactor = ((1 - z) + 1) / 2;
-  const scaleStyle = `scale(${scaleFactor}, ${scaleFactor})`;
+  const scaleStyle = `${SPRITE_SIZE * scaleFactor}px`;
   const xStyle = `${x * 100}%`;
   const zStyle = `${((z * HORIZON) + y) * 100}%`;
   const opacityStyle = `${z / 5}`;
@@ -33,7 +34,8 @@ export default function InteractionView(props) {
         style={{
           left: xStyle,
           bottom: zStyle,
-          transform: scaleStyle,
+          width: scaleStyle,
+          height: scaleStyle,
         }}
         onClick={onClick}
         title={title}
