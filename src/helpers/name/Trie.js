@@ -1,7 +1,8 @@
 import { sRandomInt, randomSeed } from '../utils';
 
-export class Trie {
-  static insertNode(node, item) {
+export default class Trie {
+  static insertNode(nodeArg, item) {
+    const node = nodeArg || {};
     if (node[item]) {
       node[item].count += 1;
     } else {
@@ -10,7 +11,8 @@ export class Trie {
     return node;
   }
 
-  static removeNode(node, item) {
+  static removeNode(nodeArg, item) {
+    const node = nodeArg || {};
     if (node[item]) {
       node[item].count -= 1;
       if (node[item].count <= 0) {
@@ -27,7 +29,7 @@ export class Trie {
       currentNode = currentNode[word[i]];
     }
     // Add the empty string to record word endings
-    currentNode = Trie.insertNode(currentNode, "");
+    currentNode = Trie.insertNode(currentNode, '');
     return node;
   }
 
@@ -41,7 +43,7 @@ export class Trie {
       currentNode = currentNode[word[i]];
     }
     // Add the empty string to record word endings
-    currentNode = Trie.removeNode(currentNode, "");
+    currentNode = Trie.removeNode(currentNode, '');
     return node;
   }
 
@@ -54,7 +56,7 @@ export class Trie {
       currentNode = currentNode[word[i]];
     }
     // Require completed words
-    if (!currentNode[""] || currentNode[""].count < 1) {
+    if (!currentNode[''] || currentNode[''].count < 1) {
       return false;
     }
     return true;
@@ -63,7 +65,7 @@ export class Trie {
   static draw(node, seed) {
     const newSeed = seed || randomSeed();
     let total = 0;
-    const keys = Object.keys(node).filter(key => key !== "count");
+    const keys = Object.keys(node).filter(key => key !== 'count');
     for (let i = 0; i < keys.length; i++) {
       total += node[keys[i]].count;
     }
@@ -80,10 +82,9 @@ export class Trie {
   static randomWord(node, seed) {
     const newSeed = seed || randomSeed();
     const next = Trie.draw(node, newSeed);
-    if (next !== "") {
+    if (next !== '') {
       return next + Trie.randomWord(node[next], newSeed + 1);
-    } else {
-      return next;
     }
+    return next;
   }
 }
