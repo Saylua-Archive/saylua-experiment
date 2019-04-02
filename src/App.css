@@ -70,7 +70,7 @@ body,
   padding: 0.25em 16px;
 }
 
-button {
+.button {
   margin: 0.25em 4px;
   padding: 0.25em 8px;
   border-radius: 16px;
@@ -84,15 +84,21 @@ button {
     color .2s ease-in-out;
 }
 
-button[disabled] {
+.button[disabled] {
   opacity: 0.5;
 }
 
-button:hover {
+.button:hover {
   background: #e7f8f6;
   border-color: hsla(165, 82%, 51%, 50%);
 }
 
-button:active {
+.button:active {
   transform: translateY(2%);
+}
+
+button {
+  background: 0;
+  border: 0;
+  cursor: pointer;
 }

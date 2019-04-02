@@ -259,6 +259,7 @@ class App extends Component {
             {
               availableInteractions.map(interaction => (
                 <button
+                  className="button"
                   type="button"
                   key={interaction}
                   onClick={() => {
@@ -271,12 +272,12 @@ class App extends Component {
               ))
             }
 
-            <button type="button" onClick={this.generateWildSprite.bind(this)}>Run away</button>
+            <button className="button" type="button" onClick={this.generateWildSprite.bind(this)}>Run away</button>
 
             <p>
               {`The date is ${now.toLocaleString()}`}
             </p>
-            <button type="button" onClick={this.props.advanceDay}>Go to sleep</button>
+            <button className="button" type="button" onClick={this.props.advanceDay}>Go to sleep</button>
           </div>
         </div>
       </div>
