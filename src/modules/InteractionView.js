@@ -5,7 +5,6 @@ import SpritePortrait from '../sharedComponents/SpritePortrait/SpritePortrait';
 import './InteractionView.css';
 
 const HORIZON = 0.3;
-const BASE_SIZE = 350;
 const IMAGE_OPACITY_COLOR = { h: 180, s: 25, l: 81 };
 const BASE_SEPIA_COLOR = { h: 38, s: 24, l: 57 };
 
@@ -16,8 +15,8 @@ export default function InteractionView(props) {
   const y = 0;
   const z = distance / 5;
 
-  const scaleFactor = (BASE_SIZE * (1 - z) + BASE_SIZE) / 2;
-  const scaleStyle = `${scaleFactor}px`;
+  const scaleFactor = ((1 - z) + 1) / 2;
+  const scaleStyle = `scale(${scaleFactor}, ${scaleFactor})`;
   const xStyle = `${x * 100}%`;
   const zStyle = `${((z * HORIZON) + y) * 100}%`;
   const opacityStyle = `${((1 - z) + 5) / 6}`;
@@ -34,8 +33,7 @@ export default function InteractionView(props) {
         style={{
           left: xStyle,
           bottom: zStyle,
-          width: scaleStyle,
-          height: scaleStyle,
+          transform: scaleStyle,
         }}
         onClick={onClick}
         title={title}

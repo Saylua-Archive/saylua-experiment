@@ -41,7 +41,7 @@ export const WAIT_TEMPLATES = {
     sprite => spriteText(sprite)`${They} ${_v('look')} bored.`,
   ],
   anxious: [
-    sprite => spriteText(sprite)`You give ${them} a little space. They look a little calmer.`,
+    sprite => spriteText(sprite)`You give ${them} a little space. ${They} ${_v('look')} a little calmer.`,
   ],
 };
 

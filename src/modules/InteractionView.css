@@ -11,9 +11,12 @@
 .wilderness-sprite-wrapper {
   position: absolute;
   background: none;
+  width: 350px;
+  height: 350px;
   border: 0;
   bottom: 0%;
   left: 0%;
+  transform-origin: bottom right;
 }
 
 .wilderness-sprite-image {
