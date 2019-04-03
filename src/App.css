@@ -42,7 +42,7 @@ body,
   transform: translateY(0.5%);
 }
 
-.sprite-list {
+.selection-list {
   display: flex;
   align-items: center;
   justify-content: center;

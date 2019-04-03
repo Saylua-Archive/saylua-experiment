@@ -80,45 +80,44 @@ export const SPRITE_ENCYCLOPEDIA = {
     weightMean: 20,
     weightVariance: 5,
   },
-  loxi: {
-    species: 'loxi',
+  nibian: {
+    species: 'nibian',
 
     vocab: {
-      coat: 'down',
-      chirp: 'grumble',
-      purr: 'purr',
-      growl: 'growl',
+      coat: 'skin',
+      chirp: 'squeak',
+      purr: 'gurgle',
+      growl: 'hiss',
       nose: 'nose',
     },
 
     grammar: {
-      plural: 'loxis',
+      plural: 'nibians',
       article: 'a',
     },
 
     facesRight: false,
-    headshotCoordinates: {
-      x: 70,
-      y: 100,
+    portraitCoordinates: {
+      x: 5,
+      y: 170,
       size: 120,
     },
 
     quotes: [
       {
-        text: `Just trust me on this. It was never your den. You are a guest in
-          that loxi's house`,
-        attribution: 'Anonymous',
+        text: `I can never swim faster than my nibian. I'm not sure why I try.`,
+        attribution: 'Rufus Scippio',
       },
     ],
 
     // Size is stored in inches.
-    sizeMean: 80,
-    sizeVariance: 20,
-    sizeName: 'length',
+    sizeMean: 60,
+    sizeVariance: 10,
+    sizeName: 'Length',
 
     // Weight is stored in pounds.
-    weightMean: 100,
-    weightVariance: 10,
+    weightMean: 40,
+    weightVariance: 5,
   },
   gam: {
     species: 'gam',
@@ -159,6 +158,248 @@ export const SPRITE_ENCYCLOPEDIA = {
     // Weight is stored in pounds.
     weightMean: 100,
     weightVariance: 20,
+  },
+  senrix: {
+    species: 'senrix',
+
+    vocab: {
+      coat: 'fur',
+      chirp: 'whistle',
+      purr: 'chirr',
+      growl: 'squeal',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'senrices',
+      article: 'a',
+    },
+
+    facesRight: false,
+    portraitCoordinates: {
+      x: 5,
+      y: 100,
+      size: 120,
+    },
+
+    quotes: [
+      {
+        text: `One day I found my marshmallows became blueberries. And my
+          blueberry bush grew marshmallows. I'm telling you -- it was my senrix
+          again!`,
+        attribution: 'Anonymous',
+      },
+    ],
+
+    // Size is stored in inches.
+    sizeMean: 36,
+    sizeVariance: 10,
+    sizeName: 'Length',
+
+    // Weight is stored in pounds.
+    weightMean: 50,
+    weightVariance: 10,
+  },
+  fleuran: {
+    species: 'fleuran',
+
+    vocab: {
+      coat: 'scales',
+      chirp: 'hum',
+      purr: 'gurgle',
+      growl: 'groan',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'fleurans',
+      article: 'a',
+    },
+
+    facesRight: true,
+    portraitCoordinates: {
+      x: 195,
+      y: 225,
+      size: 120,
+    },
+
+    quotes: [
+      {
+        text: `Afternoon tea. A stroll in the park. The breeze was delightful.
+          I saw a fleuran today.`,
+        attribution: 'Florian Dewfall, 57 ATA',
+      },
+    ],
+
+    // Size is stored in inches.
+    sizeMean: 40,
+    sizeVariance: 15,
+    sizeName: 'Length',
+
+    // Weight is stored in pounds.
+    weightMean: 80,
+    weightVariance: 20,
+  },
+  vela: {
+    species: 'vela',
+
+    vocab: {
+      coat: 'wool',
+      chirp: 'baa',
+      purr: 'hum',
+      growl: 'bleat',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'velas',
+      article: 'a',
+    },
+
+    facesRight: true,
+    portraitCoordinates: {
+      x: 200,
+      y: 100,
+      size: 100,
+    },
+
+    quotes: [
+      {
+        text: `We were in the heart of the Noon Desert without a drop of water
+          in sight, sure we'd die. Then there was rain. And then the velas
+          appeared.`,
+        attribution: 'Explorers, 272 ATA',
+      },
+    ],
+
+    // Size is stored in inches.
+    sizeMean: 30,
+    sizeVariance: 5,
+    sizeName: 'Length',
+
+    // Weight is stored in pounds.
+    weightMean: 35,
+    weightVariance: 10,
+  },
+  eydrun: {
+    species: 'eydrun',
+
+    vocab: {
+      coat: 'fur',
+      chirp: 'meow',
+      purr: 'purr',
+      growl: 'growl',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'eydruns',
+      article: 'an',
+    },
+
+    facesRight: false,
+    portraitCoordinates: {
+      x: 30,
+      y: 35,
+      size: 130,
+    },
+
+    quotes: [
+      {
+        text: `The woods of Luaria are deep, dark and beautiful. And so eerily
+          silent. But the eydruns are always watching. You are never alone.`,
+        attribution: 'Anonymous',
+      },
+    ],
+
+    // Size is stored in inches.
+    sizeMean: 40,
+    sizeVariance: 5,
+    sizeName: 'Height',
+
+    // Weight is stored in pounds.
+    weightMean: 150,
+    weightVariance: 20,
+  },
+  gorbin: {
+    species: 'gorbin',
+
+    vocab: {
+      coat: 'scales',
+      chirp: 'hum',
+      purr: 'gurgle',
+      growl: 'growl',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'gorbins',
+      article: 'a',
+    },
+
+    facesRight: true,
+    portraitCoordinates: {
+      x: 150,
+      y: 160,
+      size: 150,
+    },
+
+    quotes: [
+      {
+        text: `Plant a weeping lamp by the shore. Most days you'll just see
+          your flower grow. But if you're lucky, you might see a gorbin.`,
+        attribution: 'Anonymous',
+      },
+    ],
+
+    // Size is stored in inches.
+    sizeMean: 50,
+    sizeVariance: 10,
+    sizeName: 'Length',
+
+    // Weight is stored in pounds.
+    weightMean: 200,
+    weightVariance: 50,
+  },
+  loxi: {
+    species: 'loxi',
+
+    vocab: {
+      coat: 'down',
+      chirp: 'grumble',
+      purr: 'purr',
+      growl: 'growl',
+      nose: 'nose',
+    },
+
+    grammar: {
+      plural: 'loxis',
+      article: 'a',
+    },
+
+    facesRight: false,
+    headshotCoordinates: {
+      x: 70,
+      y: 100,
+      size: 120,
+    },
+
+    quotes: [
+      {
+        text: `Just trust me on this. It was never your den. You are a guest in
+          that loxi's house`,
+        attribution: 'Anonymous',
+      },
+    ],
+
+    // Size is stored in inches.
+    sizeMean: 80,
+    sizeVariance: 20,
+    sizeName: 'length',
+
+    // Weight is stored in pounds.
+    weightMean: 100,
+    weightVariance: 10,
   },
 };
 
