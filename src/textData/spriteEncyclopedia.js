@@ -97,7 +97,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    portraitCoordinates: {
+    headshotCoordinates: {
       x: 5,
       y: 170,
       size: 120,
@@ -176,7 +176,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    portraitCoordinates: {
+    headshotCoordinates: {
       x: 5,
       y: 100,
       size: 120,
@@ -217,7 +217,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    portraitCoordinates: {
+    headshotCoordinates: {
       x: 195,
       y: 225,
       size: 120,
@@ -257,7 +257,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    portraitCoordinates: {
+    headshotCoordinates: {
       x: 200,
       y: 100,
       size: 100,
@@ -298,7 +298,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    portraitCoordinates: {
+    headshotCoordinates: {
       x: 30,
       y: 35,
       size: 130,
@@ -338,7 +338,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    portraitCoordinates: {
+    headshotCoordinates: {
       x: 150,
       y: 160,
       size: 150,
