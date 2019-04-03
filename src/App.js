@@ -10,6 +10,7 @@ import InteractionView from './modules/InteractionView';
 import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
 import { INTERACTION_TYPES, TRUST_LEVELS } from './gameData/spriteInteractions';
+import { REGIONS } from './gameData/regions';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from './textData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
@@ -17,11 +18,18 @@ import { TRUST_INCREASE_TEMPLATES,
 
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
-import { advanceDay, addTreat, setEventText } from './reducers/gameReducer';
+import { advanceDay, addTreat, setEventText, setActiveRegion } from './reducers/gameReducer';
 
 
-const generateSprite = () => {
-  const species = randomChoice(['arko', 'chirling', 'loxi', 'gam']);
+const generateSprite = (speciesList) => {
+  const { common, rare } = speciesList;
+  let species;
+  if (Math.random() < 0.3) {
+    species = randomChoice(rare);
+  } else {
+    species = randomChoice(common);
+  }
+
   let color = CANONICAL_SPRITE_COATS[species];
   if (Math.random() < 0.4) {
     color = randomChoice(SPRITE_COATS[species]);
@@ -51,14 +59,17 @@ class App extends Component {
     return interactionCounts[spriteId][interactionType];
   }
 
-  generateWildSprite() {
-    const newSprite = generateSprite();
+  generateWildSprite(regionName) {
+    const regionId = regionName || this.props.activeRegionId;
+    const { availableSpecies } = REGIONS[regionId];
+    const newSprite = generateSprite(availableSpecies);
     this.props.addWildSprite(newSprite);
     this.props.setEventText(randomChoice(ENCOUNTER_TEMPLATES)(newSprite));
   }
 
   befriendWildSprite() {
-    const newSprite = generateSprite();
+    const { availableSpecies } = REGIONS[this.props.activeRegionId];
+    const newSprite = generateSprite(availableSpecies);
     this.props.befriendWildSprite(newSprite);
   }
 
@@ -182,7 +193,7 @@ class App extends Component {
   render() {
     const sprite = this.currentSprite();
     if (!sprite) return null;
-    const { mySpriteIds, activeSpriteId, treatCount } = this.props;
+    const { mySpriteIds, activeSpriteId, treatCount, activeRegionId } = this.props;
     const now = this.currentTime();
     const isWildSprite = !activeSpriteId;
 
@@ -212,9 +223,30 @@ class App extends Component {
       }
     );
 
+    const activeRegion = REGIONS[activeRegionId];
+
     return (
       <div className="saylua">
-        <div className="sprite-list">
+        <div className="selection-list">
+          {
+            Object.keys(REGIONS).map(canonName => (
+              <button
+                type="button"
+                className={`change-sprite${canonName === activeRegionId ? ' selected' : ''}`}
+                key={canonName}
+                onClick={() => {
+                  this.props.setActiveRegion(canonName);
+                  this.generateWildSprite(canonName);
+                }}
+                style={{
+                  backgroundImage: `url('/img/wilderness/${canonName}.jpg')`,
+                  backgroundSize: 'cover',
+                }}
+              />
+            ))
+          }
+        </div>
+        <div className="selection-list">
           <button
             type="button"
             className={`change-sprite${isWildSprite ? ' selected' : ''}`}
@@ -239,6 +271,7 @@ class App extends Component {
           <InteractionView
             className="interaction-view"
             sprite={sprite}
+            region={activeRegion}
             title={interactText('pet')}
             onClick={clickSprite}
           />
@@ -288,6 +321,7 @@ const mapStateToProps = state => ({
   dayOffset: state.game.dayOffset,
   treatCount: state.game.treatCount,
   eventText: state.game.eventText,
+  activeRegionId: state.game.activeRegionId,
 });
 
 const mapDispatchToProps = {
@@ -299,6 +333,7 @@ const mapDispatchToProps = {
   advanceDay,
   addTreat,
   setEventText,
+  setActiveRegion,
 };
 
 App.propTypes = {
@@ -310,6 +345,7 @@ App.propTypes = {
   advanceDay: PropTypes.func.isRequired,
   addTreat: PropTypes.func.isRequired,
   setEventText: PropTypes.func.isRequired,
+  setActiveRegion: PropTypes.func.isRequired,
 
   spritesById: PropTypes.object.isRequired,
   mySpriteIds: PropTypes.array.isRequired,
@@ -321,6 +357,7 @@ App.propTypes = {
   dayOffset: PropTypes.number.isRequired,
   treatCount: PropTypes.number.isRequired,
   eventText: PropTypes.string.isRequired,
+  activeRegionId: PropTypes.string.isRequired,
 };
 
 export default connect(

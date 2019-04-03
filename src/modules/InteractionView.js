@@ -10,7 +10,7 @@ const BASE_SEPIA_COLOR = { h: 38, s: 24, l: 57 };
 const SPRITE_SIZE = 350;
 
 export default function InteractionView(props) {
-  const { sprite, title, onClick, className } = props;
+  const { sprite, region, title, onClick, className } = props;
   const { distance } = sprite;
   const x = Math.random() * 0.5;
   const y = 0;
@@ -26,8 +26,15 @@ export default function InteractionView(props) {
     IMAGE_OPACITY_COLOR.s / BASE_SEPIA_COLOR.s * 50}%) brightness(${
     IMAGE_OPACITY_COLOR.l / BASE_SEPIA_COLOR.l * 100}%)`;
 
+  const bgStyle = `url('/img/wilderness/${region.canonName}.jpg')`;
+
   return (
-    <div className={`wilderness-background ${className}`}>
+    <div
+      className={`wilderness-background ${className}`}
+      style={{
+        backgroundImage: bgStyle,
+      }}
+    >
       <button
         type="button"
         className="wilderness-sprite-wrapper"
@@ -59,6 +66,7 @@ export default function InteractionView(props) {
 
 InteractionView.propTypes = {
   sprite: PropTypes.object.isRequired,
+  region: PropTypes.object.isRequired,
   title: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
