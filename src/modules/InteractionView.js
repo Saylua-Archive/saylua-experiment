@@ -13,7 +13,7 @@ const TREE_HEIGHT = 900;
 const SPRITE_DISTANCE_INTEREVALS = 5;
 
 export default function InteractionView(props) {
-  const { sprite, title, onClick, className } = props;
+  const { sprite, region, title, onClick, className } = props;
   const { distance } = sprite;
   const x = Math.random() * 0.5;
   const y = 0;
@@ -28,6 +28,8 @@ export default function InteractionView(props) {
     IMAGE_OPACITY_COLOR.h - BASE_SEPIA_COLOR.h}deg) saturate(${
     IMAGE_OPACITY_COLOR.s / BASE_SEPIA_COLOR.s * 50}%) brightness(${
     IMAGE_OPACITY_COLOR.l / BASE_SEPIA_COLOR.l * 100}%)`;
+
+  const bgStyle = `url('/img/wilderness/${region.canonName}.jpg')`;
 
   const trees = [
     { x: Math.random() - 0.2, z: z + Math.random() - 0.5 },
@@ -102,7 +104,12 @@ export default function InteractionView(props) {
   sceneImgs.splice(spriteIndex, 0, spriteImg);
 
   return (
-    <div className={`wilderness-background ${className}`}>
+    <div
+      className={`wilderness-background ${className}`}
+      style={{
+        backgroundImage: bgStyle,
+      }}
+    >
       {sceneImgs}
     </div>
   );
@@ -110,6 +117,7 @@ export default function InteractionView(props) {
 
 InteractionView.propTypes = {
   sprite: PropTypes.object.isRequired,
+  region: PropTypes.object.isRequired,
   title: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
