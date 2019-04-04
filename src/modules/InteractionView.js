@@ -11,17 +11,19 @@ const SPRITE_SIZE = 350;
 const TREE_WIDTH = 700;
 const TREE_HEIGHT = 900;
 const SPRITE_DISTANCE_INTEREVALS = 5;
+const SCENE_WIDTH = 660;
 
 export default function InteractionView(props) {
   const { sprite, region, title, onClick, className } = props;
   const { distance } = sprite;
-  const x = Math.random() * 0.5;
+  const x = Math.random();
   const y = 0;
   const z = distance / SPRITE_DISTANCE_INTEREVALS;
 
   const scaleFactor = ((1 - z) + 1) / 2;
-  const scaleStyle = `${SPRITE_SIZE * scaleFactor}px`;
-  const xStyle = `${x * 100}%`;
+  const scaledSpirteSize = SPRITE_SIZE * scaleFactor;
+  const scaleStyle = `${scaledSpirteSize}px`;
+  const xStyle = `${x * (1 - scaledSpirteSize / SCENE_WIDTH) * 100}%`;
   const zStyle = `${((z * HORIZON) + y) * 100}%`;
   const opacityStyle = `${z / SPRITE_DISTANCE_INTEREVALS}`;
   const filterStyle = `contrast(0) sepia(100%) hue-rotate(${
@@ -32,8 +34,8 @@ export default function InteractionView(props) {
   const bgStyle = `url('/img/wilderness/${region.canonName}.jpg')`;
 
   const trees = [
-    { x: Math.random() - 0.2, z: z + Math.random() - 0.5 },
-    { x: Math.random() - 0.2, z: z + Math.random() - 0.5 },
+    { x: Math.random() - 0.2, z: z + Math.random() - 1 },
+    { x: Math.random() - 0.2, z: z + Math.random() - 0.9 },
   ];
 
   trees.sort((a, b) => ((a.z < b.z) ? 1 : -1));
