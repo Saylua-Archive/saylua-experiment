@@ -42,7 +42,16 @@ body,
   transform: translateY(0.5%);
 }
 
-.selection-list {
+.place-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 8px;
+}
+
+.sprite-list {
   display: flex;
   align-items: center;
   justify-content: center;

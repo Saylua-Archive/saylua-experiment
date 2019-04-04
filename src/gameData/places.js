@@ -1,5 +1,8 @@
+import WildernessView from '../modules/WildernessView';
+import CityView from '../modules/CityView';
+
 // eslint-disable-next-line import/prefer-default-export
-export const REGIONS = {
+export const PLACES = {
   dawnlands: {
     name: 'Dawnlands',
     canonName: 'dawnlands',
@@ -7,6 +10,7 @@ export const REGIONS = {
       common: ['gam', 'senrix'],
       rare: ['loxi'],
     },
+    view: WildernessView,
   },
   luaria: {
     name: 'Luaria',
@@ -15,6 +19,7 @@ export const REGIONS = {
       common: ['arko', 'senrix'],
       rare: ['eydrun'],
     },
+    view: WildernessView,
   },
   sayleus: {
     name: 'Sayleus',
@@ -23,5 +28,11 @@ export const REGIONS = {
       common: ['chirling', 'gam'],
       rare: ['vela'],
     },
+    view: WildernessView,
+  },
+  estanya: {
+    name: 'Estanya City',
+    canonName: 'estanya',
+    view: CityView,
   },
 };
