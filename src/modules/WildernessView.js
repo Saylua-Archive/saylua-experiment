@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpritePortrait from '../sharedComponents/SpritePortrait/SpritePortrait';
-import './InteractionView.css';
+import './WildernessView.css';
 
 const HORIZON = 0.3;
 const IMAGE_OPACITY_COLOR = { h: 180, s: 25, l: 81 };
@@ -13,7 +13,7 @@ const TREE_HEIGHT = 900;
 const SPRITE_DISTANCE_INTEREVALS = 5;
 const SCENE_WIDTH = 660;
 
-export default function InteractionView(props) {
+export default function WildernessView(props) {
   const { sprite, region, title, onClick, className } = props;
   const { distance } = sprite;
   const x = Math.random();
@@ -117,7 +117,7 @@ export default function InteractionView(props) {
   );
 }
 
-InteractionView.propTypes = {
+WildernessView.propTypes = {
   sprite: PropTypes.object.isRequired,
   region: PropTypes.object.isRequired,
   title: PropTypes.string,
@@ -125,7 +125,7 @@ InteractionView.propTypes = {
   className: PropTypes.string,
 };
 
-InteractionView.defaultProps = {
+WildernessView.defaultProps = {
   title: '',
   onClick: undefined,
   className: '',

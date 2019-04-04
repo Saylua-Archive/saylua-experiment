@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import soulName from './helpers/name/soulName';
 import { capitalizeFirst, randomChoice, randomInt } from './helpers/utils';
 import './App.css';
-import InteractionView from './modules/InteractionView';
+import WildernessView from './modules/WildernessView';
 
 import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
 import { INTERACTION_TYPES, TRUST_LEVELS } from './gameData/spriteInteractions';
-import { REGIONS } from './gameData/regions';
+import { PLACES } from './gameData/places';
 import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from './textData/pronouns';
 import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from './textData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
@@ -19,6 +19,7 @@ import { TRUST_INCREASE_TEMPLATES,
 import { addWildSprite, befriendWildSprite, setActiveSprite, interactWithSprite,
   clearInteractions } from './reducers/spriteReducer';
 import { advanceDay, addTreat, setEventText, setActiveRegion } from './reducers/gameReducer';
+import CityView from './modules/CityView';
 
 
 const generateSprite = (speciesList) => {
@@ -61,14 +62,14 @@ class App extends Component {
 
   generateWildSprite(regionName) {
     const regionId = regionName || this.props.activeRegionId;
-    const { availableSpecies } = REGIONS[regionId];
+    const { availableSpecies } = PLACES[regionId];
     const newSprite = generateSprite(availableSpecies);
     this.props.addWildSprite(newSprite);
     this.props.setEventText(randomChoice(ENCOUNTER_TEMPLATES)(newSprite));
   }
 
   befriendWildSprite() {
-    const { availableSpecies } = REGIONS[this.props.activeRegionId];
+    const { availableSpecies } = PLACES[this.props.activeRegionId];
     const newSprite = generateSprite(availableSpecies);
     this.props.befriendWildSprite(newSprite);
   }
@@ -223,30 +224,11 @@ class App extends Component {
       }
     );
 
-    const activeRegion = REGIONS[activeRegionId];
+    const activeRegion = PLACES[activeRegionId];
 
     return (
       <div className="saylua">
-        <div className="selection-list">
-          {
-            Object.keys(REGIONS).map(canonName => (
-              <button
-                type="button"
-                className={`change-sprite${canonName === activeRegionId ? ' selected' : ''}`}
-                key={canonName}
-                onClick={() => {
-                  this.props.setActiveRegion(canonName);
-                  this.generateWildSprite(canonName);
-                }}
-                style={{
-                  backgroundImage: `url('/img/wilderness/${canonName}.jpg')`,
-                  backgroundSize: 'cover',
-                }}
-              />
-            ))
-          }
-        </div>
-        <div className="selection-list">
+        <div className="sprite-list">
           <button
             type="button"
             className={`change-sprite${isWildSprite ? ' selected' : ''}`}
@@ -268,13 +250,43 @@ class App extends Component {
           }
         </div>
         <div className="interaction-container">
-          <InteractionView
-            className="interaction-view"
-            sprite={sprite}
-            region={activeRegion}
-            title={interactText('pet')}
-            onClick={clickSprite}
-          />
+          <div className="place-list">
+            {
+              Object.keys(PLACES).map((canonName) => {
+                const place = PLACES[canonName];
+                return (
+                  <button
+                    type="button"
+                    className={`change-sprite${canonName === activeRegionId ? ' selected' : ''}`}
+                    key={canonName}
+                    onClick={() => {
+                      this.props.setActiveRegion(canonName);
+
+                      if (place.availableSpecies) {
+                        this.generateWildSprite(canonName);
+                      }
+                    }}
+                    style={{
+                      backgroundImage: `url('/img/wilderness/${canonName}.jpg')`,
+                      backgroundSize: 'cover',
+                    }}
+                  />
+                );
+              })
+            }
+          </div>
+          {
+            activeRegion.view === WildernessView
+              ? (
+                <WildernessView
+                  className="interaction-view"
+                  sprite={sprite}
+                  region={activeRegion}
+                  title={interactText('pet')}
+                  onClick={clickSprite}
+                />
+              ) : <CityView region={activeRegion} />
+          }
           <div className="interaction-content">
             <h2>{sceneTitle}</h2>
             <p>
@@ -297,14 +309,10 @@ class App extends Component {
                 </button>
               ))
             }
-
-            <p>
-              {`The date is ${now.toLocaleString()}`}
-            </p>
-            <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
-            <button type="button" className="button" onClick={this.generateWildSprite.bind(this)}>Run away</button>
           </div>
         </div>
+        <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
+        {`The date is ${now.toLocaleString()}`}
       </div>
     );
   }
