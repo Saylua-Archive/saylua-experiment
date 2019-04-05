@@ -31,7 +31,7 @@ export default function WildernessView(props) {
     IMAGE_OPACITY_COLOR.s / BASE_SEPIA_COLOR.s * 50}%) brightness(${
     IMAGE_OPACITY_COLOR.l / BASE_SEPIA_COLOR.l * 100}%)`;
 
-  const bgStyle = `url('/img/wilderness/${region.canonName}.jpg')`;
+  const bgStyle = `url('img/wilderness/${region.canonName}.jpg')`;
 
   const trees = [
     { x: Math.random() - 0.2, z: z + Math.random() - 1 },
