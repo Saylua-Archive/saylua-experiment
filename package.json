@@ -2,6 +2,7 @@
   "name": "saylua-experiment",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://saylua.github.io/saylua-experiment",
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
@@ -14,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,6 +33,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "gh-pages": "^2.0.1"
   }
 }
