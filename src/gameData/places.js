@@ -35,4 +35,9 @@ export const PLACES = {
     canonName: 'estanya',
     view: CityView,
   },
+  home: {
+    name: 'My Home',
+    canonName: 'home',
+    view: CityView,
+  },
 };
