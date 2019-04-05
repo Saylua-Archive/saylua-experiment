@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/saylua-experiment/static/js/runtime~main.fc7d724e.js"
   },
   {
-    "revision": "5c9cb595296ade25247f",
-    "url": "/saylua-experiment/static/js/main.c6573a71.chunk.js"
+    "revision": "6624164201124531f655",
+    "url": "/saylua-experiment/static/js/main.0302d120.chunk.js"
   },
   {
     "revision": "a711ea5c04081906e72b",
     "url": "/saylua-experiment/static/js/2.bed783cb.chunk.js"
   },
   {
-    "revision": "5c9cb595296ade25247f",
+    "revision": "6624164201124531f655",
     "url": "/saylua-experiment/static/css/main.da77741d.chunk.css"
   },
   {
-    "revision": "24a3569fbb38f7e4e255850578bbf4a3",
+    "revision": "a2a54e9d66230a77fa4d3f3908eec78e",
     "url": "/saylua-experiment/index.html"
   }
 ];
