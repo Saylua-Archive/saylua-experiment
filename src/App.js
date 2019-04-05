@@ -194,35 +194,9 @@ class App extends Component {
   render() {
     const sprite = this.currentSprite();
     if (!sprite) return null;
-    const { mySpriteIds, activeSpriteId, treatCount, activeRegionId } = this.props;
+    const { mySpriteIds, activeSpriteId, activeRegionId } = this.props;
     const now = this.currentTime();
     const isWildSprite = !activeSpriteId;
-
-    const interactText = interactionType => (sprite
-      && INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
-
-
-    const clickSprite = () => this.interactWithSprite('pet');
-
-    let sceneTitle = '';
-    if (!isWildSprite) {
-      sceneTitle = sprite.name;
-    } else if (sprite.trust > TRUST_LEVELS.friendly) {
-      sceneTitle = `${sprite.name} the wild ${sprite.species}`;
-    } else if (isWildSprite) {
-      sceneTitle = `A wild ${sprite.species}`;
-    }
-
-    const { distance, trust } = sprite;
-    const availableInteractions = Object.keys(INTERACTION_TYPES).filter(
-      (interactionType) => {
-        const { maxDistance, minDistance, minTrust } = INTERACTION_TYPES[interactionType];
-        if (distance > maxDistance) return false;
-        if (distance <= minDistance) return false;
-        if (trust <= minTrust) return false;
-        return true;
-      }
-    );
 
     const activeRegion = PLACES[activeRegionId];
 
@@ -279,37 +253,11 @@ class App extends Component {
             activeRegion.view === WildernessView
               ? (
                 <WildernessView
-                  className="interaction-view"
                   sprite={sprite}
                   region={activeRegion}
-                  title={interactText('pet')}
-                  onClick={clickSprite}
                 />
               ) : <CityView region={activeRegion} />
           }
-          <div className="interaction-content">
-            <h2>{sceneTitle}</h2>
-            <p>
-              {`Trust level: ${sprite.trust},
-              Treat count: ${treatCount}`}
-            </p>
-            <p className="event-text">{this.props.eventText}</p>
-            {
-              availableInteractions.map(interaction => (
-                <button
-                  className="button"
-                  type="button"
-                  key={interaction}
-                  onClick={() => {
-                    this.interactWithSprite(interaction);
-                  }}
-                  disabled={this.canPlay(interaction) ? undefined : true}
-                >
-                  {interactText(interaction)}
-                </button>
-              ))
-            }
-          </div>
         </div>
         <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
         {`The date is ${now.toLocaleString()}`}
@@ -364,7 +312,6 @@ App.propTypes = {
 
   dayOffset: PropTypes.number.isRequired,
   treatCount: PropTypes.number.isRequired,
-  eventText: PropTypes.string.isRequired,
   activeRegionId: PropTypes.string.isRequired,
 };
 
