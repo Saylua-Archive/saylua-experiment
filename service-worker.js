@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/saylua-experiment/precache-manifest.d6ba8b0ff3b422ef353d6e06dab73a81.js"
+  "/saylua-experiment/precache-manifest.bc02701bd43d0caa2a14767b620029ee.js"
 );
 
 workbox.clientsClaim();
