@@ -6,7 +6,7 @@ import './WildernessView.css';
 export default function CityView(props) {
   const { region, className } = props;
 
-  const bgStyle = `url('/img/wilderness/${region.canonName}.jpg')`;
+  const bgStyle = `url('img/wilderness/${region.canonName}.jpg')`;
 
   return (
     <div

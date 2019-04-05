@@ -267,7 +267,7 @@ class App extends Component {
                       }
                     }}
                     style={{
-                      backgroundImage: `url('/img/wilderness/${canonName}.jpg')`,
+                      backgroundImage: `url('img/wilderness/${canonName}.jpg')`,
                       backgroundSize: 'cover',
                     }}
                   />
