@@ -92,10 +92,12 @@ class WildernessView extends Component {
 
   canPlay(interactionType) {
     const { distance } = this.currentSprite();
-    const { maxPerDay, usesTreat, maxDistance, minDistance } = INTERACTION_TYPES[interactionType];
+    const { maxPerDay, usesTreat, maxDistance,
+      minDistance, unavailable } = INTERACTION_TYPES[interactionType];
     if (usesTreat && this.props.treatCount < 1) return false;
     if (distance > maxDistance) return false;
     if (distance <= minDistance) return false;
+    if (unavailable) return false;
     if (!maxPerDay) return true;
     const interacted = this.getInteractionCount(interactionType);
     return interacted < maxPerDay || this.hasBeenADaySincePlaying();
