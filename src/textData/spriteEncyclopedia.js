@@ -171,7 +171,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     grammar: {
-      plural: 'senrices',
+      plural: 'senrixes',
       article: 'a',
     },
 
