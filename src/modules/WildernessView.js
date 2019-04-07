@@ -200,6 +200,9 @@ class WildernessView extends Component {
     const interactText = interactionType => (sprite
       && INTERACTION_TYPES[interactionType].buttonTextTemplate(sprite));
 
+    const notNowText = interactionType => (sprite
+      && INTERACTION_TYPES[interactionType].notNowTemplate(sprite));
+
 
     const clickSprite = () => this.interactWithSprite('pet');
 
@@ -250,6 +253,7 @@ class WildernessView extends Component {
                   this.interactWithSprite(interaction);
                 }}
                 disabled={this.canPlay(interaction) ? undefined : true}
+                title={this.canPlay(interaction) ? undefined : notNowText(interaction)}
               >
                 {interactText(interaction)}
               </button>
