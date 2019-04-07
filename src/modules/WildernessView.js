@@ -230,7 +230,6 @@ class WildernessView extends Component {
           title={interactText('pet')}
           onClick={clickSprite}
         />
-
         <div className="interaction-content">
           <h2>{sceneTitle}</h2>
           <p>
