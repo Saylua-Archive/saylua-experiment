@@ -24,6 +24,7 @@ export const INTERACTION_TYPES = {
     maxPerDay: 3,
     trustIncrease: () => 1,
     buttonTextTemplate: sprite => `Pet ${nameOrWild(sprite)}`,
+    notNowTemplate: sprite => `${nameOrWild(sprite)} isn't in the mood for petting.`,
     templates: PET_TEMPLATES,
   },
   water: {
@@ -31,6 +32,7 @@ export const INTERACTION_TYPES = {
     maxPerDay: 1,
     trustIncrease: () => 1,
     buttonTextTemplate: sprite => `Give ${nameOrWild(sprite)} water`,
+    notNowTemplate: sprite => `${nameOrWild(sprite)} isn't thirsty.`,
     templates: WATER_TEMPLATES,
   },
   groom: {
@@ -39,6 +41,7 @@ export const INTERACTION_TYPES = {
     maxPerDay: 1,
     trustIncrease: () => 1,
     buttonTextTemplate: sprite => `Groom ${nameOrWild(sprite)}`,
+    notNowTemplate: sprite => `${nameOrWild(sprite)} is already groomed.`,
     templates: GROOM_TEMPLATES,
   },
   treat: {
@@ -47,6 +50,7 @@ export const INTERACTION_TYPES = {
     trustIncrease: () => 2,
     usesTreat: true,
     buttonTextTemplate: sprite => `Give ${nameOrWild(sprite)} a treat`,
+    notNowTemplate: () => 'You\'re out of treats.',
     templates: TREAT_TEMPLATES,
   },
   sing: {
@@ -55,6 +59,7 @@ export const INTERACTION_TYPES = {
     maxPerDay: 3,
     trustIncrease: () => 1,
     buttonTextTemplate: sprite => `Sing to ${nameOrWild(sprite)}`,
+    notNowTemplate: sprite => `${nameOrWild(sprite)} is tired of singing.`,
     templates: SING_TEMPLATES,
   },
   approach: {
