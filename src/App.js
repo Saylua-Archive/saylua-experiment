@@ -71,6 +71,7 @@ class App extends Component {
           {
             React.createElement(activeRegion.view, {
               region: activeRegion,
+              key: activeRegion.canonName,
             })
           }
         </div>
