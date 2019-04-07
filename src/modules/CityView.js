@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './WildernessView.css';
+import './CityView.css';
 
 export default class CityView extends Component {
   constructor(props) {
@@ -24,15 +25,17 @@ export default class CityView extends Component {
     const characterImage = character ? `img/characters/${character}.png` : '';
 
     return (
-      <div className="interaction-container">
-        <div
-          className={`interaction-view wilderness-background ${className}`}
-          style={{
-            backgroundImage: bgStyle,
-          }}
-        >
+      <div className={`interaction-container ${className}`}>
+        <div className="wilderness-background interaction-view">
+          <div
+            className="wilderness-background"
+            style={{
+              backgroundImage: bgStyle,
+              filter: characterImage ? `blur(5px)` : '',
+            }}
+          />
           { characterImage
-            && <img src={characterImage} alt={character} title={character} />
+            && <img className="character-view" src={characterImage} alt={character} title={character} />
           }
         </div>
         <div className="interaction-content">

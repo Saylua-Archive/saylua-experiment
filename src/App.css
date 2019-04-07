@@ -10,10 +10,13 @@ body,
   min-height: 100%;
 }
 
-.event-text {
-  padding: 0.5em 0;
-  line-height: 1.6em;
-  font-size: 18px;
+.interaction-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  align-items: flex-start;
 }
 
 .change-sprite {

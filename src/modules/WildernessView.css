@@ -1,12 +1,3 @@
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 1000px;
-  margin: auto;
-  align-items: flex-start;
-}
-
 .interaction-view {
   flex-grow: 0;
   flex-shrink: 0;
@@ -15,4 +6,10 @@
 .interaction-content {
   text-align: left;
   padding: 0.25em 16px;
+}
+
+.event-text {
+  padding: 0.5em 0;
+  line-height: 1.4em;
+  font-size: 16px;
 }
