@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES,
-  SING_TEMPLATES, APPROACH_TEMPLATES, WAIT_TEMPLATES, FLEE_TEMPLATES } from '../templates/templates';
+  SING_TEMPLATES, APPROACH_TEMPLATES, WAIT_TEMPLATES } from '../templates/templates';
 
 export const TRUST_LEVELS = {
-  tolerant: -5,
+  tolerant: -6,
   neutral: 0,
   curious: 1,
   friendly: 2,
@@ -69,15 +69,8 @@ export const INTERACTION_TYPES = {
     minDistance: 0,
     maxPerDay: 0,
     trustIncrease: () => 1,
-    distanceDecrease: () => (Math.random() > 0.5 ? 0 : -1),
+    distanceDecrease: () => (Math.random() > 0.3 ? 0 : -1),
     buttonTextTemplate: () => `Wait...`,
     templates: WAIT_TEMPLATES,
-  },
-  flee: {
-    unavailable: true,
-    maxPerDay: -1,
-    templates: FLEE_TEMPLATES,
-    newSprite: true,
-    buttonTextTemplate: () => `Goodbye...`,
   },
 };
