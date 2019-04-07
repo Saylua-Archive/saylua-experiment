@@ -60,25 +60,6 @@ body,
   margin: auto;
 }
 
-.interaction-container {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 1000px;
-  margin: auto;
-  align-items: flex-start;
-}
-
-.interaction-view {
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-
-.interaction-content {
-  text-align: left;
-  padding: 0.25em 16px;
-}
-
 .button {
   margin: 0.25em 4px;
   padding: 0.25em 8px;
