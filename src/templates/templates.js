@@ -27,15 +27,6 @@ export const ENCOUNTER_TEMPLATES = [
   sprite => spriteText(sprite)`In the distance, you see ${a_chirling}.`,
 ];
 
-export const FLEE_TEMPLATES = {
-  comfortable: [
-    sprite => spriteText(sprite)`The ${chirling} wandered off.`,
-  ],
-  anxious: [
-    sprite => spriteText(sprite)`The ${chirling} ran away.`,
-  ],
-};
-
 export const APPROACH_TEMPLATES = {
   comfortable: [
     sprite => spriteText(sprite)`${They} ${_v('seem')} comfortable with your presence.`,

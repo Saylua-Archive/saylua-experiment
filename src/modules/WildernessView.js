@@ -215,12 +215,10 @@ class WildernessView extends Component {
     const { distance, trust } = sprite;
     const availableInteractions = Object.keys(INTERACTION_TYPES).filter(
       (interactionType) => {
-        const { maxDistance, minDistance,
-          minTrust, unavailable } = INTERACTION_TYPES[interactionType];
+        const { maxDistance, minDistance, minTrust } = INTERACTION_TYPES[interactionType];
         if (distance > maxDistance) return false;
         if (distance <= minDistance) return false;
         if (trust <= minTrust) return false;
-        if (unavailable) return false;
         return true;
       }
     );
