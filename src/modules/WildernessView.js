@@ -132,7 +132,7 @@ class WildernessView extends Component {
       this.generateEventText({ type: interactionType, treatIncrease: treats })
     );
 
-    if ((sprite.trust > TRUST_LEVELS.bonded && sprite.distance < 0)
+    if ((sprite.trust > TRUST_LEVELS.bonded && sprite.distance < 1)
         && !this.props.activeSpriteId) {
       this.befriendWildSprite();
     }
