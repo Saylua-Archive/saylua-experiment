@@ -14,7 +14,7 @@ const overlayChannel = (original, overlay, alpha) => {
 
 // TODO: Support arbitrary image manipulation functions.
 const overlayColorOnImage = (img, overlayColor) => {
-  if (!img || !overlayColor) return;
+  if (!img || !overlayColor) return '';
 
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;
@@ -64,7 +64,9 @@ export default class CanvasImage extends Component {
     } else if (this.props.overlayColor !== nextProps.overlayColor) {
       // Color changed, but image did not change.
       const src = overlayColorOnImage(this.imageElement, nextProps.overlayColor);
-      this.setState({ src });
+      if (src) {
+        this.setState({ src });
+      }
     }
   }
 
@@ -73,7 +75,9 @@ export default class CanvasImage extends Component {
     this.imageElement.src = imgSrc;
     this.imageElement.onload = () => {
       const src = overlayColorOnImage(this.imageElement, this.props.overlayColor);
-      this.setState({ src });
+      if (src) {
+        this.setState({ src });
+      }
     };
   }
 

@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import soulName from '../helpers/name/soulName';
-import { capitalizeFirst, randomChoice, randomInt } from '../helpers/utils';
-import './WildernessView.css';
-import WildernessScene from './WildernessScene';
+import soulName from '../../helpers/name/soulName';
+import { capitalizeFirst, randomChoice, randomInt } from '../../helpers/utils';
 
-import { INTERACTION_TYPES, TRUST_LEVELS } from '../gameData/spriteInteractions';
-import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from '../gameData/pronouns';
-import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from '../gameData/spriteEncyclopedia';
+import { INTERACTION_TYPES, TRUST_LEVELS } from '../../gameData/spriteInteractions';
+import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from '../../gameData/pronouns';
+import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from '../../gameData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
-  TREAT_GIFT_TEMPLATES, ENCOUNTER_TEMPLATES } from '../templates/templates';
+  TREAT_GIFT_TEMPLATES, ENCOUNTER_TEMPLATES } from '../../templates/templates';
 
 import { addWildSprite, befriendWildSprite, interactWithSprite,
-  clearInteractions } from '../reducers/spriteReducer';
-import { advanceDay, addTreat, setEventText, setActiveRegion } from '../reducers/gameReducer';
+  clearInteractions } from '../../reducers/spriteReducer';
+import { advanceDay, addTreat, setEventText, setActiveRegion } from '../../reducers/gameReducer';
+
+import './WildernessView.css';
+import WildernessScene from './WildernessScene';
 
 
 const generateSprite = (speciesList) => {

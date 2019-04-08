@@ -1,5 +1,5 @@
-import WildernessView from '../modules/WildernessView';
-import CityView from '../modules/CityView';
+import WildernessView from '../modules/WildernessView/WildernessView';
+import CityView from '../modules/CityView/CityView';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PLACES = {
