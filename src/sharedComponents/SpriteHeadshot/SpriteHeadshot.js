@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './SpriteHeadshot.css';
-import { SPRITE_ENCYCLOPEDIA } from '../../textData/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../../gameData/spriteEncyclopedia';
 
 const SPRITE_SIZE = 350;
 

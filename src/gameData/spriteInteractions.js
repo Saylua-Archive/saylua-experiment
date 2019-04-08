@@ -65,7 +65,7 @@ export const INTERACTION_TYPES = {
   approach: {
     minDistance: 0,
     maxPerDay: 0,
-    trustIncrease: () => (Math.random() > 0.5 ? -1 : -2),
+    trustIncrease: () => (Math.random() > 0.5 ? 0 : -1),
     distanceDecrease: () => 1,
     buttonTextTemplate: sprite => `Approach ${nameOrWild(sprite)}`,
     templates: APPROACH_TEMPLATES,
@@ -74,7 +74,7 @@ export const INTERACTION_TYPES = {
     minDistance: 0,
     maxPerDay: 0,
     trustIncrease: () => 1,
-    distanceDecrease: () => (Math.random() > 0.3 ? 0 : -1),
+    distanceDecrease: () => (Math.random() > 0.2 ? 0 : -1),
     buttonTextTemplate: () => `Wait...`,
     templates: WAIT_TEMPLATES,
   },

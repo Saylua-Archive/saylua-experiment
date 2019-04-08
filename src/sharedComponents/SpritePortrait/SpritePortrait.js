@@ -1,35 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { SPRITE_ENCYCLOPEDIA } from '../../gameData/spriteEncyclopedia';
 import './SpritePortrait.css';
+import CanvasImage from '../CanvasImage/CanvasImage';
+
+
+const EXCITED_TRUST_THRESHOLD = 10;
 
 export default function SpritePortrait(props) {
-  const { sprite, title, onClick, className, style } = props;
+  const { sprite, title, onClick, className, style, overlayColor, faces } = props;
   const image = `img/sprites/${sprite.species}/${sprite.color}.png`;
-  if (onClick) {
-    return (
-      <button
-        style={style}
-        className={`sprite-portrait ${className}`}
-        type="button"
-        onClick={onClick}
-      >
-        <img
-          src={image}
-          alt={sprite.species}
-          title={title}
-        />
-      </button>
-    );
+  const { facesRight } = SPRITE_ENCYCLOPEDIA[sprite.species] || {};
+  let flipSprite = false;
+  if (faces === 'right') {
+    flipSprite = !facesRight;
+  } else if (faces === 'left') {
+    flipSprite = facesRight;
   }
+  const computedClass = `sprite-portrait ${className} ${flipSprite ? 'flipped' : ''} ${
+    sprite.trust > EXCITED_TRUST_THRESHOLD ? 'sprite-is-excited' : ''}`;
   return (
-    <img
+    <button
       style={style}
-      className={`sprite-portrait ${className}`}
-      src={image}
-      alt={sprite.species}
-      title={title}
-    />
+      className={computedClass}
+      type="button"
+      onClick={onClick}
+      disabled={!onClick}
+    >
+      <CanvasImage
+        src={image}
+        overlayColor={overlayColor}
+        alt={sprite.species}
+        title={title}
+      />
+    </button>
   );
 }
 
@@ -39,6 +44,8 @@ SpritePortrait.propTypes = {
   title: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object,
+  overlayColor: PropTypes.object,
+  faces: PropTypes.string,
 };
 
 SpritePortrait.defaultProps = {
@@ -46,4 +53,6 @@ SpritePortrait.defaultProps = {
   title: '',
   onClick: undefined,
   style: undefined,
+  overlayColor: undefined,
+  faces: '',
 };

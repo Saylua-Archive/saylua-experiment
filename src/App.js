@@ -10,6 +10,7 @@ import { PLACES } from './gameData/places';
 
 import { setActiveSprite } from './reducers/spriteReducer';
 import { advanceDay, setActiveRegion } from './reducers/gameReducer';
+import SpriteAvatarView from './sharedComponents/SpriteAvatarView/SpriteAvatarView';
 
 
 class App extends Component {
@@ -21,62 +22,72 @@ class App extends Component {
   }
 
   render() {
-    const { mySpriteIds, activeSpriteId, activeRegionId } = this.props;
+    const { mySpriteIds, activeSpriteId, activeRegionId, spritesById } = this.props;
     const now = this.currentTime();
 
     const activeRegion = PLACES[activeRegionId];
+    const activeSprite = spritesById[activeSpriteId];
 
     return (
       <div className="saylua">
-        <div className="sprite-list">
-          <button
-            type="button"
-            className={`change-sprite${!activeSpriteId ? ' selected' : ''}`}
-            onClick={() => this.props.setActiveSprite()}
-          >
-            {`?`}
-          </button>
-          {
-            mySpriteIds.map(id => (
-              <button
-                type="button"
-                className={`change-sprite${id === activeSpriteId ? ' selected' : ''}`}
-                key={id}
-                onClick={() => this.props.setActiveSprite(id)}
-              >
-                <SpriteHeadshot sprite={this.props.spritesById[id]} />
-              </button>
-            ))
-          }
-        </div>
-        <div className="interaction-container">
-          <div className="place-list">
+        { activeSprite
+          && (
+            <div className="sidebar">
+              <SpriteAvatarView sprite={activeSprite} />
+            </div>
+          )
+        }
+        <div>
+          <div className="sprite-list">
+            <button
+              type="button"
+              className={`change-sprite${!activeSpriteId ? ' selected' : ''}`}
+              onClick={() => this.props.setActiveSprite()}
+            >
+              {`?`}
+            </button>
             {
-              Object.keys(PLACES).map(canonName => (
+              mySpriteIds.map(id => (
                 <button
                   type="button"
-                  className={`change-sprite${canonName === activeRegionId ? ' selected' : ''}`}
-                  key={canonName}
-                  onClick={() => {
-                    this.props.setActiveRegion(canonName);
-                  }}
-                  style={{
-                    backgroundImage: `url('img/wilderness/${canonName}.jpg')`,
-                    backgroundSize: 'cover',
-                  }}
-                />
+                  className={`change-sprite${id === activeSpriteId ? ' selected' : ''}`}
+                  key={id}
+                  onClick={() => this.props.setActiveSprite(id)}
+                >
+                  <SpriteHeadshot sprite={spritesById[id]} />
+                </button>
               ))
             }
           </div>
-          {
-            React.createElement(activeRegion.view, {
-              region: activeRegion,
-              key: activeRegion.canonName,
-            })
-          }
+          <div className="interaction-container">
+            <div className="place-list">
+              {
+                Object.keys(PLACES).map(canonName => (
+                  <button
+                    type="button"
+                    className={`change-sprite${canonName === activeRegionId ? ' selected' : ''}`}
+                    key={canonName}
+                    onClick={() => {
+                      this.props.setActiveRegion(canonName);
+                    }}
+                    style={{
+                      backgroundImage: `url('img/wilderness/${canonName}.jpg')`,
+                      backgroundSize: 'cover',
+                    }}
+                  />
+                ))
+              }
+            </div>
+            {
+              React.createElement(activeRegion.view, {
+                region: activeRegion,
+                key: activeRegion.canonName,
+              })
+            }
+          </div>
+          <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
+          {`The date is ${now.toLocaleString()}`}
         </div>
-        <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
-        {`The date is ${now.toLocaleString()}`}
       </div>
     );
   }

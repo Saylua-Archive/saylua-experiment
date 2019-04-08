@@ -2,18 +2,33 @@ html,
 body,
 #root {
   height: 100%;
+  background: hsl(180, 12%, 92%);
+}
+
+button {
+  background: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
 }
 
 .saylua {
-  text-align: center;
-  background: hsl(180, 12%, 92%);
-  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar {
+  width: 200px;
+  position: sticky;
 }
 
 .interaction-container {
   display: flex;
   flex-direction: row;
-  width: 90%;
   max-width: 1000px;
   margin: auto;
   align-items: flex-start;
@@ -88,10 +103,4 @@ body,
 
 .button:active {
   transform: translateY(2%);
-}
-
-button {
-  background: 0;
-  border: 0;
-  cursor: pointer;
 }

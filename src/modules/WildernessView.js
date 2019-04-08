@@ -8,8 +8,8 @@ import './WildernessView.css';
 import WildernessScene from './WildernessScene';
 
 import { INTERACTION_TYPES, TRUST_LEVELS } from '../gameData/spriteInteractions';
-import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from '../textData/pronouns';
-import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from '../textData/spriteEncyclopedia';
+import { SHE_PRONOUNS, HE_PRONOUNS, THEY_PRONOUNS } from '../gameData/pronouns';
+import { SPRITE_COATS, CANONICAL_SPRITE_COATS } from '../gameData/spriteEncyclopedia';
 import { TRUST_INCREASE_TEMPLATES,
   TREAT_GIFT_TEMPLATES, ENCOUNTER_TEMPLATES } from '../templates/templates';
 
