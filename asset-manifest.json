@@ -1,13 +1,13 @@
 {
-  "main.css": "/saylua-experiment/static/css/main.da77741d.chunk.css",
-  "main.js": "/saylua-experiment/static/js/main.f8e116dc.chunk.js",
-  "main.js.map": "/saylua-experiment/static/js/main.f8e116dc.chunk.js.map",
+  "main.css": "/saylua-experiment/static/css/main.b81dfab2.chunk.css",
+  "main.js": "/saylua-experiment/static/js/main.4a3d34c9.chunk.js",
+  "main.js.map": "/saylua-experiment/static/js/main.4a3d34c9.chunk.js.map",
   "runtime~main.js": "/saylua-experiment/static/js/runtime~main.fc7d724e.js",
   "runtime~main.js.map": "/saylua-experiment/static/js/runtime~main.fc7d724e.js.map",
-  "static/js/2.bed783cb.chunk.js": "/saylua-experiment/static/js/2.bed783cb.chunk.js",
-  "static/js/2.bed783cb.chunk.js.map": "/saylua-experiment/static/js/2.bed783cb.chunk.js.map",
+  "static/js/2.f62f1a17.chunk.js": "/saylua-experiment/static/js/2.f62f1a17.chunk.js",
+  "static/js/2.f62f1a17.chunk.js.map": "/saylua-experiment/static/js/2.f62f1a17.chunk.js.map",
   "index.html": "/saylua-experiment/index.html",
-  "precache-manifest.bc02701bd43d0caa2a14767b620029ee.js": "/saylua-experiment/precache-manifest.bc02701bd43d0caa2a14767b620029ee.js",
+  "precache-manifest.b40e175d4ea3b53e438c2f86b4a921f3.js": "/saylua-experiment/precache-manifest.b40e175d4ea3b53e438c2f86b4a921f3.js",
   "service-worker.js": "/saylua-experiment/service-worker.js",
-  "static/css/main.da77741d.chunk.css.map": "/saylua-experiment/static/css/main.da77741d.chunk.css.map"
+  "static/css/main.b81dfab2.chunk.css.map": "/saylua-experiment/static/css/main.b81dfab2.chunk.css.map"
 }
