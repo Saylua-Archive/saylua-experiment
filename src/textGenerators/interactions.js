@@ -1,5 +1,5 @@
 import { randomChoice } from '../helpers/utils';
-import { SPRITE_ENCYCLOPEDIA } from '../textData/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../gameData/spriteEncyclopedia';
 
 export const token = () => randomChoice(['twig', 'flower', 'glowing fruit',
   'rock', 'leaf', 'bit of straw']);

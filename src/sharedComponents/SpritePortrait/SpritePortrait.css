@@ -7,21 +7,39 @@
   box-shadow: none;
 }
 
+.sprite-portrait[disabled] {
+  cursor: default;
+}
+
 .sprite-portrait img {
   max-width: 100%;
   max-height: 100%;
 }
 
-button.sprite-portrait {
-  cursor: pointer;
-}
-
-button.sprite-portrait:hover {
+.sprite-portrait:hover:enabled {
   transform: translateY(-0.5%);
   background: none;
   border: 0;
 }
 
-button.sprite-portrait:active {
+.sprite-portrait.sprite-is-excited:hover:enabled {
+  animation: bounce-up 2s linear infinite;
+  transform-origin: 50% 100%;
+}
+
+.sprite-portrait:active:enabled {
   transform: translateY(0.5%);
+}
+
+.sprite-portrait.flipped img {
+  transform: scaleX(-1);
+}
+
+@keyframes bounce-up {
+  0%, 100% {
+    transform: translateY(0%) scaleY(1);
+  }
+  50% {
+    transform: translateY(-3%) scaleY(1.01);
+  }
 }
