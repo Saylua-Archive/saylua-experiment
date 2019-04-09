@@ -36,7 +36,6 @@ export default function SpritePortrait(props) {
     <button
       style={{
         width: SPRITE_SIZE,
-        height: SPRITE_SIZE,
         ...style,
       }}
       className={computedClass}

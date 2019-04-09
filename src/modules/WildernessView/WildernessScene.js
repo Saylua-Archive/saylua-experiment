@@ -8,10 +8,28 @@ import SceneObject from './SceneObject';
 const HORIZON = 0.3;
 const IMAGE_OVERLAY_COLOR = { r: 194, g: 218, b: 218, a: 0.3 };
 const SPRITE_SIZE = 350;
-const TREE_WIDTH = 700;
-const TREE_HEIGHT = 900;
+const TREE_WIDTH = 450;
+const TREE_HEIGHT = 700;
 const SPRITE_DISTANCE_INTERVALS = 5;
 const SCENE_WIDTH = 660;
+
+
+// TODO: Turn this into a general "collision detection" function.
+export const generateTreePosition = (spritePosition) => {
+  const treeRatio = TREE_WIDTH / SCENE_WIDTH;
+  const spriteRatio = spritePosition.size / SCENE_WIDTH;
+  const x = Math.random() - treeRatio / 2;
+  const spriteEndX = spritePosition.x + spriteRatio;
+  let z;
+  if (x >= spritePosition.x - treeRatio / 2 && x <= spriteEndX + treeRatio / 2) {
+    // Tree overlaps x position with sprite, so make sure it's behind the sprite.
+    const minZ = spritePosition.z + spriteRatio / 2;
+    z = (1.3 - minZ) * Math.random() + minZ;
+  } else {
+    z = Math.random() - 0.8;
+  }
+  return { x, z, y: 0 };
+};
 
 export default function WildernessScene(props) {
   const { sprite, region, title, onClick, className, kaomoji } = props;
@@ -28,9 +46,12 @@ export default function WildernessScene(props) {
 
   const bgStyle = `url('img/wilderness/${region.canonName}.jpg')`;
 
+  const spritePosition = { x, z, y, size: scaledSpriteSize };
   const trees = [
-    { x: Math.random() - 0.2, z: z + Math.random() - 1 },
-    { x: Math.random() - 0.2, z: z + Math.random() - 0.9 },
+    generateTreePosition(spritePosition),
+    generateTreePosition(spritePosition),
+    generateTreePosition(spritePosition),
+    generateTreePosition(spritePosition),
   ];
 
   const treeImgs = trees.map((tree, i) => (
