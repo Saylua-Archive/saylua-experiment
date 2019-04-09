@@ -233,6 +233,7 @@ class WildernessView extends Component {
         <WildernessScene
           className="interaction-view"
           sprite={sprite}
+          kaomoji={this.props.eventText.kaomoji}
           region={activeRegion}
           title={interactText('pet')}
           onClick={clickSprite}
@@ -243,7 +244,7 @@ class WildernessView extends Component {
             {`Trust level: ${sprite.trust},
             Treat count: ${treatCount}`}
           </p>
-          <p className="event-text">{this.props.eventText}</p>
+          <p className="event-text">{this.props.eventText.text}</p>
           {
             availableInteractions.map(interaction => (
               <button

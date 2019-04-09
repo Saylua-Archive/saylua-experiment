@@ -8,200 +8,261 @@ import { _n, _v, spriteText } from '../textGenerators/helpers';
 // Texts to be added when a trust level is achieved.
 export const TRUST_INCREASE_TEMPLATES = {
   curious: [
-    sprite => spriteText(sprite)`${They} ${_v('seem')} interested in getting
+    sprite => ({ text: spriteText(sprite)`${They} ${_v('seem')} interested in getting
       to know you.`,
-    sprite => spriteText(sprite)`${They_re} looking a little less nervous.`,
+    kaomoji: 'eager' }),
+    sprite => ({ text: spriteText(sprite)`${They_re} looking a little less nervous.`,
+      kaomoji: 'comfortable' }),
   ],
   friendly: [
-    sprite => spriteText(sprite)`You learn that ${their} name is ${Kimberly}.`,
-    sprite => spriteText(sprite)`The ${chirling} looks into your eyes. Somehow,
+    sprite => ({ text: spriteText(sprite)`You learn that ${their} name is ${Kimberly}.`,
+      kaomoji: 'preen' }),
+    sprite => ({ text: spriteText(sprite)`The ${chirling} looks into your eyes. Somehow,
       you have a feeling that ${their} name is ${Kimberly}.`,
+    kaomoji: 'comfortable' }),
   ],
   bonded: [
-    sprite => spriteText(sprite)`${Kimberly} trusts you and wants to stay with you.`,
-    sprite => spriteText(sprite)`${Kimberly} is ready to become your companion.`,
+    sprite => ({ text: spriteText(sprite)`${Kimberly} trusts you and wants to stay with you.`,
+      kaomoji: 'excited' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} is ready to become your companion.`,
+      kaomoji: 'excited' }),
   ],
 };
 
 export const ENCOUNTER_TEMPLATES = [
-  sprite => spriteText(sprite)`In the distance, you see ${a_chirling}.`,
+  sprite => ({ text: spriteText(sprite)`In the distance, you see ${a_chirling}.` }),
 ];
 
 export const APPROACH_TEMPLATES = {
   comfortable: [
-    sprite => spriteText(sprite)`${They} ${_v('seem')} comfortable with your presence.`,
+    sprite => ({ text: spriteText(sprite)`${They} ${_v('seem')} comfortable with your presence.`,
+      kaomoji: 'comfortable' }),
   ],
   anxious: [
-    sprite => spriteText(sprite)`${They} ${_v('seem')} anxious. You might be moving too quickly.`,
+    sprite => ({ text: spriteText(sprite)`${They} ${_v('seem')} anxious. You might be moving too quickly.`,
+      kaomoji: 'anxious' }),
   ],
 };
 
 export const WAIT_TEMPLATES = {
   comfortable: [
-    sprite => spriteText(sprite)`${They} ${_v('look')} bored.`,
+    sprite => ({ text: spriteText(sprite)`${They} ${_v('look')} bored.`,
+      kaomoji: 'bored' }),
   ],
   anxious: [
-    sprite => spriteText(sprite)`You give ${them} a little space. ${They} ${_v('look')} a little calmer.`,
+    sprite => ({ text: spriteText(sprite)`You give ${them} a little space. ${They} ${_v('look')} a little calmer.`,
+      kaomoji: 'calmer' }),
   ],
 };
 
 export const TREAT_GIFT_TEMPLATES = [
-  (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly twirls around
+  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} excitedly twirls around
     as ${they} ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,
-  (sprite, treats) => spriteText(sprite)`${Kimberly} ${purr}s gently,
+  kaomoji: 'treat' }),
+  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} ${purr}s gently,
     revealing a gift: ${treats} ${_n('treat')(treats)}.`,
-  (sprite, treats) => spriteText(sprite)`${Kimberly} excitedly hands you
+  kaomoji: 'treat' }),
+  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} excitedly hands you
     ${treats} ${_n('treat')(treats)}.`,
-  (sprite, treats) => spriteText(sprite)`${Kimberly} celebrates your friendship by
+  kaomoji: 'treat' }),
+  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} celebrates your friendship by
     giving you ${treats} ${_n('treat')(treats)}.`,
+  kaomoji: 'treat' }),
 ];
 
 export const PET_TEMPLATES = {
   wild: [
-    sprite => spriteText(sprite)`In the distance, you see ${a_chirling}.`,
-    sprite => spriteText(sprite)`As you approach, the ${chirling} tucks in
+    sprite => ({ text: spriteText(sprite)`As you approach, the ${chirling} tucks in
       ${their} ${coat} and scurries away.
       ${They_re} hiding under a bush now.`,
+    kaomoji: 'anxious' }),
   ],
   curious: [
-    sprite => spriteText(sprite)`The ${chirling} peeks ${their}
+    sprite => ({ text: spriteText(sprite)`The ${chirling} peeks ${their}
       head out of the bush. ${They} ${_v('cock')}
       ${their} head curiously. But as you reach out your
       hand, ${they} quickly ${_v('retreat')} back into
       the bushes.`,
-    sprite => spriteText(sprite)`You wait patiently outside the bush with your hand gently
+    kaomoji: 'anxious' }),
+    sprite => ({ text: spriteText(sprite)`You wait patiently outside the bush with your hand gently
       extended. The ${chirling} slowly emerges from the leaves,
       ${purr}ing softly, gently. You stroke ${their}
       silky smooth ${coat}, caressing each tuft carefully.`,
+    kaomoji: 'calmer' }),
 
   ],
   friendly: [
-    sprite => spriteText(sprite)`The ${chirling} ${purr}s delicately. You're petting
+    sprite => ({ text: spriteText(sprite)`The ${chirling} ${purr}s delicately. You're petting
       ${them}!`,
-    sprite => spriteText(sprite)`You look around. You don't notice ${Kimberly} anywhere.
+    kaomoji: 'excited' }),
+    sprite => ({ text: spriteText(sprite)`You look around. You don't notice ${Kimberly} anywhere.
       Did ${they} leave? Tuning in intently, you make out a muted
       ${chirp}ing sound, coming from behind a rock. You can see ${Kimberly}'s
       ${nose}. ${Their} eyes. As you approach, ${they}
       ${_v('take')} a few hops forward. ${Kimberly}
       ${purr}s as you pet ${them}.`,
+    kaomoji: 'eager' }),
   ],
   bonded: [
-    sprite => spriteText(sprite)`You're sitting in a meadow with ${Kimberly} and start gently
+    sprite => ({ text: spriteText(sprite)`You're sitting in a meadow with ${Kimberly} and start gently
       stroking ${their} ${coat}. It's a warm day, and ${Kimberly}
       is so very soft.`,
-    sprite => spriteText(sprite)`As you smile at ${Kimberly}, ${they}
+    kaomoji: 'comfortable' }),
+    sprite => ({ text: spriteText(sprite)`As you smile at ${Kimberly}, ${they}
       ${_v('approach', 'approaches')} you, eager to receive
       your delicate pets.`,
-    sprite => spriteText(sprite)`The sun shines brightly on you and ${Kimberly} as you
+    kaomoji: 'eager' }),
+    sprite => ({ text: spriteText(sprite)`The sun shines brightly on you and ${Kimberly} as you
       stroke ${their} ${coat}.`,
-    sprite => spriteText(sprite)`${Kimberly} ${purr}s happily as you stroke ${their}
+    kaomoji: 'preen' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} ${purr}s happily as you stroke ${their}
       ${coat}.`,
-    sprite => spriteText(sprite)`${Kimberly} seems a bit aloof when you try to pet
+    kaomoji: 'excited' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} seems a bit aloof when you try to pet
       ${them}.`,
-    sprite => spriteText(sprite)`${Kimberly} longingly looks into the distance, seeming
+    kaomoji: 'bored' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} longingly looks into the distance, seeming
       curious about adventure.`,
-    sprite => spriteText(sprite)`Gently cleaning ${their} ${coat},
+    kaomoji: 'bored' }),
+    sprite => ({ text: spriteText(sprite)`Gently cleaning ${their} ${coat},
       ${Kimberly} preens a bit.`,
-    sprite => spriteText(sprite)`You give ${Kimberly} a little pat on the head.`,
-    sprite => spriteText(sprite)`${Kimberly} brings you a little ${token}.`,
+    kaomoji: 'preen' }),
+    sprite => ({ text: spriteText(sprite)`You give ${Kimberly} a little pat on the head.`,
+      kaomoji: 'comfortable' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} brings you a little ${token}.`,
+      kaomoji: 'treat' }),
   ],
 };
 
 export const WATER_TEMPLATES = {
   wild: [
-    sprite => spriteText(sprite)`You place a bowl of water on the ground and step back.
+    sprite => ({ text: spriteText(sprite)`You place a bowl of water on the ground and step back.
       The ${chirling} cautiously approaches and takes a sip.`,
-    sprite => spriteText(sprite)`You have to turn your back and pretend to not notice,
+    kaomoji: 'anxious' }),
+    sprite => ({ text: spriteText(sprite)`You have to turn your back and pretend to not notice,
       but eventually the ${chirling} takes a drink.`,
+    kaomoji: 'worried' }),
   ],
   curious: [
-    sprite => spriteText(sprite)`The ${chirling} sips the water, keeping
+    sprite => ({ text: spriteText(sprite)`The ${chirling} sips the water, keeping
       ${their} eyes on you.`,
-    sprite => spriteText(sprite)`The water dish is the perfect size for a
+    kaomoji: 'bored' }),
+    sprite => ({ text: spriteText(sprite)`The water dish is the perfect size for a
       thirsty ${chirling}.`,
+    kaomoji: 'calmer' }),
   ],
   friendly: [
-    sprite => spriteText(sprite)`${Kimberly} was thirsty. ${They} greedily
+    sprite => ({ text: spriteText(sprite)`${Kimberly} was thirsty. ${They} greedily
       ${_v('lap')} up the water.`,
-    sprite => spriteText(sprite)`${Kimberly} sips the water. ${They}
+    kaomoji: 'eager' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} sips the water. ${They}
       ${purr}s happily.`,
+    kaomoji: 'excited' }),
   ],
   bonded: [
-    sprite => spriteText(sprite)`${Kimberly} perks up at the sight of
+    sprite => ({ text: spriteText(sprite)`${Kimberly} perks up at the sight of
       ${their} water dish. They gulp it down with a happy ${chirp}.`,
-    sprite => spriteText(sprite)`${Kimberly} slurps and spills a bit of the water.`,
-    sprite => spriteText(sprite)`The sweet water was just what ${Kimberly} wanted.`,
+    kaomoji: 'eager' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} slurps and spills a bit of the water.`,
+      kaomoji: 'eager' }),
+    sprite => ({ text: spriteText(sprite)`The sweet water was just what ${Kimberly} wanted.`,
+      kaomoji: 'comfortable' }),
   ],
 };
 
 export const GROOM_TEMPLATES = {
   wild: [
-    sprite => spriteText(sprite)`The ${chirling}'s ${growl}s as you get close.`,
-    sprite => spriteText(sprite)`The ${chirling} pulls away after a quick pat.`,
+    sprite => ({ text: spriteText(sprite)`The ${chirling}'s ${growl}s as you get close.`,
+      kaomoji: 'worried' }),
+    sprite => ({ text: spriteText(sprite)`The ${chirling} pulls away after a quick pat.`,
+      kaomoji: 'anxious' }),
   ],
   curious: [
-    sprite => spriteText(sprite)`The ${chirling} lets you pull a few bits of dirt
+    sprite => ({ text: spriteText(sprite)`The ${chirling} lets you pull a few bits of dirt
       out of ${their} ${coat}.`,
-    sprite => spriteText(sprite)`The ${chirling}'s ${coat} feels rough.`,
+    kaomoji: 'calmer' }),
+    sprite => ({ text: spriteText(sprite)`The ${chirling}'s ${coat} feels rough.`,
+      kaomoji: 'comfortable' }),
   ],
   friendly: [
-    sprite => spriteText(sprite)`You tenderly groom ${Kimberly}'s ${coat}.`,
-    sprite => spriteText(sprite)`${Kimberly} ${purr}s softly as you groom
+    sprite => ({ text: spriteText(sprite)`You tenderly groom ${Kimberly}'s ${coat}.`,
+      kaomoji: 'preen' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} ${purr}s softly as you groom
       ${their} ${coat}.`,
+    kaomoji: 'comfortable' }),
   ],
   bonded: [
-    sprite => spriteText(sprite)`${Kimberly} eagerly presents ${their}
+    sprite => ({ text: spriteText(sprite)`${Kimberly} eagerly presents ${their}
       ${coat} for cleaning. You make sure to start with
       ${their} favorite spot.`,
-    sprite => spriteText(sprite)`${Kimberly}'s ${coat} feels soft and fluffy
+    kaomoji: 'eager' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly}'s ${coat} feels soft and fluffy
       after you groom it.`,
+    kaomoji: 'preen' }),
   ],
 };
 
 export const TREAT_TEMPLATES = {
   wild: [
-    sprite => spriteText(sprite)`You gently place a treat on the ground. It's specially
+    sprite => ({ text: spriteText(sprite)`You gently place a treat on the ground. It's specially
       formulated for ${chirlings}.`,
-    sprite => spriteText(sprite)`The ${chirling} takes the treat when you're not looking.`,
+    kaomoji: 'treat' }),
+    sprite => ({ text: spriteText(sprite)`The ${chirling} takes the treat when you're not looking.`,
+      kaomoji: 'treat' }),
   ],
   curious: [
-    sprite => spriteText(sprite)`The ${chirling} perks up at the smell of the treat.
+    sprite => ({ text: spriteText(sprite)`The ${chirling} perks up at the smell of the treat.
       ${They} ${_v('come')} up to you to get it.`,
-    sprite => spriteText(sprite)`That's one hungry ${chirling}. ${They}
+    kaomoji: 'treat' }),
+    sprite => ({ text: spriteText(sprite)`That's one hungry ${chirling}. ${They}
       ${_v('grab')} the treat as soon as you set it down.`,
+    kaomoji: 'treat' }),
   ],
   friendly: [
-    sprite => spriteText(sprite)`The ${chirling} snaps the treat right out of your hand.`,
-    sprite => spriteText(sprite)`${Kimberly} devours the treat. ${Their} eyes
+    sprite => ({ text: spriteText(sprite)`The ${chirling} snaps the treat right out of your hand.`,
+      kaomoji: 'treat' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} devours the treat. ${Their} eyes
       turn toward you expectantly...`,
+    kaomoji: 'treat' }),
   ],
   bonded: [
-    sprite => spriteText(sprite)`You toss the treat into the air. ${Kimberly} catches
+    sprite => ({ text: spriteText(sprite)`You toss the treat into the air. ${Kimberly} catches
       it with ease. Just like you've practiced.`,
-    sprite => spriteText(sprite)`${Kimberly} almost knocks you down trying to grab
+    kaomoji: 'treat' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} almost knocks you down trying to grab
       the treat.`,
+    kaomoji: 'treat' }),
   ],
 };
 
 export const SING_TEMPLATES = {
   wild: [
-    sprite => spriteText(sprite)`The ${chirling} ${growl}s at you.`,
-    sprite => spriteText(sprite)`The ${chirling} runs off, but you can see them
+    sprite => ({ text: spriteText(sprite)`The ${chirling} ${growl}s at you.`,
+      kaomoji: 'worried' }),
+    sprite => ({ text: spriteText(sprite)`The ${chirling} runs off, but you can see them
       listening from the bushes.`,
+    kaomoji: 'anxious' }),
   ],
   curious: [
-    sprite => spriteText(sprite)`The ${chirling} gives you a quizzical look.`,
-    sprite => spriteText(sprite)`The ${chirling} ${chirp}s happily.`,
+    sprite => ({ text: spriteText(sprite)`The ${chirling} gives you a quizzical look.`,
+      kaomoji: 'bored' }),
+    sprite => ({ text: spriteText(sprite)`The ${chirling} ${chirp}s happily.`,
+      kaomoji: 'sing' }),
   ],
   friendly: [
-    sprite => spriteText(sprite)`You sing a little song for ${Kimberly}.
+    sprite => ({ text: spriteText(sprite)`You sing a little song for ${Kimberly}.
       ${They_re} ${chirp}ing along.`,
-    sprite => spriteText(sprite)`${Kimberly} ${purr}s happily as you sing.`,
+    kaomoji: 'sing' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} ${purr}s happily as you sing.`,
+      kaomoji: 'sing' }),
   ],
   bonded: [
-    sprite => spriteText(sprite)`${Kimberly} ${purr}s along as you sing.`,
-    sprite => spriteText(sprite)`${Kimberly} ${chirp}s to the beat.`,
-    sprite => spriteText(sprite)`${Kimberly} cuddles up as you sing a
+    sprite => ({ text: spriteText(sprite)`${Kimberly} ${purr}s along as you sing.`,
+      kaomoji: 'sing' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} ${chirp}s to the beat.`,
+      kaomoji: 'sing' }),
+    sprite => ({ text: spriteText(sprite)`${Kimberly} cuddles up as you sing a
       lullaby.`,
+    kaomoji: 'lullaby' }),
   ],
 };
