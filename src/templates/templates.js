@@ -5,7 +5,7 @@ import { token, coat, chirp, purr, growl, nose, chirling, a_chirling,
 
 import { _n, _v, spriteText } from '../textGenerators/helpers';
 
-// Texts to be added when a trust level is acheived
+// Texts to be added when a trust level is achieved.
 export const TRUST_INCREASE_TEMPLATES = {
   curious: [
     sprite => spriteText(sprite)`${They} ${_v('seem')} interested in getting
