@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import SpritePortrait from '../../sharedComponents/SpritePortrait/SpritePortrait';
 import './WildernessScene.css';
 import SceneObject from './SceneObject';
-import { randomChoice } from '../../helpers/utils';
-import { KAOMOJI } from '../../gameData/kaomoji';
 
 const HORIZON = 0.3;
 const IMAGE_OVERLAY_COLOR = { r: 194, g: 218, b: 218, a: 0.3 };
@@ -16,10 +14,9 @@ const SPRITE_DISTANCE_INTERVALS = 5;
 const SCENE_WIDTH = 660;
 
 export default function WildernessScene(props) {
-  const { sprite, region, title, onClick, className } = props;
+  const { sprite, region, title, onClick, className, kaomoji } = props;
   const { distance } = sprite;
 
-  const kaomoji = randomChoice(KAOMOJI);
 
   let x = Math.random();
   const y = 0;
@@ -91,10 +88,12 @@ WildernessScene.propTypes = {
   title: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
+  kaomoji: PropTypes.string,
 };
 
 WildernessScene.defaultProps = {
   title: '',
   onClick: undefined,
   className: '',
+  kaomoji: '',
 };
