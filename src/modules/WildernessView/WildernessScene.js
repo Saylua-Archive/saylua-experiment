@@ -4,31 +4,57 @@ import PropTypes from 'prop-types';
 import SpritePortrait from '../../sharedComponents/SpritePortrait/SpritePortrait';
 import './WildernessScene.css';
 import SceneObject from './SceneObject';
+import { SPRITE_ENCYCLOPEDIA } from '../../gameData/spriteEncyclopedia';
 
 const HORIZON = 0.3;
 const IMAGE_OVERLAY_COLOR = { r: 194, g: 218, b: 218, a: 0.3 };
 const SPRITE_SIZE = 350;
-const TREE_WIDTH = 450;
-const TREE_HEIGHT = 700;
+const TREE_WIDTH = 500;
+const TREE_HEIGHT = 750;
 const SPRITE_DISTANCE_INTERVALS = 5;
 const SCENE_WIDTH = 660;
 
 
+export const getScaleFactor = z => ((1 - z) + 1) / 2;
+
 // TODO: Turn this into a general "collision detection" function.
-export const generateTreePosition = (spritePosition) => {
+export const generateTreeCoordinates = (avoidedObject) => {
   const treeRatio = TREE_WIDTH / SCENE_WIDTH;
-  const spriteRatio = spritePosition.size / SCENE_WIDTH;
-  const x = Math.random() - treeRatio / 2;
-  const spriteEndX = spritePosition.x + spriteRatio;
-  let z;
-  if (x >= spritePosition.x - treeRatio / 2 && x <= spriteEndX + treeRatio / 2) {
+  const avoidedRatio = avoidedObject.size;
+  const avoidedEndX = avoidedObject.x + avoidedRatio;
+  let z = Math.random() - (1 - avoidedObject.z);
+
+  const scaledTreeWidth = treeRatio * getScaleFactor(z);
+
+  // Let trees be half off the screen, either on the left or right edge.
+  const x = Math.random() - scaledTreeWidth / 2;
+
+  // TODO: Fix bug where trees aren't willing to get close enough to the
+  // right side of the sprite's face.
+  if (x >= avoidedObject.x - scaledTreeWidth / 2 && x <= avoidedEndX) {
     // Tree overlaps x position with sprite, so make sure it's behind the sprite.
-    const minZ = spritePosition.z + spriteRatio / 2;
+    const minZ = avoidedObject.z + avoidedRatio / 2;
     z = (1.3 - minZ) * Math.random() + minZ;
-  } else {
-    z = Math.random() - 0.8;
   }
   return { x, z, y: 0 };
+};
+
+export const getSpriteHeadshotCoordinates = (spriteCoordinates, headshotPosition) => {
+  // spriteCoordinates.size is the real pixel size of the scaled down sprite.
+  const spriteScaleFactor = spriteCoordinates.size / SCENE_WIDTH;
+  // Adjust headshot position by how much the sprite is scaled down.
+  const left = headshotPosition.left / SPRITE_SIZE * spriteScaleFactor;
+
+  // spriteScaleFactor is the ratio of the scene width the sprite takes up.
+  // headshotPosition.size / SPRITE_SIZE is the ratio of the sprite with the headshot takes up.
+  const size = headshotPosition.size / SPRITE_SIZE * spriteScaleFactor;
+
+  return {
+    x: spriteCoordinates.x + left,
+    y: spriteCoordinates.y,
+    z: spriteCoordinates.z,
+    size,
+  };
 };
 
 export default function WildernessScene(props) {
@@ -40,18 +66,22 @@ export default function WildernessScene(props) {
   const y = 0;
   const z = distance / SPRITE_DISTANCE_INTERVALS;
 
-  const scaleFactor = ((1 - z) + 1) / 2;
+  const scaleFactor = getScaleFactor(z);
   const scaledSpriteSize = SPRITE_SIZE * scaleFactor;
   x *= (1 - scaledSpriteSize / SCENE_WIDTH);
 
   const bgStyle = `url('img/wilderness/${region.canonName}.jpg')`;
 
-  const spritePosition = { x, z, y, size: scaledSpriteSize };
+  const { headshotPosition } = SPRITE_ENCYCLOPEDIA[sprite.species] || {};
+
+  const spriteCoordinates = { x, z, y, size: scaledSpriteSize };
+  const headshotCoordinates = getSpriteHeadshotCoordinates(spriteCoordinates, headshotPosition);
+
   const trees = [
-    generateTreePosition(spritePosition),
-    generateTreePosition(spritePosition),
-    generateTreePosition(spritePosition),
-    generateTreePosition(spritePosition),
+    generateTreeCoordinates(headshotCoordinates),
+    generateTreeCoordinates(headshotCoordinates),
+    generateTreeCoordinates(headshotCoordinates),
+    generateTreeCoordinates(headshotCoordinates),
   ];
 
   const treeImgs = trees.map((tree, i) => (
