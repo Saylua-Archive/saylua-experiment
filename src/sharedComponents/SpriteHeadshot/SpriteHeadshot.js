@@ -8,8 +8,8 @@ const SPRITE_SIZE = 350;
 
 export default function SpriteHeadshot(props) {
   const { sprite, className } = props;
-  const { headshotCoordinates } = SPRITE_ENCYCLOPEDIA[sprite.species];
-  const sizeMultiplier = 100 / headshotCoordinates.size;
+  const { headshotPosition } = SPRITE_ENCYCLOPEDIA[sprite.species];
+  const sizeMultiplier = 100 / headshotPosition.size;
   const imageSizePercent = sizeMultiplier * SPRITE_SIZE;
   return (
     <div className={`sprite-headshot ${className}`}>
@@ -17,8 +17,8 @@ export default function SpriteHeadshot(props) {
         style={{
           height: `${imageSizePercent}%`,
           width: `${imageSizePercent}%`,
-          top: `${sizeMultiplier * -headshotCoordinates.y}%`,
-          left: `${sizeMultiplier * -headshotCoordinates.x}%`,
+          top: `${sizeMultiplier * -headshotPosition.top}%`,
+          left: `${sizeMultiplier * -headshotPosition.left}%`,
         }}
         src={`img/sprites/${sprite.species}/${sprite.color}.png`}
         alt={sprite.name}

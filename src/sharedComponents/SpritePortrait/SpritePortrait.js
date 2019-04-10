@@ -13,15 +13,15 @@ const EXCITED_TRUST_THRESHOLD = 10;
 export default function SpritePortrait(props) {
   const { kaomoji, sprite, title, onClick, className, style, overlayColor, faces } = props;
   const image = `img/sprites/${sprite.species}/${sprite.color}.png`;
-  const { facesRight, headshotCoordinates } = SPRITE_ENCYCLOPEDIA[sprite.species] || {};
-  const { y, x, size } = headshotCoordinates;
+  const { facesRight, headshotPosition } = SPRITE_ENCYCLOPEDIA[sprite.species] || {};
+  const { top, left, size } = headshotPosition;
 
-  // A value that can be added to kaomojiCoordinates.x to make the kaomoji look like it's
+  // A value that can be added to kaomojiPosition.x to make the kaomoji look like it's
   // coming from the mouth.
   // const mouthOffset = facesRight ? KAOMOJI_SIZE_PERCENT / 2 : -KAOMOJI_SIZE_PERCENT / 2;
-  const kaomojiCoordinates = {
-    y: 100 * y / SPRITE_SIZE - KAOMOJI_SIZE_PERCENT / 2,
-    x: 100 * (x + size / 2) / SPRITE_SIZE - KAOMOJI_SIZE_PERCENT / 2,
+  const kaomojiPosition = {
+    top: 100 * top / SPRITE_SIZE - KAOMOJI_SIZE_PERCENT / 2,
+    left: 100 * (left + size / 2) / SPRITE_SIZE - KAOMOJI_SIZE_PERCENT / 2,
   };
   let flipSprite = false;
   if (faces === 'right') {
@@ -53,8 +53,8 @@ export default function SpritePortrait(props) {
           style={{
             width: `${KAOMOJI_SIZE_PERCENT}%`,
             height: `${KAOMOJI_SIZE_PERCENT}%`,
-            left: `${kaomojiCoordinates.x}%`,
-            top: `${kaomojiCoordinates.y}%`,
+            left: `${kaomojiPosition.left}%`,
+            top: `${kaomojiPosition.top}%`,
           }}
         />
       ) : '' }
