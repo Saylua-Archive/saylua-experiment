@@ -16,9 +16,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    headshotCoordinates: {
-      x: 220,
-      y: 100,
+    headshotPosition: {
+      left: 220,
+      top: 100,
       size: 130,
     },
 
@@ -56,9 +56,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    headshotCoordinates: {
-      x: 110,
-      y: 60,
+    headshotPosition: {
+      left: 110,
+      top: 60,
       size: 120,
     },
 
@@ -97,9 +97,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    headshotCoordinates: {
-      x: 5,
-      y: 170,
+    headshotPosition: {
+      left: 5,
+      top: 170,
       size: 120,
     },
 
@@ -136,9 +136,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    headshotCoordinates: {
-      x: 210,
-      y: 10,
+    headshotPosition: {
+      left: 210,
+      top: 10,
       size: 120,
     },
 
@@ -159,7 +159,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     weightMean: 100,
     weightVariance: 20,
   },
-  senrix: {
+  senrileft: {
     species: 'senrix',
 
     vocab: {
@@ -176,9 +176,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    headshotCoordinates: {
-      x: 5,
-      y: 100,
+    headshotPosition: {
+      left: 5,
+      top: 100,
       size: 120,
     },
 
@@ -217,9 +217,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    headshotCoordinates: {
-      x: 195,
-      y: 225,
+    headshotPosition: {
+      left: 195,
+      top: 225,
       size: 120,
     },
 
@@ -257,9 +257,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    headshotCoordinates: {
-      x: 200,
-      y: 100,
+    headshotPosition: {
+      left: 200,
+      top: 100,
       size: 100,
     },
 
@@ -298,9 +298,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    headshotCoordinates: {
-      x: 30,
-      y: 35,
+    headshotPosition: {
+      left: 30,
+      top: 35,
       size: 130,
     },
 
@@ -338,9 +338,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: true,
-    headshotCoordinates: {
-      x: 150,
-      y: 160,
+    headshotPosition: {
+      left: 150,
+      top: 160,
       size: 150,
     },
 
@@ -378,9 +378,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     },
 
     facesRight: false,
-    headshotCoordinates: {
-      x: 70,
-      y: 100,
+    headshotPosition: {
+      left: 70,
+      top: 100,
       size: 120,
     },
 
@@ -412,7 +412,7 @@ export const SPRITE_COATS = {
   gorbin: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   loxi: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   nibian: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
-  senrix: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
+  senrileft: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
   vela: ['albino', 'dawnish', 'luarian', 'melanistic', 'piebald', 'saylian'],
 };
 
@@ -425,6 +425,6 @@ export const CANONICAL_SPRITE_COATS = {
   gorbin: 'luarian',
   loxi: 'albino',
   nibian: 'saylian',
-  senrix: 'piebald',
+  senrileft: 'piebald',
   vela: 'saylian',
 };
