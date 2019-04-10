@@ -3,7 +3,7 @@ import { INTERACT_WITH_SPRITE } from './spriteReducer';
 const initialState = {
   dayOffset: 0,
   treatCount: 20,
-  eventText: '',
+  eventText: {},
   activeRegionId: 'dawnlands',
 };
 
