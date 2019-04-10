@@ -159,7 +159,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     weightMean: 100,
     weightVariance: 20,
   },
-  senrileft: {
+  senrix: {
     species: 'senrix',
 
     vocab: {
@@ -412,7 +412,7 @@ export const SPRITE_COATS = {
   gorbin: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   loxi: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
   nibian: ['albino', 'luarian', 'melanistic', 'piebald', 'saylian'],
-  senrileft: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
+  senrix: ['albino', 'earthen', 'luarian', 'melanistic', 'piebald', 'saylian'],
   vela: ['albino', 'dawnish', 'luarian', 'melanistic', 'piebald', 'saylian'],
 };
 
@@ -425,6 +425,6 @@ export const CANONICAL_SPRITE_COATS = {
   gorbin: 'luarian',
   loxi: 'albino',
   nibian: 'saylian',
-  senrileft: 'piebald',
+  senrix: 'piebald',
   vela: 'saylian',
 };
