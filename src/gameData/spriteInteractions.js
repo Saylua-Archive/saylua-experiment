@@ -2,6 +2,13 @@
 import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES,
   SING_TEMPLATES, APPROACH_TEMPLATES, WAIT_TEMPLATES } from '../templates/templates';
 
+import store from '../store';
+
+import { randomChoice } from '../helpers/utils';
+
+import { interactWithSprite } from '../reducers/spriteReducer';
+import { setEventText, addTreat } from '../reducers/gameReducer';
+
 export const TRUST_LEVELS = {
   tolerant: -6,
   neutral: 0,
@@ -10,6 +17,10 @@ export const TRUST_LEVELS = {
   bonded: 3,
 };
 
+function sD(action) {
+  store.dispatch(action);
+}
+
 function nameOrWild(sprite) {
   if (sprite.trust > TRUST_LEVELS.friendly) {
     return sprite.name;
@@ -17,65 +28,96 @@ function nameOrWild(sprite) {
   return `the ${sprite.species}`;
 }
 
+// TODO: Rethink how we choose texts based on situations.
+function chooseText(sprite, templates, trust, distance) {
+  if (distance > 0 && trust + distance < 0) {
+    return randomChoice(templates.anxious)(sprite);
+  }
+  if (distance > 0 && trust + distance >= 0) {
+    return randomChoice(templates.comfortable)(sprite);
+  }
+  if (trust < TRUST_LEVELS.curious) {
+    return randomChoice(templates.wild)(sprite);
+  }
+  if (trust < TRUST_LEVELS.friendly) {
+    return randomChoice(templates.curious)(sprite);
+  }
+  if (trust < TRUST_LEVELS.bonded) {
+    return randomChoice(templates.friendly)(sprite);
+  }
+  return randomChoice(templates.bonded)(sprite);
+}
+
+function generateEventText(sprite, templates) {
+  const { trust, distance } = sprite;
+
+  if (templates) {
+    return chooseText(sprite, templates, trust, distance);
+  }
+  return '';
+}
+
 export const INTERACTION_TYPES = {
-  pet: {
-    minTrust: 0,
-    maxDistance: 0,
-    maxPerDay: 3,
-    trustIncrease: () => 1,
-    buttonTextTemplate: sprite => `Pet ${nameOrWild(sprite)}`,
-    notNowTemplate: sprite => `${nameOrWild(sprite)} isn't in the mood for petting.`,
-    templates: PET_TEMPLATES,
-  },
-  water: {
-    maxDistance: 0,
-    maxPerDay: 1,
-    trustIncrease: () => 1,
-    buttonTextTemplate: sprite => `Give ${nameOrWild(sprite)} water`,
-    notNowTemplate: sprite => `${nameOrWild(sprite)} isn't thirsty.`,
-    templates: WATER_TEMPLATES,
-  },
-  groom: {
-    minTrust: 3,
-    maxDistance: 0,
-    maxPerDay: 1,
-    trustIncrease: () => 1,
-    buttonTextTemplate: sprite => `Groom ${nameOrWild(sprite)}`,
-    notNowTemplate: sprite => `${nameOrWild(sprite)} is already groomed.`,
-    templates: GROOM_TEMPLATES,
-  },
-  treat: {
-    maxDistance: 0,
-    maxPerDay: 0,
-    trustIncrease: () => 2,
-    usesTreat: true,
-    buttonTextTemplate: sprite => `Give ${nameOrWild(sprite)} a treat`,
-    notNowTemplate: () => 'You\'re out of treats.',
-    templates: TREAT_TEMPLATES,
-  },
-  sing: {
-    minTrust: 2,
-    maxDistance: 0,
-    maxPerDay: 3,
-    trustIncrease: () => 1,
-    buttonTextTemplate: sprite => `Sing to ${nameOrWild(sprite)}`,
-    notNowTemplate: sprite => `${nameOrWild(sprite)} is tired of singing.`,
-    templates: SING_TEMPLATES,
-  },
-  approach: {
-    minDistance: 0,
-    maxPerDay: 0,
-    trustIncrease: () => (Math.random() > 0.5 ? 0 : -1),
-    distanceDecrease: () => 1,
-    buttonTextTemplate: sprite => `Approach ${nameOrWild(sprite)}`,
-    templates: APPROACH_TEMPLATES,
-  },
-  wait: {
-    minDistance: 0,
-    maxPerDay: 0,
-    trustIncrease: () => 1,
-    distanceDecrease: () => (Math.random() > 0.2 ? 0 : -1),
-    buttonTextTemplate: () => `Wait...`,
-    templates: WAIT_TEMPLATES,
-  },
+  pet: sprite => ({
+    isAvailable: sprite.trust > 0 && sprite.distance <= 0,
+    buttonText: `Pet ${nameOrWild(sprite)}`,
+    notNowTemplate: `${nameOrWild(sprite)} isn't in the mood for petting.`,
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, PET_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { trust: 1 }));
+    },
+  }),
+  water: sprite => ({
+    isAvailable: sprite.distance <= 0,
+    buttonText: `Give ${nameOrWild(sprite)} water`,
+    notNowTemplate: `${nameOrWild(sprite)} isn't thirsty.`,
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, WATER_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { trust: 1 }));
+    },
+  }),
+  groom: sprite => ({
+    isAvailable: sprite.distance <= 0 && sprite.trust >= 3,
+    buttonText: `Groom ${nameOrWild(sprite)}`,
+    notNowTemplate: `${nameOrWild(sprite)} is already groomed.`,
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, GROOM_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { trust: 1 }));
+    },
+  }),
+  treat: sprite => ({
+    isAvailable: sprite.distance <= 0,
+    buttonText: `Give ${nameOrWild(sprite)} a treat`,
+    notNowTemplate: 'You\'re out of treats.',
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, TREAT_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { trust: 2 }));
+      sD(addTreat(-1));
+    },
+  }),
+  sing: sprite => ({
+    isAvailable: sprite.distance <= 0 && sprite.trust >= 2,
+    buttonText: `Sing to ${nameOrWild(sprite)}`,
+    notNowTemplate: `${nameOrWild(sprite)} is tired of singing.`,
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, SING_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { trust: 1 }));
+    },
+  }),
+  approach: sprite => ({
+    isAvailable: sprite.distance > 0,
+    buttonText: `Approach ${nameOrWild(sprite)}`,
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, APPROACH_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { distance: -1, trust: Math.random() > 0.5 ? 0 : -1 }));
+    },
+  }),
+  wait: sprite => ({
+    isAvailable: sprite.distance > 0,
+    buttonText: `Wait...`,
+    interact: () => {
+      sD(setEventText(generateEventText(sprite, WAIT_TEMPLATES)));
+      sD(interactWithSprite(sprite.name, { distance: Math.random() > 0.2 ? 0 : 1, trust: 1 }));
+    },
+  }),
 };

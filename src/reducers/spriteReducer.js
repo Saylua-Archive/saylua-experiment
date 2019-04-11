@@ -1,4 +1,3 @@
-import { INTERACTION_TYPES } from '../gameData/spriteInteractions';
 
 const initialState = {
   spritesById: {},
@@ -27,30 +26,17 @@ export function setActiveSprite(id) {
   return { type: SET_ACTIVE_SPRITE, id };
 }
 
-export function interactWithSprite(id, interaction, treatIncrease, time) {
-  const trust = INTERACTION_TYPES[interaction].trustIncrease
-    ? INTERACTION_TYPES[interaction].trustIncrease() : 0;
-  const distance = INTERACTION_TYPES[interaction].distanceDecrease
-    ? INTERACTION_TYPES[interaction].distanceDecrease() : 0;
+export function interactWithSprite(id, changes) {
   return {
     type: INTERACT_WITH_SPRITE,
     id,
-    interaction,
-    trust,
-    treatIncrease,
-    time,
-    distance,
+    trust: changes.trust || 0,
+    distance: changes.distance || 0,
   };
 }
 
-export function clearInteractions() {
-  return { type: CLEAR_INTERACTIONS };
-}
-
 export default function spriteReducer(state = initialState, action) {
-  const { trust, distance, interaction, newSprite, id } = action;
-  const { interactionCounts } = state;
-  const interactionCountsForSprite = interactionCounts[id] || {};
+  const { trust, distance, newSprite, id } = action;
   switch (action.type) {
     case ADD_WILD_SPRITE:
       return Object.assign({}, state, {
@@ -77,19 +63,10 @@ export default function spriteReducer(state = initialState, action) {
         spritesById: Object.assign({}, state.spritesById, {
           [id]: Object.assign({}, state.spritesById[id], {
             trust: state.spritesById[id].trust + trust,
-            distance: state.spritesById[id].distance - (distance || 0),
-          }),
-        }),
-        interactionCounts: Object.assign({}, interactionCounts, {
-          [id]: Object.assign({}, interactionCountsForSprite, {
-            [interaction]: interactionCountsForSprite[interaction] + 1 || 1,
+            distance: state.spritesById[id].distance + (distance || 0),
           }),
         }),
         lastPlayed: action.time,
-      });
-    case CLEAR_INTERACTIONS:
-      return Object.assign({}, state, {
-        interactionCounts: {},
       });
     default:
       return state;
