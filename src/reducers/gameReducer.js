@@ -37,7 +37,7 @@ export default function gameReducer(state = initialState, action) {
     case INTERACT_WITH_SPRITE:
     case ADD_TREAT:
       return Object.assign({}, state, {
-        treatCount: state.treatCount + action.treatIncrease,
+        treatCount: state.treatCount + (action.treatIncrease || 0),
       });
     case SET_EVENT_TEXT:
       return Object.assign({}, state, { eventText: action.eventText });

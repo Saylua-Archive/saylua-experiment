@@ -7,7 +7,7 @@ import store from '../store';
 import { randomChoice } from '../helpers/utils';
 
 import { interactWithSprite } from '../reducers/spriteReducer';
-import { setEventText } from '../reducers/gameReducer';
+import { setEventText, addTreat } from '../reducers/gameReducer';
 
 export const TRUST_LEVELS = {
   tolerant: -6,
@@ -92,6 +92,7 @@ export const INTERACTION_TYPES = {
     interact: () => {
       sD(setEventText(generateEventText(sprite, TREAT_TEMPLATES)));
       sD(interactWithSprite(sprite.name, { trust: 2 }));
+      sD(addTreat(-1));
     },
   }),
   sing: sprite => ({
