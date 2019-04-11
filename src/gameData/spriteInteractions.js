@@ -28,6 +28,7 @@ function nameOrWild(sprite) {
   return `the ${sprite.species}`;
 }
 
+// TODO: Rethink how we choose texts based on situations.
 function chooseText(sprite, templates, trust, distance) {
   if (distance > 0 && trust + distance < 0) {
     return randomChoice(templates.anxious)(sprite);
