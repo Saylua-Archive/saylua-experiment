@@ -74,7 +74,7 @@ class WildernessView extends Component {
       this.befriendWildSprite();
     }
 
-    if (sprite.trust + sprite.distance < TRUST_LEVELS.tolerant || sprite.distance > 6) {
+    if (sprite.trust + sprite.distance < TRUST_LEVELS.wild || sprite.distance > 6) {
       this.generateWildSprite();
     }
   }

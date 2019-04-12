@@ -10,7 +10,7 @@ import { interactWithSprite } from '../reducers/spriteReducer';
 import { setEventText, addTreat } from '../reducers/gameReducer';
 
 export const TRUST_LEVELS = {
-  tolerant: -6,
+  wild: -6,
   neutral: 0,
   curious: 1,
   friendly: 2,
@@ -36,16 +36,13 @@ function chooseText(sprite, templates, trust, distance) {
   if (distance > 0 && trust + distance >= 0) {
     return randomChoice(templates.comfortable)(sprite);
   }
-  if (trust < TRUST_LEVELS.curious) {
-    return randomChoice(templates.wild)(sprite);
+  const trustKeys = Object.keys(TRUST_LEVELS);
+  for (let i = 1; i < trustKeys.length; i++) {
+    if (trust < TRUST_LEVELS[trustKeys[i]]) {
+      return randomChoice(templates[trustKeys[i - 1]])(sprite);
+    }
   }
-  if (trust < TRUST_LEVELS.friendly) {
-    return randomChoice(templates.curious)(sprite);
-  }
-  if (trust < TRUST_LEVELS.bonded) {
-    return randomChoice(templates.friendly)(sprite);
-  }
-  return randomChoice(templates.bonded)(sprite);
+  return randomChoice(templates[trustKeys[trustKeys.length - 1]])(sprite);
 }
 
 function generateEventText(sprite, templates) {
