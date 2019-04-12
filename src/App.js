@@ -8,7 +8,7 @@ import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
 import { PLACES } from './gameData/places';
 
-import { setActiveSprite } from './reducers/spriteReducer';
+import { setActiveSprite, getMySprites, getActiveSprite } from './reducers/spriteReducer';
 import { advanceDay, setActiveRegion } from './reducers/gameReducer';
 import SpriteAvatarView from './sharedComponents/SpriteAvatarView/SpriteAvatarView';
 
@@ -22,11 +22,11 @@ class App extends Component {
   }
 
   render() {
-    const { mySpriteIds, activeSpriteId, activeRegionId, spritesById } = this.props;
+    const { mySprites, activeSprite, activeRegionId } = this.props;
     const now = this.currentTime();
 
     const activeRegion = PLACES[activeRegionId];
-    const activeSprite = spritesById[activeSpriteId];
+    const hasActiveSprite = activeSprite && activeSprite.name;
 
     return (
       <div className="saylua">
@@ -37,24 +37,24 @@ class App extends Component {
             </div>
           )
         }
-        <div>
+        <div className="main-column">
           <div className="sprite-list">
             <button
               type="button"
-              className={`change-sprite${!activeSpriteId ? ' selected' : ''}`}
+              className={`change-sprite${!hasActiveSprite ? ' selected' : ''}`}
               onClick={() => this.props.setActiveSprite()}
             >
               {`?`}
             </button>
             {
-              mySpriteIds.map(id => (
+              mySprites.map(sprite => (
                 <button
                   type="button"
-                  className={`change-sprite${id === activeSpriteId ? ' selected' : ''}`}
-                  key={id}
-                  onClick={() => this.props.setActiveSprite(id)}
+                  className={`change-sprite${sprite.name === activeSprite.name ? ' selected' : ''}`}
+                  key={sprite.name}
+                  onClick={() => this.props.setActiveSprite(sprite.name)}
                 >
-                  <SpriteHeadshot sprite={spritesById[id]} />
+                  <SpriteHeadshot sprite={sprite} />
                 </button>
               ))
             }
@@ -85,8 +85,10 @@ class App extends Component {
               })
             }
           </div>
-          <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
-          {`The date is ${now.toLocaleString()}`}
+          <footer>
+            <button type="button" className="button" onClick={this.props.advanceDay}>Go to sleep</button>
+            {`The date is ${now.toLocaleString()}`}
+          </footer>
         </div>
       </div>
     );
@@ -94,9 +96,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  spritesById: state.sprite.spritesById,
-  mySpriteIds: state.sprite.mySpriteIds,
-  activeSpriteId: state.sprite.activeSpriteId,
+  mySprites: getMySprites(state),
+  activeSprite: getActiveSprite(state),
   lastPlayed: state.sprite.lastPlayed,
 
   dayOffset: state.game.dayOffset,
@@ -114,9 +115,8 @@ App.propTypes = {
   advanceDay: PropTypes.func.isRequired,
   setActiveRegion: PropTypes.func.isRequired,
 
-  spritesById: PropTypes.object.isRequired,
-  mySpriteIds: PropTypes.array.isRequired,
-  activeSpriteId: PropTypes.string.isRequired,
+  mySprites: PropTypes.array.isRequired,
+  activeSprite: PropTypes.object.isRequired,
 
   dayOffset: PropTypes.number.isRequired,
   activeRegionId: PropTypes.string.isRequired,
