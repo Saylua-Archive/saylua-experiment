@@ -11,7 +11,6 @@ import { setEventText, addTreat } from '../reducers/gameReducer';
 
 export const TRUST_LEVELS = {
   wild: -6,
-  neutral: 0,
   curious: 1,
   friendly: 2,
   bonded: 3,
