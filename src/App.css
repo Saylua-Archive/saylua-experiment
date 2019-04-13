@@ -15,10 +15,20 @@ img {
   max-width: 100%;
 }
 
+footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1em;
+}
+
 .saylua {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  min-height: 100%;
 }
 
 .sidebar {
@@ -26,12 +36,19 @@ img {
   position: sticky;
 }
 
+.main-column {
+  flex-grow: 2;
+}
+
 .interaction-container {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  min-height: 500px;
   max-width: 1000px;
   margin: auto;
   align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .change-sprite {

@@ -1,0 +1,14 @@
+.cave-map {
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.cave-tile {
+  width: 80px;
+  height: 80px;
+}

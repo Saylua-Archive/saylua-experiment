@@ -14,7 +14,7 @@ const overlayChannel = (original, overlay, alpha) => {
 
 // TODO: Support arbitrary image manipulation functions.
 const overlayColorOnImage = (img, overlayColor) => {
-  if (!img || !overlayColor) return '';
+  if (!img || !overlayColor || !img.naturalWidth || !img.naturalHeight) return '';
 
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;

@@ -13,8 +13,9 @@ const EXCITED_TRUST_THRESHOLD = 10;
 export default function SpritePortrait(props) {
   const { kaomoji, sprite, title, onClick, className, style, overlayColor, faces } = props;
   const image = `img/sprites/${sprite.species}/${sprite.color}.png`;
+
   const { facesRight, headshotPosition } = SPRITE_ENCYCLOPEDIA[sprite.species] || {};
-  const { top, left, size } = headshotPosition;
+  const { top, left, size } = headshotPosition || {};
 
   // A value that can be added to kaomojiPosition.x to make the kaomoji look like it's
   // coming from the mouth.

@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 
 const initialState = {
   spritesById: {},
@@ -34,6 +35,18 @@ export function interactWithSprite(id, changes) {
     distance: changes.distance || 0,
   };
 }
+
+export const getActiveSpriteId = state => state.sprite.activeSpriteId;
+export const getSpritesById = state => state.sprite.spritesById;
+export const getMySpriteIds = state => state.sprite.mySpriteIds;
+export const getActiveSprite = createSelector(
+  [getSpritesById, getActiveSpriteId],
+  (spritesById, activeSpriteId) => spritesById[activeSpriteId] || {}
+);
+export const getMySprites = createSelector(
+  [getSpritesById, getMySpriteIds],
+  (spritesById, mySpriteIds) => mySpriteIds.map(id => spritesById[id])
+);
 
 export default function spriteReducer(state = initialState, action) {
   const { trust, distance, newSprite, id } = action;

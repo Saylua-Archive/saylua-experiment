@@ -1,5 +1,6 @@
 import WildernessView from '../modules/WildernessView/WildernessView';
 import CityView from '../modules/CityView/CityView';
+import CaveView from '../modules/CaveView/CaveView';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PLACES = {
@@ -39,5 +40,10 @@ export const PLACES = {
     name: 'My Home',
     canonName: 'home',
     view: CityView,
+  },
+  cave: {
+    name: 'The Caves',
+    canonName: 'cave',
+    view: CaveView,
   },
 };
