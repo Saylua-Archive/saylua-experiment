@@ -11,7 +11,6 @@ import { setEventText, addTreat } from '../reducers/gameReducer';
 
 export const TRUST_LEVELS = {
   wild: -6,
-  neutral: 0,
   curious: 1,
   friendly: 2,
   bonded: 3,
@@ -39,6 +38,8 @@ function chooseText(sprite, templates, trust, distance) {
   const trustKeys = Object.keys(TRUST_LEVELS);
   for (let i = 1; i < trustKeys.length; i++) {
     if (trust < TRUST_LEVELS[trustKeys[i]]) {
+      console.log(trustKeys[i]);
+      console.log(trustKeys[i - 1]);
       return randomChoice(templates[trustKeys[i - 1]])(sprite);
     }
   }
