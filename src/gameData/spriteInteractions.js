@@ -38,8 +38,6 @@ function chooseText(sprite, templates, trust, distance) {
   const trustKeys = Object.keys(TRUST_LEVELS);
   for (let i = 1; i < trustKeys.length; i++) {
     if (trust < TRUST_LEVELS[trustKeys[i]]) {
-      console.log(trustKeys[i]);
-      console.log(trustKeys[i - 1]);
       return randomChoice(templates[trustKeys[i - 1]])(sprite);
     }
   }
