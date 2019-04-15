@@ -30,7 +30,7 @@ class App extends Component {
 
     return (
       <div className="saylua">
-        { activeSprite
+        { activeSprite.name
           && (
             <div className="sidebar">
               <SpriteAvatarView sprite={activeSprite} />

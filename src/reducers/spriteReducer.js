@@ -4,23 +4,15 @@ const initialState = {
   spritesById: {},
   mySpriteIds: [],
   activeSpriteId: '',
-  wildSpriteId: '',
-  interactionCounts: {},
-  lastPlayed: 0,
 };
 
-export const ADD_WILD_SPRITE = 'ADD_WILD_SPRITE';
-export const BEFRIEND_WILD_SPRITE = 'BEFRIEND_WILD_SPRITE';
+export const BEFRIEND_SPRITE = 'BEFRIEND_SPRITE';
 export const SET_ACTIVE_SPRITE = 'SET_ACTIVE_SPRITE';
 export const INTERACT_WITH_SPRITE = 'INTERACT_WITH_SPRITE';
-export const CLEAR_INTERACTIONS = 'CLEAR_INTERACTIONS';
 
-export function addWildSprite(newSprite) {
-  return { type: ADD_WILD_SPRITE, newSprite };
-}
 
-export function befriendWildSprite(newSprite) {
-  return { type: BEFRIEND_WILD_SPRITE, newSprite };
+export function befriendSprite(newSprite) {
+  return { type: BEFRIEND_SPRITE, newSprite };
 }
 
 export function setActiveSprite(id) {
@@ -51,18 +43,10 @@ export const getMySprites = createSelector(
 export default function spriteReducer(state = initialState, action) {
   const { trust, distance, newSprite, id } = action;
   switch (action.type) {
-    case ADD_WILD_SPRITE:
+    case BEFRIEND_SPRITE:
       return Object.assign({}, state, {
-        wildSpriteId: newSprite.name,
-        spritesById: Object.assign({}, state.spritesById, {
-          [newSprite.name]: newSprite,
-        }),
-      });
-    case BEFRIEND_WILD_SPRITE:
-      return Object.assign({}, state, {
-        wildSpriteId: newSprite.name,
-        mySpriteIds: state.mySpriteIds.concat(state.wildSpriteId),
-        activeSpriteId: state.wildSpriteId,
+        mySpriteIds: state.mySpriteIds.concat(newSprite.name),
+        activeSpriteId: newSprite.name,
         spritesById: Object.assign({}, state.spritesById, {
           [newSprite.name]: newSprite,
         }),
@@ -79,7 +63,6 @@ export default function spriteReducer(state = initialState, action) {
             distance: state.spritesById[id].distance + (distance || 0),
           }),
         }),
-        lastPlayed: action.time,
       });
     default:
       return state;
