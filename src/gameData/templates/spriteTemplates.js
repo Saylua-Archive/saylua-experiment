@@ -1,9 +1,9 @@
 import { Their, They_re, They, their, they,
-  them } from '../textGenerators/pronouns';
+  them } from '../../textGenerators/pronouns';
 import { token, coat, chirp, purr, growl, nose, chirling, a_chirling,
-  chirlings, Kimberly } from '../textGenerators/interactions';
+  chirlings, Kimberly } from '../../textGenerators/interactions';
 
-import { _n, _v, spriteText } from '../textGenerators/helpers';
+import { _n, _v, spriteText } from '../../textGenerators/helpers';
 
 // Texts to be added when a trust level is achieved.
 export const TRUST_INCREASE_TEMPLATES = {
@@ -54,21 +54,6 @@ export const WAIT_TEMPLATES = {
       kaomoji: 'calmer' }),
   ],
 };
-
-export const TREAT_GIFT_TEMPLATES = [
-  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} excitedly twirls around
-    as ${they} ${_v('give')} you ${treats} ${_n('treat')(treats)}.`,
-  kaomoji: 'treat' }),
-  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} ${purr}s gently,
-    revealing a gift: ${treats} ${_n('treat')(treats)}.`,
-  kaomoji: 'treat' }),
-  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} excitedly hands you
-    ${treats} ${_n('treat')(treats)}.`,
-  kaomoji: 'treat' }),
-  (sprite, treats) => ({ text: spriteText(sprite)`${Kimberly} celebrates your friendship by
-    giving you ${treats} ${_n('treat')(treats)}.`,
-  kaomoji: 'treat' }),
-];
 
 export const PET_TEMPLATES = {
   wild: [

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import '../WildernessView/WildernessView.css';
 import './CityView.css';
 
 export default class CityView extends Component {

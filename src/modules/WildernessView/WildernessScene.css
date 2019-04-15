@@ -7,6 +7,8 @@
   overflow: hidden;
   left: 0;
   top: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .wilderness-sprite-image {

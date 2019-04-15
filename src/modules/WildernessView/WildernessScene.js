@@ -19,6 +19,13 @@ export const getScaleFactor = z => ((1 - z) + 1) / 2;
 
 // TODO: Turn this into a general "collision detection" function.
 export const generateTreeCoordinates = (avoidedObject) => {
+  if (!avoidedObject || !avoidedObject.size) {
+    return {
+      x: Math.random(),
+      z: Math.random(),
+      y: 0,
+    };
+  }
   const treeRatio = TREE_WIDTH / SCENE_WIDTH;
   const avoidedRatio = avoidedObject.size;
   const avoidedEndX = avoidedObject.x + avoidedRatio;
@@ -57,10 +64,15 @@ export const getSpriteHeadshotCoordinates = (spriteCoordinates, headshotPosition
   };
 };
 
+
 export default function WildernessScene(props) {
-  const { sprite, region, title, onClick, className, kaomoji } = props;
+  const { activeSprite, region, className, encounterState, interactions } = props;
+  const { kaomoji } = encounterState;
+  const sprite = encounterState.sprite || activeSprite || {};
   const { distance } = sprite;
 
+  const clickInteraction = interactions.find(interaction => interaction.type === 'pet') || {};
+  const clickSprite = clickInteraction.isAvailable ? clickInteraction.interact : undefined;
 
   let x = Math.random();
   const y = 0;
@@ -104,8 +116,8 @@ export default function WildernessScene(props) {
     <SceneObject
       key={sprite.name}
       className="wilderness-sprite-image"
-      extraProps={{ sprite, onClick, kaomoji }}
-      title={title}
+      extraProps={{ sprite, onClick: clickSprite, kaomoji }}
+      title={clickInteraction.buttonText}
       width={SPRITE_SIZE}
       height={SPRITE_SIZE}
       x={x}
@@ -134,17 +146,14 @@ export default function WildernessScene(props) {
 }
 
 WildernessScene.propTypes = {
-  sprite: PropTypes.object.isRequired,
+  activeSprite: PropTypes.object,
   region: PropTypes.object.isRequired,
-  title: PropTypes.string,
-  onClick: PropTypes.func,
   className: PropTypes.string,
-  kaomoji: PropTypes.string,
+  encounterState: PropTypes.object.isRequired,
+  interactions: PropTypes.array.isRequired,
 };
 
 WildernessScene.defaultProps = {
-  title: '',
-  onClick: undefined,
+  activeSprite: {},
   className: '',
-  kaomoji: '',
 };

@@ -32,3 +32,5 @@ export const SHE_PRONOUNS = {
   },
   isPlural: false,
 };
+
+export const ALL_PRONOUNS = [THEY_PRONOUNS, HE_PRONOUNS, SHE_PRONOUNS];
