@@ -168,7 +168,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     vocab: {
       coat: 'fur',
       chirp: 'whistle',
-      chipring: 'whistling',
+      chirping: 'whistling',
       purr: 'chirr',
       growl: 'squeal',
       nose: 'nose',
@@ -376,7 +376,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     vocab: {
       coat: 'down',
       chirp: 'grumble',
-      chipring: 'grumbling',
+      chirping: 'grumbling',
       purr: 'purr',
       growl: 'growl',
       nose: 'nose',
