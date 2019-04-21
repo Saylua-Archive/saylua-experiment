@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Encounter from './Encounter';
 import { getActiveSprite, interactWithSprite } from '../reducers/spriteReducer';
 import { addTreat } from '../reducers/gameReducer';
-import { getTrustLevel } from '../helpers/spriteHelpers';
+import { getTrustLevel } from '../gameData/spriteTrust';
 import { randomChoice } from '../helpers/utils';
 
 import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES,
