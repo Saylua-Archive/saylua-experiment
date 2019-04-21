@@ -107,7 +107,7 @@ class MySpriteEncounter extends Encounter {
           const action = randomChoice(SING_ACTIONS)(sprite);
           const reaction = randomChoice(SING_REACTIONS[trustLevel])(sprite);
           this.setState({
-            text: `${action}\r\n\r\n${reaction.text}`,
+            text: `${action}\n\n${reaction.text}`,
             kaomoji: reaction.kaomoji,
           });
           this.props.interactWithSprite(sprite.name, { trust: 1 });
