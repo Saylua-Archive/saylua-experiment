@@ -7,8 +7,9 @@ import { addTreat } from '../reducers/gameReducer';
 import { getTrustLevel } from '../gameData/spriteTrust';
 import { randomChoice } from '../helpers/utils';
 
-import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES, TREAT_TEMPLATES,
-  SING_TEMPLATES } from '../gameData/templates/spriteTemplates';
+import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES,
+  TREAT_TEMPLATES } from '../gameData/templates/spriteTemplates';
+import { SING_ACTIONS, SING_REACTIONS } from '../gameData/templates/singTemplates';
 
 class MySpriteEncounter extends Encounter {
   getInitialText() {
@@ -103,10 +104,11 @@ class MySpriteEncounter extends Encounter {
         buttonText: `Sing to ${sprite.name}`,
         notNowTemplate: `${sprite.name} is tired of singing.`,
         interact: () => {
-          const text = randomChoice(SING_TEMPLATES[trustLevel])(sprite);
+          const action = randomChoice(SING_ACTIONS)(sprite);
+          const reaction = randomChoice(SING_REACTIONS[trustLevel])(sprite);
           this.setState({
-            text: text.text,
-            kaomoji: text.kaomoji,
+            text: `${action}\n\n${reaction.text}`,
+            kaomoji: reaction.kaomoji,
           });
           this.props.interactWithSprite(sprite.name, { trust: 1 });
         },

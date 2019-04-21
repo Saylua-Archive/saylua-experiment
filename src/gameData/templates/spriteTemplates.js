@@ -1,7 +1,7 @@
 import { Their, They_re, They, their, they,
   them } from '../textHelpers/pronouns';
-import { token, coat, chirp, purr, growl, nose, chirling, a_chirling,
-  chirlings, Kimberly, purring, chirping, purrs, chirps, growls } from '../textHelpers/interactions';
+import { token, coat, chirp, nose, chirling,
+  chirlings, Kimberly, purring, chirping, purrs, growls } from '../textHelpers/interactions';
 
 import { _v, spriteText } from '../textHelpers/helpers';
 
@@ -307,56 +307,6 @@ export const TREAT_TEMPLATES = {
       text: spriteText(sprite)`${Kimberly} almost knocks you down trying to grab
         the treat.`,
       kaomoji: 'treat',
-    }),
-  ],
-};
-
-export const SING_TEMPLATES = {
-  wild: [
-    sprite => ({
-      text: spriteText(sprite)`The ${chirling} ${growls} at you.`,
-      kaomoji: 'worried',
-    }),
-    sprite => ({
-      text: spriteText(sprite)`The ${chirling} runs off, but you can see them
-        listening from the bushes.`,
-      kaomoji: 'anxious',
-    }),
-  ],
-  bonded: [
-    sprite => ({
-      text: spriteText(sprite)`The ${chirling} gives you a quizzical look.`,
-      kaomoji: 'bored',
-    }),
-    sprite => ({
-      text: spriteText(sprite)`The ${chirling} ${chirps} happily.`,
-      kaomoji: 'sing',
-    }),
-  ],
-  curious: [
-    sprite => ({
-      text: spriteText(sprite)`You sing a little song for ${Kimberly}.
-        ${They_re} ${chirping} along.`,
-      kaomoji: 'sing',
-    }),
-    sprite => ({
-      text: spriteText(sprite)`${Kimberly} ${purrs} happily as you sing.`,
-      kaomoji: 'sing',
-    }),
-  ],
-  friendly: [
-    sprite => ({
-      text: spriteText(sprite)`${Kimberly} ${purrs} along as you sing.`,
-      kaomoji: 'sing',
-    }),
-    sprite => ({
-      text: spriteText(sprite)`${Kimberly} ${chirps} to the beat.`,
-      kaomoji: 'sing',
-    }),
-    sprite => ({
-      text: spriteText(sprite)`${Kimberly} cuddles up as you sing a
-        lullaby.`,
-      kaomoji: 'lullaby',
     }),
   ],
 };
