@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Encounter from './Encounter';
 import { addTreat } from '../reducers/gameReducer';
 import { befriendSprite } from '../reducers/spriteReducer';
-import { getTrustLevel, TRUST_LEVELS } from '../helpers/spriteHelpers';
+import { getTrustLevel, TRUST_LEVELS } from '../gameData/spriteTrust';
 import { randomChoice, capitalizeFirst } from '../helpers/utils';
 
 import { PET_TEMPLATES, WATER_TEMPLATES, TREAT_TEMPLATES, WAIT_TEMPLATES,
@@ -78,10 +78,6 @@ class WildSpriteEncounter extends Encounter {
 
   getTitle() {
     const { sprite } = this.state;
-
-    if (sprite.trust > TRUST_LEVELS.friendly) {
-      return `${sprite.name} the wild ${sprite.species}`;
-    }
     return `A wild ${sprite.species}`;
   }
 
@@ -90,7 +86,7 @@ class WildSpriteEncounter extends Encounter {
     const { sprite } = this.state;
     const trustLevel = getTrustLevel(sprite.trust);
     const comfortableOrAnxious = sprite.trust + sprite.distance > 0 ? 'comfortable' : 'anxious';
-    const name = sprite.trust > TRUST_LEVELS.friendly ? sprite.name : `the wild ${sprite.species}`;
+    const name = `the wild ${sprite.species}`;
     return [
       {
         type: 'approach',
