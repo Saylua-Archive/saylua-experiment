@@ -87,7 +87,9 @@ export const SPRITE_ENCYCLOPEDIA = {
       coat: 'skin',
       chirp: 'squeak',
       purr: 'gurgle',
+      purring: 'gurgling',
       growl: 'hiss',
+      growls: 'hisses',
       nose: 'nose',
     },
 
@@ -126,6 +128,7 @@ export const SPRITE_ENCYCLOPEDIA = {
       coat: 'fur',
       chirp: 'baa',
       purr: 'hum',
+      purring: 'humming',
       growl: 'bleat',
       nose: 'nose',
     },
@@ -165,6 +168,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     vocab: {
       coat: 'fur',
       chirp: 'whistle',
+      chirping: 'whistling',
       purr: 'chirr',
       growl: 'squeal',
       nose: 'nose',
@@ -206,7 +210,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     vocab: {
       coat: 'scales',
       chirp: 'hum',
+      chirping: 'humming',
       purr: 'gurgle',
+      purring: 'gurgling',
       growl: 'groan',
       nose: 'nose',
     },
@@ -247,6 +253,7 @@ export const SPRITE_ENCYCLOPEDIA = {
       coat: 'wool',
       chirp: 'baa',
       purr: 'hum',
+      purring: 'humming',
       growl: 'bleat',
       nose: 'nose',
     },
@@ -327,7 +334,9 @@ export const SPRITE_ENCYCLOPEDIA = {
     vocab: {
       coat: 'scales',
       chirp: 'hum',
+      chirping: 'humming',
       purr: 'gurgle',
+      purring: 'gurgling',
       growl: 'growl',
       nose: 'nose',
     },
@@ -367,6 +376,7 @@ export const SPRITE_ENCYCLOPEDIA = {
     vocab: {
       coat: 'down',
       chirp: 'grumble',
+      chirping: 'grumbling',
       purr: 'purr',
       growl: 'growl',
       nose: 'nose',
