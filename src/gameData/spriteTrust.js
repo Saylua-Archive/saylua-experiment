@@ -1,8 +1,8 @@
 export const TRUST_LEVELS = {
   wild: -6,
-  curious: 1,
-  friendly: 2,
-  bonded: 3,
+  bonded: 0,
+  curious: 5,
+  friendly: 10,
 };
 
 export function getTrustLevel(trust) {

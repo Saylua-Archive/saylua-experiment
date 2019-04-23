@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 
 import './Encounter.css';
 
@@ -69,9 +70,7 @@ export default class Encounter extends Component {
             </p>
           ) : ''}
 
-          <p className="event-text">
-            {this.state.text}
-          </p>
+          <ReactMarkdown source={this.state.text} />
           {this.getAvailableInteractions().map(interaction => (
             <button
               className="button"
