@@ -35,7 +35,7 @@ class VeraEncounter extends Encounter {
     return [
       {
         type: 'treat',
-        isAvailable: treatCount > 5,
+        isAvailable: treatCount >= 5,
         buttonText: `You're on!`,
         notNowTemplate: `You need five treats to play.`,
         interact: () => {
