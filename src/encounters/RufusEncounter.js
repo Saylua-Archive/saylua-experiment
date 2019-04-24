@@ -6,13 +6,9 @@ import Encounter from './Encounter';
 import { addTreat } from '../reducers/gameReducer';
 
 
-class VeraEncounter extends Encounter {
+class RufusEncounter extends Encounter {
   getInitialText() {
     return `Rufus is playing with a coin. "Say, wanna play a little game? Tails I win, heads you do. Let's wager... five treats."`;
-  }
-
-  getCharacter() {
-    return 'rufus';
   }
 
   getRelevantStats() {
@@ -39,10 +35,9 @@ class VeraEncounter extends Encounter {
         buttonText: `You're on!`,
         notNowTemplate: `You need five treats to play.`,
         interact: () => {
-          const textText = treatGift > 0 ? 'Heads. You win!' : 'Tails. Tough luck.';
-          const text = { text: textText };
+          const text = treatGift > 0 ? 'Heads. You win!' : 'Tails. Tough luck.';
           this.setState({
-            text: text.text,
+            text,
           });
           this.props.addTreat(treatGift);
         },
@@ -67,18 +62,20 @@ const mapDispatchToProps = {
   addTreat,
 };
 
-VeraEncounter.propTypes = {
+RufusEncounter.propTypes = {
   region: PropTypes.object.isRequired,
   treatCount: PropTypes.number.isRequired,
   addTreat: PropTypes.func.isRequired,
   onEventEnd: PropTypes.func,
+  changeCharacter: PropTypes.func,
 };
 
-VeraEncounter.defaultProps = {
+RufusEncounter.defaultProps = {
+  changeCharacter: () => {},
   onEventEnd: () => {},
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(VeraEncounter);
+)(RufusEncounter);

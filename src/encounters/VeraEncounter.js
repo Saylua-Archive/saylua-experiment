@@ -12,10 +12,6 @@ class VeraEncounter extends Encounter {
     return `Vera's holding a bag of treats.`;
   }
 
-  getCharacter() {
-    return 'vera';
-  }
-
   getRelevantStats() {
     const { treatCount } = this.props;
     return [
@@ -40,10 +36,9 @@ class VeraEncounter extends Encounter {
         buttonText: `Thank you`,
         notNowTemplate: `It looks like you have enough treats for today.`,
         interact: () => {
-          const textText = `Vera hands you ${treatGift} treats.`;
-          const text = { text: textText };
+          const text = `Vera hands you ${treatGift} treats.`;
           this.setState({
-            text: text.text,
+            text,
           });
           this.props.addTreat(treatGift);
         },
@@ -73,9 +68,11 @@ VeraEncounter.propTypes = {
   treatCount: PropTypes.number.isRequired,
   addTreat: PropTypes.func.isRequired,
   onEventEnd: PropTypes.func,
+  changeCharacter: PropTypes.func,
 };
 
 VeraEncounter.defaultProps = {
+  changeCharacter: () => {},
   onEventEnd: () => {},
 };
 

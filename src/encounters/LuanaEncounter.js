@@ -6,13 +6,9 @@ import Encounter from './Encounter';
 import { addTreat } from '../reducers/gameReducer';
 
 
-class VeraEncounter extends Encounter {
+class LuanaEncounter extends Encounter {
   getInitialText() {
     return `Luana's holding a bag of treats.`;
-  }
-
-  getCharacter() {
-    return 'luana';
   }
 
   getRelevantStats() {
@@ -51,18 +47,20 @@ const mapDispatchToProps = {
   addTreat,
 };
 
-VeraEncounter.propTypes = {
+LuanaEncounter.propTypes = {
   region: PropTypes.object.isRequired,
   treatCount: PropTypes.number.isRequired,
   addTreat: PropTypes.func.isRequired,
   onEventEnd: PropTypes.func,
+  changeCharacter: PropTypes.func,
 };
 
-VeraEncounter.defaultProps = {
+LuanaEncounter.defaultProps = {
+  changeCharacter: () => {},
   onEventEnd: () => {},
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(VeraEncounter);
+)(LuanaEncounter);
