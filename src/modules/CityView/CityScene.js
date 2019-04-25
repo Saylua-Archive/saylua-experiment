@@ -23,12 +23,6 @@ export default function CityScene(props) {
           && <img className="character-view" src={characterImage} alt={character} title={character} />
         }
       </div>
-      <div className="interaction-content">
-        <h2>{ title }</h2>
-        <p>
-          {text}
-        </p>
-      </div>
     </div>
   );
 }
