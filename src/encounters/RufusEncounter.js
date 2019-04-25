@@ -12,14 +12,14 @@ const WAGER = 12;
 class RufusEncounter extends Encounter {
   getInitialText() {
     const RufusIsPlaying = randomChoice([
-      'Rufus is playing with a coin.',
-      'Rufus is tossing a coin and catching it in his palm.',
-      'Rufus is flipping a coin absentmindedly.',
+      `Rufus is playing with a coin.`,
+      `Rufus is tossing a coin and catching it in his palm.`,
+      `Rufus is flipping a coin absentmindedly.`,
     ]);
     const WannaPlay = randomChoice([
-      'Say, wanna play a little game? Call it in the air.',
-      'In the mood for a friendly wager? Heads or tails?',
-      'Let\'s play a little game, just for treats. I\'ll flip this coin, you guess how it lands.',
+      `Say, wanna play a little game? Call it in the air.`,
+      `In the mood for a friendly wager? Heads or tails?`,
+      `Let's play a little game, just for treats. I'll flip this coin, you guess how it lands.`,
     ]);
     return `${RufusIsPlaying} "${WannaPlay} Let's wager... a dozen tasty treats."`;
   }
@@ -42,14 +42,14 @@ class RufusEncounter extends Encounter {
     const { treatCount } = this.props;
     const treatGift = Math.random() > 0.5 ? WAGER : -1 * WAGER;
     const Congrats = randomChoice([
-      'Good call!',
-      'Ouch, you got me!',
-      'You win!',
-      'Winner, winner!',
+      `Good call!`,
+      `Ouch, you got me!`,
+      `You win!`,
+      `Winner, winner!`,
     ]);
     const Sorry = randomChoice([
-      'Tough luck.',
-      'That\'ll be twelve treats.',
+      `Tough luck.`,
+      `That'll be twelve treats.`,
     ]);
     return [
       {
