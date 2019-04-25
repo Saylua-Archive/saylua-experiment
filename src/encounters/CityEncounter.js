@@ -18,7 +18,7 @@ class CityEncounter extends Encounter {
   getInteractions() {
     return [
       {
-        type: 'meet',
+        type: 'meetVera',
         isAvailable: true,
         buttonText: `Vera Everly`,
         notNowTemplate: `Vera isn't here right now.`,
@@ -27,7 +27,7 @@ class CityEncounter extends Encounter {
         },
       },
       {
-        type: 'meet',
+        type: 'meetRufus',
         isAvailable: true,
         buttonText: `Rufus Scippio`,
         notNowTemplate: `Rufus isn't here right now.`,
@@ -36,7 +36,7 @@ class CityEncounter extends Encounter {
         },
       },
       {
-        type: 'meet',
+        type: 'meetLuana',
         isAvailable: true,
         buttonText: `Luana Liddic`,
         notNowTemplate: `Luana isn't here right now.`,
