@@ -5,13 +5,11 @@ import Encounter from './Encounter';
 import { addTreat } from '../reducers/gameReducer';
 import { befriendSprite } from '../reducers/spriteReducer';
 import { getTrustLevel, TRUST_LEVELS } from '../gameData/spriteTrust';
-import { randomChoice, capitalizeFirst } from '../helpers/utils';
+import { randomChoice } from '../helpers/utils';
 
+import { generateSprite } from '../helpers/spriteHelpers';
 import { PET_TEMPLATES, WATER_TEMPLATES, TREAT_TEMPLATES, WAIT_TEMPLATES,
   APPROACH_TEMPLATES } from '../gameData/templates/spriteTemplates';
-import { CANONICAL_SPRITE_COATS, SPRITE_COATS } from '../gameData/spriteEncyclopedia';
-import soulName from '../helpers/name/soulName';
-import { ALL_PRONOUNS } from '../gameData/pronouns';
 
 
 const addTrustAndDistance = (sprite, delta) => {
@@ -19,29 +17,6 @@ const addTrustAndDistance = (sprite, delta) => {
   newSprite.trust += delta.trust || 0;
   newSprite.distance += delta.distance || 0;
   return newSprite;
-};
-
-const generateSprite = (speciesList) => {
-  const { common, rare } = speciesList;
-  let species;
-  if (Math.random() < 0.3) {
-    species = randomChoice(rare);
-  } else {
-    species = randomChoice(common);
-  }
-
-  let color = CANONICAL_SPRITE_COATS[species];
-  if (Math.random() < 0.4) {
-    color = randomChoice(SPRITE_COATS[species]);
-  }
-  return {
-    name: capitalizeFirst(soulName()),
-    species,
-    color,
-    trust: -5,
-    distance: 5,
-    grammar: randomChoice(ALL_PRONOUNS),
-  };
 };
 
 
