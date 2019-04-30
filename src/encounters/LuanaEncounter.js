@@ -9,7 +9,7 @@ import { getActiveSprite } from '../reducers/spriteReducer';
 import { SPRITE_ENCYCLOPEDIA } from '../gameData/spriteEncyclopedia';
 
 import { generateCoat } from '../helpers/spriteHelpers';
-import { _n } from '../gameData/textHelpers/helpers';
+import { _n } from '../helpers/textHelpers/helpers';
 
 const CANDIDATES = {
   common: ['gam', 'senrix', 'arko', 'chirling'],

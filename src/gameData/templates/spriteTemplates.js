@@ -1,9 +1,9 @@
 import { Their, They_re, They, their, they,
-  them } from '../textHelpers/pronouns';
+  them } from '../../helpers/textHelpers/pronouns';
 import { token, coat, chirp, nose, chirling,
-  chirlings, Kimberly, purring, chirping, purrs, growls } from '../textHelpers/interactions';
+  chirlings, Kimberly, purring, chirping, purrs, growls } from '../../helpers/textHelpers/interactions';
 
-import { _v, spriteText } from '../textHelpers/helpers';
+import { _v, spriteText } from '../../helpers/textHelpers/helpers';
 
 // Texts to be added when a trust level is achieved.
 export const TRUST_INCREASE_TEMPLATES = {
