@@ -1,7 +1,7 @@
-import { They_re } from '../textHelpers/pronouns';
+import { They_re } from '../../helpers/textHelpers/pronouns';
 import { chirp, chirling, a_chirling, Kimberly, chirping,
-  purrs, chirps, growls } from '../textHelpers/interactions';
-import { spriteText } from '../textHelpers/helpers';
+  purrs, chirps, growls } from '../../helpers/textHelpers/interactions';
+import { spriteText } from '../../helpers/textHelpers/helpers';
 
 const oldMacDonaldSong = sprite => spriteText(sprite)`
   Old MacDonald had a den${'  '}

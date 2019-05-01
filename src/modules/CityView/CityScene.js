@@ -5,7 +5,7 @@ import './CityScene.css';
 
 
 export default function CityScene(props) {
-  const { region, character, title, text } = props;
+  const { region, character } = props;
 
   const bgStyle = `url('img/wilderness/${region.canonName}.jpg')`;
   const characterImage = character ? `img/characters/${character}.png` : '';
@@ -30,6 +30,4 @@ export default function CityScene(props) {
 CityScene.propTypes = {
   region: PropTypes.object.isRequired,
   character: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
 };

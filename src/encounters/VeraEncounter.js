@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Encounter from './Encounter';
 import { addTreat } from '../reducers/gameReducer';
 import { randomInt } from '../helpers/utils';
-import { _n } from '../gameData/textHelpers/helpers';
+import { _n } from '../helpers/textHelpers/helpers';
 
 const TREAT_LIMIT = 10;
 
