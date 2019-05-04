@@ -5,17 +5,14 @@ import SpritePortrait from '../../sharedComponents/SpritePortrait/SpritePortrait
 import './WildernessScene.css';
 import SceneObject from './SceneObject';
 import { SPRITE_ENCYCLOPEDIA } from '../Sprite/spriteEncyclopedia';
+import { getScaleFactor } from './shared';
 
-const HORIZON = 0.3;
-const IMAGE_OVERLAY_COLOR = { r: 194, g: 218, b: 218, a: 0.3 };
 const SPRITE_SIZE = 350;
 const TREE_WIDTH = 500;
 const TREE_HEIGHT = 750;
 const SPRITE_DISTANCE_INTERVALS = 5;
 const SCENE_WIDTH = 660;
 
-
-export const getScaleFactor = z => ((1 - z) + 1) / 2;
 
 // TODO: Turn this into a general "collision detection" function.
 export const generateTreeCoordinates = (avoidedObject) => {
@@ -71,6 +68,8 @@ export default function WildernessScene(props) {
   const sprite = encounterState.sprite || activeSprite || {};
   const { distance } = sprite;
 
+  const { overlayColor, treeImg, horizon } = region;
+
   const clickInteraction = interactions.find(interaction => interaction.type === 'pet') || {};
   const clickSprite = clickInteraction.isAvailable ? clickInteraction.interact : undefined;
 
@@ -89,28 +88,32 @@ export default function WildernessScene(props) {
   const spriteCoordinates = { x, z, y, size: scaledSpriteSize };
   const headshotCoordinates = getSpriteHeadshotCoordinates(spriteCoordinates, headshotPosition);
 
-  const trees = [
-    generateTreeCoordinates(headshotCoordinates),
-    generateTreeCoordinates(headshotCoordinates),
-    generateTreeCoordinates(headshotCoordinates),
-    generateTreeCoordinates(headshotCoordinates),
-  ];
+  let trees = [];
 
-  const treeImgs = trees.map((tree, i) => (
-    <SceneObject
-      // eslint-disable-next-line react/no-array-index-key
-      key={`tree-${i}`}
-      className="wilderness-scene-item"
-      src="img/wilderness/tree2_small.png"
-      alt="tree"
-      width={TREE_WIDTH}
-      height={TREE_HEIGHT}
-      x={tree.x}
-      z={tree.z}
-      overlayColor={IMAGE_OVERLAY_COLOR}
-      horizon={HORIZON}
-    />
-  ));
+  if (treeImg) {
+    trees = [
+      generateTreeCoordinates(headshotCoordinates),
+      generateTreeCoordinates(headshotCoordinates),
+      generateTreeCoordinates(headshotCoordinates),
+      generateTreeCoordinates(headshotCoordinates),
+    ];
+
+    trees = trees.map((tree, i) => (
+      <SceneObject
+        // eslint-disable-next-line react/no-array-index-key
+        key={`tree-${i}`}
+        className="wilderness-scene-item"
+        src={`img/wilderness/${treeImg}.png`}
+        alt="tree"
+        width={TREE_WIDTH}
+        height={TREE_HEIGHT}
+        x={tree.x}
+        z={tree.z}
+        overlayColor={overlayColor}
+        horizon={horizon}
+      />
+    ));
+  }
 
   const spriteImg = (
     <SceneObject
@@ -123,13 +126,13 @@ export default function WildernessScene(props) {
       x={x}
       z={z}
       y={y}
-      overlayColor={IMAGE_OVERLAY_COLOR}
-      horizon={HORIZON}
+      overlayColor={overlayColor}
+      horizon={horizon}
       componentType={SpritePortrait}
     />
   );
 
-  const sceneImgs = [...treeImgs, spriteImg];
+  const sceneImgs = [...trees, spriteImg];
 
   sceneImgs.sort((a, b) => (b.props.z - a.props.z));
 
