@@ -1,4 +1,4 @@
-import { sRandomInt, randomSeed } from '../utils';
+import { sRandomInt, randomSeed } from '../../../utils';
 
 export default class Trie {
   static insertNode(nodeArg, item) {

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 import WildernessScene from './WildernessScene';
 import { getActiveSprite } from '../../reducers/spriteReducer';
-import WildSpriteEncounter from '../../encounters/WildSpriteEncounter';
-import MySpriteEncounter from '../../encounters/MySpriteEncounter';
+import WildSpriteEncounter from '../Encounters/WildSpriteEncounter';
+import MySpriteEncounter from '../Encounters/MySpriteEncounter';
 
 
 class WildernessView extends Component {

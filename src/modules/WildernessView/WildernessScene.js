@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpritePortrait from '../../sharedComponents/SpritePortrait/SpritePortrait';
 import './WildernessScene.css';
 import SceneObject from './SceneObject';
-import { SPRITE_ENCYCLOPEDIA } from '../../gameData/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../Sprite/spriteEncyclopedia';
 
 const HORIZON = 0.3;
 const IMAGE_OVERLAY_COLOR = { r: 194, g: 218, b: 218, a: 0.3 };

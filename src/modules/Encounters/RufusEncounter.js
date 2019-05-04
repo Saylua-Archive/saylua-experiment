@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Encounter from './Encounter';
-import { addTreat } from '../reducers/gameReducer';
+import { addTreat } from '../../reducers/gameReducer';
 
-import { randomChoice } from '../helpers/utils';
+import { randomChoice } from '../../utils';
 
 const WAGER = 12;
 
