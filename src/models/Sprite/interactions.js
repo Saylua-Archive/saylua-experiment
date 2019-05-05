@@ -1,5 +1,5 @@
-import { randomChoice } from '../../helpers/utils';
-import { SPRITE_ENCYCLOPEDIA } from '../spriteEncyclopedia';
+import { randomChoice } from '../../utils/utils';
+import { SPRITE_ENCYCLOPEDIA } from './spriteEncyclopedia';
 
 function spriteVocab(sprite) {
   return SPRITE_ENCYCLOPEDIA[sprite.species].vocab;

@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Encounter from './Encounter';
-import { addTreat } from '../reducers/gameReducer';
-import { getActiveSprite } from '../reducers/spriteReducer';
+import { addTreat } from '../../reducers/gameReducer';
+import { getActiveSprite } from '../../reducers/spriteReducer';
 
-import { SPRITE_ENCYCLOPEDIA } from '../gameData/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../Sprite/spriteEncyclopedia';
 
-import { generateCoat } from '../helpers/spriteHelpers';
-import { _n } from '../helpers/textHelpers/helpers';
+import { generateCoat } from '../Sprite/spriteHelpers';
+import { _n } from '../Language/pluralize';
 
 const CANDIDATES = {
   common: ['gam', 'senrix', 'arko', 'chirling'],

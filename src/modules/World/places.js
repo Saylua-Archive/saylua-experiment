@@ -1,6 +1,6 @@
-import WildernessView from '../modules/WildernessView/WildernessView';
-import CityView from '../modules/CityView/CityView';
-import CaveView from '../modules/CaveView/CaveView';
+import WildernessView from '../WildernessView/WildernessView';
+import CityView from '../CityView/CityView';
+import CaveView from '../CaveView/CaveView';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PLACES = {

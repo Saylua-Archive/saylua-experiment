@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CityScene from './CityScene';
-import CityEncounter from '../../encounters/CityEncounter';
-import VeraEncounter from '../../encounters/VeraEncounter';
-import RufusEncounter from '../../encounters/RufusEncounter';
-import LuanaEncounter from '../../encounters/LuanaEncounter';
+import CityEncounter from '../../models/Encounters/CityEncounter';
+import VeraEncounter from '../../models/Encounters/VeraEncounter';
+import RufusEncounter from '../../models/Encounters/RufusEncounter';
+import LuanaEncounter from '../../models/Encounters/LuanaEncounter';
 
-import './CityView.css';
 
 export default class CityView extends Component {
   constructor(props) {

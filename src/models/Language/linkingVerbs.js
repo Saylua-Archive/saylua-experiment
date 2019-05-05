@@ -1,4 +1,4 @@
-import { capitalizeFirst } from '../../helpers/utils';
+import { capitalizeFirst } from '../../utils/utils';
 
 
 export const were = actor => (actor.grammar.isPlural

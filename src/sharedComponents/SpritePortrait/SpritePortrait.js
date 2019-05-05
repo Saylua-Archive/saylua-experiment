@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SPRITE_ENCYCLOPEDIA } from '../../gameData/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../../models/Sprite/spriteEncyclopedia';
 import './SpritePortrait.css';
 import CanvasImage from '../CanvasImage/CanvasImage';
 

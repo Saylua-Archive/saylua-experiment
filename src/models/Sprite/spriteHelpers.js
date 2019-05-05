@@ -1,7 +1,7 @@
-import { randomChoice, capitalizeFirst } from './utils';
+import { randomChoice, capitalizeFirst } from '../../utils/utils';
 import soulName from './name/soulName';
-import { CANONICAL_SPRITE_COATS, SPRITE_COATS } from '../gameData/spriteEncyclopedia';
-import { ALL_PRONOUNS } from '../gameData/pronouns';
+import { CANONICAL_SPRITE_COATS, SPRITE_COATS } from './spriteEncyclopedia';
+import { ALL_PRONOUNS } from '../Language/pronouns';
 
 export const generateCoat = (speciesList) => {
   const { common, rare } = speciesList;
@@ -32,4 +32,18 @@ export const generateSprite = (speciesList) => {
     distance: 5,
     grammar: randomChoice(ALL_PRONOUNS),
   };
+};
+
+// Tag function to pass down a sprite
+export const spriteText = sprite => (strings, ...keys) => {
+  let result = '';
+  for (let i = 0; i < strings.length; i += 1) {
+    result = result.concat(strings[i]);
+    if (i < keys.length && typeof keys[i] === 'function') {
+      result = result.concat(keys[i](sprite));
+    } else if (i < keys.length) {
+      result = result.concat(keys[i]);
+    }
+  }
+  return result;
 };

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Encounter from './Encounter';
-import { addTreat } from '../reducers/gameReducer';
-import { randomInt } from '../helpers/utils';
-import { _n } from '../helpers/textHelpers/helpers';
+import { addTreat } from '../../reducers/gameReducer';
+import { randomInt } from '../../utils/utils';
+import { _n } from '../Language/pluralize';
 
 const TREAT_LIMIT = 10;
 

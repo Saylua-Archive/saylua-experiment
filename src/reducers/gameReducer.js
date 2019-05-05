@@ -1,5 +1,3 @@
-import { createSelector } from 'reselect';
-
 import { INTERACT_WITH_SPRITE } from './spriteReducer';
 
 const initialState = {

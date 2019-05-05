@@ -6,7 +6,7 @@ import './App.css';
 
 import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
 
-import { PLACES } from './gameData/places';
+import { PLACES } from './modules/World/places';
 
 import { setActiveSprite, getMySprites, getActiveSprite } from './reducers/spriteReducer';
 import { advanceDay, setActiveRegion } from './reducers/gameReducer';
