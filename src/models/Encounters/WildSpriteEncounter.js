@@ -5,11 +5,11 @@ import Encounter from './Encounter';
 import { addTreat } from '../../reducers/gameReducer';
 import { befriendSprite } from '../../reducers/spriteReducer';
 import { getTrustLevel, TRUST_LEVELS } from '../Sprite/spriteTrust';
-import { randomChoice } from '../../utils';
+import { randomChoice } from '../../utils/utils';
 
 import { generateSprite } from '../Sprite/spriteHelpers';
 import { PET_TEMPLATES, WATER_TEMPLATES, TREAT_TEMPLATES, WAIT_TEMPLATES,
-  APPROACH_TEMPLATES } from '../../englishData/templates/spriteTemplates';
+  APPROACH_TEMPLATES } from '../Sprite/templates/spriteTemplates';
 
 
 const addTrustAndDistance = (sprite, delta) => {

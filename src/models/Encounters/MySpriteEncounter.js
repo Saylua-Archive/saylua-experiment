@@ -5,11 +5,11 @@ import Encounter from './Encounter';
 import { getActiveSprite, interactWithSprite } from '../../reducers/spriteReducer';
 import { addTreat } from '../../reducers/gameReducer';
 import { getTrustLevel } from '../Sprite/spriteTrust';
-import { randomChoice } from '../../utils';
+import { randomChoice } from '../../utils/utils';
 
 import { PET_TEMPLATES, WATER_TEMPLATES, GROOM_TEMPLATES,
-  TREAT_TEMPLATES } from '../../englishData/templates/spriteTemplates';
-import { SING_ACTIONS, SING_REACTIONS } from '../../englishData/templates/singTemplates';
+  TREAT_TEMPLATES } from '../Sprite/templates/spriteTemplates';
+import { SING_ACTIONS, SING_REACTIONS } from '../Sprite/templates/singTemplates';
 
 class MySpriteEncounter extends Encounter {
   getInitialText() {

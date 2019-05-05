@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpritePortrait from '../../sharedComponents/SpritePortrait/SpritePortrait';
 import './WildernessScene.css';
 import SceneObject from './SceneObject';
-import { SPRITE_ENCYCLOPEDIA } from '../Sprite/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../../models/Sprite/spriteEncyclopedia';
 import { getScaleFactor } from './shared';
 
 const SPRITE_SIZE = 350;

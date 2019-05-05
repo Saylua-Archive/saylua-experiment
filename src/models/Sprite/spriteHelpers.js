@@ -1,7 +1,7 @@
-import { randomChoice, capitalizeFirst } from '../../utils';
+import { randomChoice, capitalizeFirst } from '../../utils/utils';
 import soulName from './name/soulName';
 import { CANONICAL_SPRITE_COATS, SPRITE_COATS } from './spriteEncyclopedia';
-import { ALL_PRONOUNS } from '../../englishData/pronouns';
+import { ALL_PRONOUNS } from '../Language/pronouns';
 
 export const generateCoat = (speciesList) => {
   const { common, rare } = speciesList;

@@ -1,10 +1,10 @@
 import { Their, They_re, They, their, they,
-  them } from '../pronouns';
+  them } from '../../Language/pronouns';
 import { token, coat, chirp, nose, chirling,
-  chirlings, Kimberly, purring, chirping, purrs, growls } from '../../modules/Sprite/interactions';
+  chirlings, Kimberly, purring, chirping, purrs, growls } from '../interactions';
 
-import { _v } from '../../utils';
-import { spriteText } from '../../modules/Sprite/spriteHelpers';
+import { _v } from '../../Language/pluralize';
+import { spriteText } from '../spriteHelpers';
 
 // Texts to be added when a trust level is achieved.
 export const TRUST_INCREASE_TEMPLATES = {

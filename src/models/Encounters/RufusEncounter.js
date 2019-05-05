@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Encounter from './Encounter';
 import { addTreat } from '../../reducers/gameReducer';
 
-import { randomChoice } from '../../utils';
+import { randomChoice } from '../../utils/utils';
 
 const WAGER = 12;
 

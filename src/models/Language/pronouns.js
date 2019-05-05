@@ -1,4 +1,4 @@
-import { capitalizeFirst } from '../utils';
+import { capitalizeFirst } from '../../utils/utils';
 import { _re, _ve } from './linkingVerbs';
 
 export const they = actor => actor.grammar.pronouns.subject;

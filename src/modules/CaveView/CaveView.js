@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import './CaveView.css';
-import { randomChoice } from '../../utils';
+import { randomChoice } from '../../utils/utils';
 import { getActiveSprite } from '../../reducers/spriteReducer';
 import SpritePortrait from '../../sharedComponents/SpritePortrait/SpritePortrait';
 

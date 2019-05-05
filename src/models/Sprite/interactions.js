@@ -1,4 +1,4 @@
-import { randomChoice } from '../../utils';
+import { randomChoice } from '../../utils/utils';
 import { SPRITE_ENCYCLOPEDIA } from './spriteEncyclopedia';
 
 function spriteVocab(sprite) {
