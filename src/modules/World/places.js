@@ -16,28 +16,6 @@ export const PLACES = {
     overlayColor: { r: 194, g: 218, b: 218, a: 0.3 },
     horizon: 0.3,
   },
-  vangogh: {
-    name: 'Van Gogh',
-    canonName: 'vangogh',
-    availableSpecies: {
-      common: ['nibian', 'gam'],
-      rare: ['fleuran'],
-    },
-    view: WildernessView,
-    overlayColor: { r: 176, g: 207, b: 193, a: 0.2 },
-    horizon: 0.4,
-  },
-  yoshida: {
-    name: 'Yoshida',
-    canonName: 'yoshida',
-    availableSpecies: {
-      common: ['nibian', 'gorbin'],
-      rare: ['gorbin'],
-    },
-    view: WildernessView,
-    overlayColor: { r: 35, g: 70, b: 80, a: 0.3 },
-    horizon: 0.5,
-  },
   luaria: {
     name: 'Luaria',
     canonName: 'luaria',

@@ -9,7 +9,7 @@ export default function SpriteAvatarView(props) {
   return (
     <div className="pet-avatar-view">
       <img
-        src="img/avatar/base.png"
+        src="img/avatar/luarian.png"
         alt="You!"
         title="You!"
         aria-label="You!"
