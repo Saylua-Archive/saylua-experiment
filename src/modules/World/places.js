@@ -2,6 +2,8 @@ import WildernessView from '../WildernessView/WildernessView';
 import CityView from '../CityView/CityView';
 import CaveView from '../CaveView/CaveView';
 
+import Journey from '../Journey/Journey';
+
 // eslint-disable-next-line import/prefer-default-export
 export const PLACES = {
   dawnlands: {
@@ -57,7 +59,7 @@ export const PLACES = {
       common: ['chirling', 'gam'],
       rare: ['vela'],
     },
-    view: WildernessView,
+    view: Journey,
     treeImg: 'tree2_small',
     overlayColor: { r: 140, g: 190, b: 200, a: 0.3 },
     horizon: 0.3,

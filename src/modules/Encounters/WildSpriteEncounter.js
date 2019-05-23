@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import Encounter from './Encounter';
 import { addTreat } from '../../reducers/gameReducer';
 import { befriendSprite } from '../../reducers/spriteReducer';
-import { getTrustLevel, TRUST_LEVELS } from '../Sprite/spriteTrust';
+import { getTrustLevel, TRUST_LEVELS } from '../../models/Sprite/spriteTrust';
 import { randomChoice } from '../../utils/utils';
 
-import { generateSprite } from '../Sprite/spriteHelpers';
+import { generateSprite } from '../../models/Sprite/spriteHelpers';
 import { PET_TEMPLATES, WATER_TEMPLATES, TREAT_TEMPLATES, WAIT_TEMPLATES,
-  APPROACH_TEMPLATES } from '../Sprite/templates/spriteTemplates';
+  APPROACH_TEMPLATES } from '../../models/Sprite/templates/spriteTemplates';
 
 
 const addTrustAndDistance = (sprite, delta) => {

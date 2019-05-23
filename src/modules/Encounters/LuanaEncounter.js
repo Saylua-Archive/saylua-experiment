@@ -6,10 +6,10 @@ import Encounter from './Encounter';
 import { addTreat } from '../../reducers/gameReducer';
 import { getActiveSprite } from '../../reducers/spriteReducer';
 
-import { SPRITE_ENCYCLOPEDIA } from '../Sprite/spriteEncyclopedia';
+import { SPRITE_ENCYCLOPEDIA } from '../../models/Sprite/spriteEncyclopedia';
 
-import { generateCoat } from '../Sprite/spriteHelpers';
-import { _n } from '../Language/pluralize';
+import { generateCoat } from '../../models/Sprite/spriteHelpers';
+import { _n } from '../../models/Language/pluralize';
 
 const CANDIDATES = {
   common: ['gam', 'senrix', 'arko', 'chirling'],

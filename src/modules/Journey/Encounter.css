@@ -1,0 +1,10 @@
+.interaction-content {
+  text-align: left;
+  padding: 0.25em 16px;
+}
+
+.event-text {
+  padding: 0.5em 0;
+  line-height: 1.4em;
+  font-size: 16px;
+}
