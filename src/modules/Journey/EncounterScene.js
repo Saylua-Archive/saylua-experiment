@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import WildernessIllustration from './WildernessIllustration';
 
-export default function EncounterScene(props) {
+import { addTreat } from '../../reducers/gameReducer';
+
+function EncounterScene(props) {
   const { encounter } = props;
   return (
     <div className="interaction-container">
@@ -18,23 +21,53 @@ export default function EncounterScene(props) {
       />
       <div className="interaction-content">
 
+        <h2>
+          Treats:
+          {props.treatCount}
+        </h2>
+
         <ReactMarkdown source={encounter.text} />
         {encounter.choices.map(choice => (
-          <button
-            className="button"
-            type="button"
-            key={choice.text}
-            onClick={props.finish}
-          >
-            {choice.text}
-          </button>
+          !choice.requirement || choice.requirement({ treatCount: props.treatCount })
+            ? (
+              <button
+                className="button"
+                type="button"
+                key={choice.text}
+                onClick={
+                  () => {
+                    if (choice.outcome) {
+                      choice.outcome();
+                    }
+                    props.finish();
+                  }
+                }
+              >
+                {choice.text}
+              </button>
+            )
+            : null
         ))}
       </div>
     </div>
   );
 }
 
+const mapStateToProps = state => ({
+  treatCount: state.game.treatCount,
+});
+
+const mapDispatchToProps = {
+  addTreat,
+};
+
 EncounterScene.propTypes = {
+  treatCount: PropTypes.number.isRequired,
   encounter: PropTypes.object.isRequired,
   finish: PropTypes.func.isRequired,
 };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EncounterScene);

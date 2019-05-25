@@ -1,4 +1,5 @@
-import { generateSprite } from '../../models/Sprite/spriteHelpers';
+import store from '../../store';
+import { addTreat } from '../../reducers/gameReducer';
 
 const WildernessEncounters = [
   {
@@ -29,7 +30,9 @@ const WildernessEncounters = [
     },
     choices: [
       {
-        text: 'Give a treat in appreciation.',
+        text: 'Give them a treat.',
+        outcome: () => store.dispatch(addTreat(-1)),
+        requirement: gameState => gameState.treatCount >= 1,
       },
       {
         text: 'Pretend not to notice.',
