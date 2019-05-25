@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import WildernessEncounters from './WildernessEncounters';
 import EncounterScene from './EncounterScene';
@@ -8,12 +9,12 @@ export default class Journey extends Component {
     super(props);
     this.state = {
       encounterStack: [],
+      currentEncounter: this.newEncounter(),
     };
-    this.getCurrentEncounter = this.getCurrentEncounter.bind(this);
     this.finishEncounter = this.finishEncounter.bind(this);
   }
 
-  getCurrentEncounter() {
+  updateEncounter() {
     let currentEncounter = null;
     if (this.state.currentEncounter) {
       return this.state.currentEncounter;
@@ -21,10 +22,14 @@ export default class Journey extends Component {
     if (this.state.encounterStack.length > 0) {
       currentEncounter = this.state.encounterStack.pop();
     } else {
-      currentEncounter = randomChoice(WildernessEncounters);
+      currentEncounter = this.newEncounter();
     }
     this.setState({ currentEncounter });
     return currentEncounter;
+  }
+
+  newEncounter() {
+    return randomChoice(WildernessEncounters);
   }
 
   finishEncounter() {
@@ -35,7 +40,7 @@ export default class Journey extends Component {
   render() {
     return (
       <EncounterScene
-        encounter={this.getCurrentEncounter()}
+        encounter={this.state.currentEncounter}
         finish={this.finishEncounter}
       />
     );

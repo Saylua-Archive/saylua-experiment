@@ -11,15 +11,10 @@ export default function EncounterScene(props) {
         region={{
           name: 'Sayleus',
           canonName: 'sayleus',
-          availableSpecies: {
-            common: ['chirling', 'gam'],
-            rare: ['vela'],
-          },
-          treeImg: 'tree2_small',
           overlayColor: { r: 140, g: 190, b: 200, a: 0.3 },
           horizon: 0.3,
         }}
-        activeSprite={{}}
+        activeSprite={encounter.sprite}
       />
       <div className="interaction-content">
 
@@ -28,10 +23,10 @@ export default function EncounterScene(props) {
           <button
             className="button"
             type="button"
-            key={choice.buttonText}
+            key={choice.text}
             onClick={props.finish}
           >
-            {choice.buttonText}
+            {choice.text}
           </button>
         ))}
       </div>
