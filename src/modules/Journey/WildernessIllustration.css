@@ -1,0 +1,36 @@
+.wilderness-background {
+  background-size: cover;
+  background-position: bottom;
+  width: 660px;
+  height: 510px;
+  position: relative;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.wilderness-sprite-image {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  user-select: none;
+}
+
+.wilderness-scene-item {
+  position: absolute;
+  background: none;
+  border: 0;
+  bottom: 0%;
+  left: 0%;
+  pointer-events: none;
+}
+
+.wilderness-scene-item img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
