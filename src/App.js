@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './App.css';
 
-import SpriteHeadshot from './sharedComponents/SpriteHeadshot/SpriteHeadshot';
+import './sharedComponents/sprite-headshot/sprite-headshot';
 
 import { PLACES } from './modules/World/places';
 
@@ -54,7 +54,7 @@ class App extends Component {
                   key={sprite.name}
                   onClick={() => this.props.setActiveSprite(sprite.name)}
                 >
-                  <SpriteHeadshot sprite={sprite} />
+                  <sprite-headshot sprite={JSON.stringify(sprite)} />
                 </button>
               ))
             }
