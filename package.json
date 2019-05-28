@@ -4,6 +4,9 @@
   "private": true,
   "homepage": "https://saylua.github.io/saylua-experiment",
   "dependencies": {
+    "lit-element": "^2.1.0",
+    "lit-html": "^1.1.0",
+    "lodash": "^4.17.11",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
