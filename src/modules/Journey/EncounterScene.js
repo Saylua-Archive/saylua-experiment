@@ -39,6 +39,9 @@ function EncounterScene(props) {
                     if (choice.outcome) {
                       choice.outcome();
                     }
+                    if (choice.next) {
+                      props.addEncounter(choice.next);
+                    }
                     props.finish();
                   }
                 }
@@ -65,6 +68,7 @@ EncounterScene.propTypes = {
   treatCount: PropTypes.number.isRequired,
   encounter: PropTypes.object.isRequired,
   finish: PropTypes.func.isRequired,
+  addEncounter: PropTypes.func.isRequired,
 };
 
 export default connect(
