@@ -12,8 +12,8 @@ function EncounterScene(props) {
     <div className="interaction-container">
       <WildernessIllustration
         region={{
-          name: 'Sadia',
-          canonName: 'sadia',
+          name: 'Saydia',
+          canonName: 'saydia',
           overlayColor: { r: 140, g: 190, b: 200, a: 0.3 },
           horizon: 0.3,
         }}
