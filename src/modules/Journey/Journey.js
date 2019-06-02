@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
-import WildernessEncounters, { StartingEncounters } from './WildernessEncounters';
+import PropTypes from 'prop-types';
 import EncounterScene from './EncounterScene';
 import { randomChoice } from '../../utils/utils';
 
@@ -9,7 +9,7 @@ export default class Journey extends Component {
     super(props);
     this.state = {
       encounterStack: [],
-      currentEncounter: StartingEncounters[0],
+      currentEncounter: randomChoice(this.props.startingEncounters),
     };
     this.addEncounter = this.addEncounter.bind(this);
     this.finishEncounter = this.finishEncounter.bind(this);
@@ -35,7 +35,7 @@ export default class Journey extends Component {
   }
 
   newEncounter() {
-    return randomChoice(WildernessEncounters);
+    return randomChoice(this.props.randomEncounters);
   }
 
   finishEncounter() {
@@ -60,3 +60,8 @@ export default class Journey extends Component {
     );
   }
 }
+
+Journey.propTypes = {
+  startingEncounters: PropTypes.array.isRequired,
+  randomEncounters: PropTypes.array.isRequired,
+};

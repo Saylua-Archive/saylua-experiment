@@ -6,7 +6,7 @@ import { ALL_PRONOUNS } from '../../models/Language/pronouns';
 
 import Challenges from './Challenges';
 
-const StartingEncounters = [
+const SadiaStartingEncounters = [
   {
     title: 'A New Friend',
     text: `For the past few weeks, a wild chirling has been following you. After plenty of coaxing and treats, you think she's ready to join you on your adventure.`,
@@ -31,7 +31,7 @@ const StartingEncounters = [
   },
 ];
 
-const WildernessEncounters = [
+const SadiaRandomEncounters = [
   {
     title: 'A Cool Breeze',
     text: 'A cool breeze blows past.',
@@ -120,5 +120,5 @@ const WildernessEncounters = [
   },
 ];
 
-export { StartingEncounters };
-export default WildernessEncounters;
+export { SadiaStartingEncounters };
+export default SadiaRandomEncounters;

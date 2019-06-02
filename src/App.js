@@ -82,6 +82,8 @@ class App extends Component {
               React.createElement(activeRegion.view, {
                 region: activeRegion,
                 key: activeRegion.canonName,
+                startingEncounters: activeRegion.startingEncounters,
+                randomEncounters: activeRegion.randomEncounters,
               })
             }
           </div>
