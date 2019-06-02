@@ -3,6 +3,7 @@ import CityView from '../CityView/CityView';
 import CaveView from '../CaveView/CaveView';
 
 import Journey from '../Journey/Journey';
+import SaydiaRandomEncounters, { SaydiaStartingEncounters } from '../Journey/WildernessEncounters';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PLACES = {
@@ -25,19 +26,23 @@ export const PLACES = {
       common: ['arko', 'senrix'],
       rare: ['eydrun'],
     },
-    view: WildernessView,
+    view: Journey,
+    startingEncounters: SaydiaStartingEncounters,
+    randomEncounters: SaydiaRandomEncounters,
     treeImg: 'tree2_small',
     overlayColor: { r: 50, g: 40, b: 60, a: 0.5 },
     horizon: 0.3,
   },
-  sayleus: {
-    name: 'Sayleus',
-    canonName: 'sayleus',
+  saydia: {
+    name: 'Saydia',
+    canonName: 'saydia',
     availableSpecies: {
       common: ['chirling', 'gam'],
       rare: ['vela'],
     },
     view: Journey,
+    startingEncounters: SaydiaStartingEncounters,
+    randomEncounters: SaydiaRandomEncounters,
     treeImg: 'tree2_small',
     overlayColor: { r: 140, g: 190, b: 200, a: 0.3 },
     horizon: 0.3,
