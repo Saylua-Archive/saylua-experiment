@@ -6,29 +6,53 @@ import { ALL_PRONOUNS } from '../../models/Language/pronouns';
 
 import Challenges from './Challenges';
 
-const SaydiaStartingEncounters = [
-  {
-    title: 'A New Friend',
-    text: `For the past few weeks, a wild chirling has been following you. After plenty of coaxing and treats, you think she's ready to join you on your adventure.`,
-    sprite: {
-      species: 'chirling',
-      color: 'saylian',
-      distance: 1,
-    },
-    choices: [
-      {
-        text: `Let's go!`,
-        outcome: () => store.dispatch(befriendSprite(
-          {
-            name: 'Chava',
-            species: 'chirling',
-            color: 'saylian',
-            grammar: ALL_PRONOUNS[2],
-          }
-        )),
-      },
-    ],
+const BASE_CHAVA_ENCOUNTER = (distance) => ({
+  title: 'A New Friend',
+  sprite: {
+    species: 'chirling',
+    color: 'saylian',
+    distance,
   },
+  choices: [
+    {
+      text: `Approach the chirling`,
+    },
+  ],
+});
+
+const NEW_FRIEND_ENCOUNTER = [
+  {
+    ...BASE_CHAVA_ENCOUNTER(5),
+    text: `A wild chirling stares at you from a distance.`,
+  },
+  {
+    ...BASE_CHAVA_ENCOUNTER(4),
+    text: `She cocks her head as you approach.`,
+  },
+  {
+    ...BASE_CHAVA_ENCOUNTER(3),
+    text: `She flutters her wings slightly.`,
+  },
+  {
+    ...BASE_CHAVA_ENCOUNTER(2),
+    text: `As you get closer, you can sense her name is Chava.`,
+  },
+  {
+    ...BASE_CHAVA_ENCOUNTER(1),
+    text: `You've befriended Chava.`,
+    outcome: () => store.dispatch(befriendSprite(
+      {
+        name: 'Chava',
+        species: 'chirling',
+        color: 'saylian',
+        grammar: ALL_PRONOUNS[2],
+      }
+    )),
+  },
+];
+
+const SaydiaStartingEncounters = [
+  NEW_FRIEND_ENCOUNTER,
 ];
 
 const SaydiaRandomEncounters = [
@@ -61,11 +85,11 @@ const SaydiaRandomEncounters = [
     choices: [
       {
         text: 'Give them a treat.',
-        outcome: () => store.dispatch(addTreat(-1)),
         requirement: gameState => gameState.treatCount >= 1,
         next: {
           title: 'Tipped the Arko',
           text: 'The Arko does a happy little dance for you.',
+          outcome: () => store.dispatch(addTreat(-1)),
           sprite: {
             species: 'arko',
             color: 'saylian',
