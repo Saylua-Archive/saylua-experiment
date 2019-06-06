@@ -7,31 +7,36 @@ import { randomChoice } from '../../utils/utils';
 export default class Journey extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      encounterStack: [],
-      currentEncounter: randomChoice(this.props.startingEncounters),
-    };
     this.addEncounter = this.addEncounter.bind(this);
     this.finishEncounter = this.finishEncounter.bind(this);
+
+    const start = randomChoice(this.props.startingEncounters);
+    this.state = this.stateFromEncounter(start);
   }
 
-  updateEncounter() {
-    let currentEncounter = null;
-    let { encounterStack } = this.state;
-    if (this.state.encounterStack.length > 0) {
-      currentEncounter = encounterStack[encounterStack.length];
-      encounterStack = encounterStack.slice(0, -1);
+  stateFromEncounter(encounter, initialState) {
+    const state = initialState || {};
+    const encounterStack = state.encounterStack || [];
+    let currentEncounter = state.currentEncounter;
+
+    if (Array.isArray(encounter)) {
+      encounterStack.unshift(...encounter);
     } else {
-      currentEncounter = this.newEncounter();
+      encounterStack.unshift(encounter);
     }
-    this.setState({ currentEncounter, encounterStack });
-    return currentEncounter;
+    if (!currentEncounter) {
+      currentEncounter = encounterStack.shift();
+    }
+
+    return {
+      ...state,
+      currentEncounter,
+      encounterStack,
+    };
   }
 
   addEncounter(next) {
-    const { encounterStack } = this.state;
-    encounterStack.push(next);
-    this.setState({ encounterStack });
+    this.setState(this.stateFromEncounter(next, this.state));
   }
 
   newEncounter() {
@@ -42,10 +47,13 @@ export default class Journey extends Component {
     let currentEncounter = null;
     let { encounterStack } = this.state;
     if (this.state.encounterStack.length > 0) {
-      currentEncounter = encounterStack[encounterStack.length - 1];
-      encounterStack = encounterStack.slice(0, -1);
+      currentEncounter = encounterStack.shift();
     } else {
       currentEncounter = this.newEncounter();
+    }
+
+    if (currentEncounter.outcome) {
+      currentEncounter.outcome();
     }
     this.setState({ currentEncounter, encounterStack });
   }
@@ -53,6 +61,7 @@ export default class Journey extends Component {
   render() {
     return (
       <EncounterScene
+        region={this.props.region}
         encounter={this.state.currentEncounter}
         addEncounter={this.addEncounter}
         finish={this.finishEncounter}
@@ -64,4 +73,5 @@ export default class Journey extends Component {
 Journey.propTypes = {
   startingEncounters: PropTypes.array.isRequired,
   randomEncounters: PropTypes.array.isRequired,
+  region: PropTypes.object.isRequired,
 };

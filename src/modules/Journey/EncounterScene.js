@@ -8,15 +8,13 @@ import { addTreat } from '../../reducers/gameReducer';
 
 function EncounterScene(props) {
   const { encounter } = props;
+  const choices = encounter.choices || [
+    {text: 'Okay'}
+  ];
   return (
     <div className="interaction-container">
       <WildernessIllustration
-        region={{
-          name: 'Saydia',
-          canonName: 'saydia',
-          overlayColor: { r: 140, g: 190, b: 200, a: 0.3 },
-          horizon: 0.3,
-        }}
+        region={props.region}
         activeSprite={encounter.sprite}
       />
       <div className="interaction-content">
@@ -27,7 +25,7 @@ function EncounterScene(props) {
         </h2>
 
         <ReactMarkdown source={encounter.text} />
-        {encounter.choices.map(choice => (
+        {choices.map(choice => (
           !choice.requirement || choice.requirement({ treatCount: props.treatCount })
             ? (
               <button
@@ -36,12 +34,10 @@ function EncounterScene(props) {
                 key={choice.text}
                 onClick={
                   () => {
-                    if (choice.outcome) {
-                      choice.outcome();
-                    }
-                    if (choice.next) {
-                      props.addEncounter(choice.next);
-                    }
+                    const next = choice.next || encounter.next;
+                    if (next) {
+                      props.addEncounter(next);
+                    } 
                     props.finish();
                   }
                 }
@@ -69,6 +65,7 @@ EncounterScene.propTypes = {
   encounter: PropTypes.object.isRequired,
   finish: PropTypes.func.isRequired,
   addEncounter: PropTypes.func.isRequired,
+  region: PropTypes.object.isRequired,
 };
 
 export default connect(
